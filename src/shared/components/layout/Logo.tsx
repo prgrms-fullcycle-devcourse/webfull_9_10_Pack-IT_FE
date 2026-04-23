@@ -1,0 +1,23 @@
+// src/shared/components/layout/Logo.tsx
+import { Link } from 'react-router-dom';
+
+export default function Logo({ className = '' }: { className?: string }) {
+  return (
+    <Link to="/" className={`flex items-center gap-[7px] no-underline ${className}`}>
+      <div
+        className="flex items-center justify-center flex-shrink-0 w-7 h-7 rounded-[8px]"
+        style={{ background: 'var(--color-rose)' }}
+      >
+        <svg width="13" height="12" viewBox="0 0 13 12" fill="none">
+          <path d="M6.5 11S1 7.5 1 4A2.8 2.8 0 0 1 6.5 2.2 2.8 2.8 0 0 1 12 4C12 7.5 6.5 11 6.5 11Z" fill="#fff" />
+        </svg>
+      </div>
+      <span
+        className="text-[17px] font-bold tracking-[-0.02em]"
+        style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-ink)' }}
+      >
+        잇다
+      </span>
+    </Link>
+  );
+}
