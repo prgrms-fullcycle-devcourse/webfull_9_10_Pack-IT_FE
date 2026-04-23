@@ -33,7 +33,7 @@ export default function WriteLetter() {
   const navigate = useNavigate();
   const [form, setForm] = useState<LetterFormData>({
     to: '',
-    from: '마음을 담아',
+    from: '',
     keyword: '생일',
     content: '',
     tone: null,
