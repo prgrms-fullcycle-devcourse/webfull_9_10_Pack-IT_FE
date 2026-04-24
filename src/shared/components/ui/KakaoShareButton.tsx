@@ -22,7 +22,6 @@ export default function KakaoShareButton({
   return (
     <button
       onClick={() => {
-        console.log("버튼 클릭 감지!");
         kakaoShare({id : '123'}); //추후 설정 필요
       }}
       className={`

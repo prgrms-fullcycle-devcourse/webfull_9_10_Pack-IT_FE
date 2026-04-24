@@ -1,3 +1,8 @@
+// 추후 설정 필요
+// 공유하기 시 제목과 내용 지정
+// prop의 ? 제거
+//test.png 변경 및 삭제
+
 interface kakaoShareProps {
   id?: string;
   title?: string;
@@ -7,7 +12,7 @@ interface kakaoShareProps {
 export const kakaoShare = ({
   id,
   title = "마음을 전해드립니다. Pack-It",
-  sender = '누군가', //추후 설정 필요
+  sender = '누군가',
 }: kakaoShareProps) => {
   if (typeof window === "undefined" || !window.Kakao) {
     return;

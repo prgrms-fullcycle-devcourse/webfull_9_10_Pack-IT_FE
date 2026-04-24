@@ -1,10 +1,9 @@
-// kakao.d.ts
 interface Kakao {
     init: (key: string) => void;
     isInitialized: () => boolean;
     Share: {
       sendDefault: (args: {
-        objectType: 'feed';
+        objectType: string;
         content: {
           title: string;
           description: string;
