@@ -209,9 +209,6 @@ export default function ShareLink() {
                 fullWidth
                 className="mb-3"
                 style={{ paddingTop: 10, paddingBottom: 10 }}
-                onClick={() => {
-                  /* TODO: 카카오 공유 SDK 연동 */
-                }}
               >
                 카카오톡으로 보내기
               </KakaoShareButton>

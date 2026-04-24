@@ -1,7 +1,9 @@
 // src/shared/components/ui/KakaoShareButton.tsx
-import type { ButtonHTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes } from "react";
+import { kakaoShare } from "../../hooks/KakaoShare";
 
-interface KakaoShareButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface KakaoShareButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
@@ -13,25 +15,29 @@ interface KakaoShareButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> 
  */
 export default function KakaoShareButton({
   fullWidth = false,
-  children = '카카오톡으로 보내기',
-  className = '',
+  children = "카카오톡으로 보내기",
+  className = "",
   ...props
 }: KakaoShareButtonProps) {
   return (
     <button
+      onClick={() => {
+        console.log("버튼 클릭 감지!");
+        kakaoShare({id : '123'}); //추후 설정 필요
+      }}
       className={`
         inline-flex items-center justify-center gap-[10px]
         py-[14px] px-5 rounded-xl
         text-[14px] font-medium border-none
         cursor-pointer transition-all hover:opacity-90
-        ${fullWidth ? 'w-full' : ''}
+        ${fullWidth ? "w-full" : ""}
         ${className}
       `}
       {...props}
       style={{
-        fontFamily: 'var(--font-sans)',
-        backgroundColor: '#FEE500',
-        color: '#000000',
+        fontFamily: "var(--font-sans)",
+        backgroundColor: "#FEE500",
+        color: "#000000",
       }}
     >
       {/* 카카오 공식 말풍선 심볼 */}
