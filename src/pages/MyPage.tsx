@@ -151,8 +151,9 @@ function EmptyState({ text, subText, onWrite }: EmptyStateProps) {
 export default function MyPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<MyPageTab>("sent");
-  const [sentList, setSentList] = useState<LetterItem[]>(MOCK_SENT);
-  const [receivedList, setReceivedList] = useState<LetterItem[]>(MOCK_RECEIVED);
+  const [sentList, _setSentList] = useState<LetterItem[]>(MOCK_SENT);
+  const [receivedList, _setReceivedList] =
+    useState<LetterItem[]>(MOCK_RECEIVED);
   const [feedbackText, setFeedbackText] = useState("");
 
   const handleFeedbackSubmit = () => {
