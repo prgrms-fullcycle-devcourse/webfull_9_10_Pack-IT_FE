@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import Button from "../shared/components/ui/Button";
+import { toPng } from "html-to-image";
 
 type Phase = "password" | "before" | "opened";
 
@@ -18,6 +19,26 @@ const MOCK = {
   accentColor: "#e8526a",
   bgColor: "linear-gradient(160deg, #fff5f7, #ffe0e8)",
   decoColor: "#f7d4da",
+};
+
+const HtmlToImage = async () => {
+  const node = document.getElementById("ImageSet");
+  if (!node) return;
+
+    try {
+      console.log('이미지 생성 중...')
+      const dataUrl = await toPng(node,{
+        fontEmbedCSS : '',
+        cacheBust : true
+      });
+
+      const link = document.createElement("a");
+      link.download = "my-image.png"; //TODO: 저장될 파일 이름
+      link.href = dataUrl;
+      link.click();
+    } catch (error) {
+      console.error("이미지 저장에 실패했어요!", error);
+    }
 };
 
 export default function ReceiveLetter() {
@@ -131,7 +152,9 @@ export default function ReceiveLetter() {
               className="w-full px-4 py-[14px] rounded-[12px] text-[16px] text-center outline-none mb-3"
               style={{
                 background: "var(--color-cream)",
-                border: `1px solid ${pwError ? "var(--color-rose)" : "rgba(28,23,20,0.14)"}`,
+                border: `1px solid ${
+                  pwError ? "var(--color-rose)" : "rgba(28,23,20,0.14)"
+                }`,
                 fontFamily: "var(--font-sans)",
                 color: "var(--color-ink)",
               }}
@@ -252,6 +275,7 @@ export default function ReceiveLetter() {
             <div
               className="rounded-[16px] overflow-hidden border border-black/[0.06] mb-4"
               style={{ boxShadow: "0 4px 20px rgba(28,23,20,0.06)" }}
+              id='ImageSet'
             >
               <div
                 className="h-[3px]"
@@ -310,7 +334,7 @@ export default function ReceiveLetter() {
               size="md"
               fullWidth={true}
               onClick={() => {
-                // TODO: 이미지 저장
+                HtmlToImage()
               }}
             >
               이미지 저장
