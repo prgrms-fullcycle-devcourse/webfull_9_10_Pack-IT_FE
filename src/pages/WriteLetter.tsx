@@ -1,114 +1,140 @@
 // src/pages/WriteLetter.tsx
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Logo from '../shared/components/layout/Logo';
-import StepBar from '../shared/components/layout/StepBar';
-import Button from '../shared/components/ui/Button';
-import Input from '../shared/components/ui/Input';
-import Textarea from '../shared/components/ui/Textarea';
-import KeywordChip from '../shared/components/ui/KeywordChip';
-import ToneCard from '../shared/components/ui/ToneCard';
-import ThemeSelectModal from '../features/letter/components/ThemeSelectModal';
+// 4단계 인라인 step 관리 — Zustand 추가 시 useState 2줄만 교체
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import StepBar from "../shared/components/layout/StepBar";
+import Button from "../shared/components/ui/Button";
+import Input from "../shared/components/ui/Input";
+import Textarea from "../shared/components/ui/Textarea";
+import KeywordChip from "../shared/components/ui/KeywordChip";
+import ToneCard from "../shared/components/ui/ToneCard";
 import type {
   LetterFormData,
   LetterTone,
-} from '../shared/schemas/letterSchema';
-import { KEYWORD_LIST, TONE_LIST } from '../shared/schemas/letterSchema';
+} from "../shared/schemas/letterSchema";
+import {
+  KEYWORD_LIST,
+  TONE_LIST,
+  THEME_LIST,
+  THEME_SWATCH_BG,
+} from "../shared/schemas/letterSchema";
 
 const MAX_CONTENT = 500;
 
 // TODO: 실제 AI API 연동으로 교체
 const TONE_PREVIEW: Record<LetterTone, string> = {
   다정하게:
-    '진심으로 생일 축하해! 🎂 오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다. 항상 곁에 있어줘서 고맙고, 오늘 정말 좋은 하루 보내! ✨',
+    "진심으로 생일 축하해! 🎂 오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다. 항상 곁에 있어줘서 고맙고, 오늘 정말 좋은 하루 보내! ✨",
   격식있게:
-    '귀하의 생신을 진심으로 축하드립니다. 그동안 함께하며 쌓아온 소중한 인연에 깊이 감사드리며, 앞으로도 건강하고 행복한 나날이 이어지기를 진심으로 바랍니다.',
+    "귀하의 생신을 진심으로 축하드립니다. 그동안 함께하며 쌓아온 소중한 인연에 깊이 감사드리며, 앞으로도 건강하고 행복한 나날이 이어지기를 진심으로 바랍니다.",
   감성적인:
-    '너의 생일을 진심으로 축하해. 세상에 네가 온 날이 오늘이라서 참 다행이라는 생각이 들어. 네가 걷는 모든 길에 행복이 내려앉는 하루가 되었으면 좋겠다. 🎂🌙',
+    "너의 생일을 진심으로 축하해. 세상에 네가 온 날이 오늘이라서 참 다행이라는 생각이 들어. 네가 걷는 모든 길에 행복이 내려앉는 하루가 되었으면 좋겠다. 🎂🌙",
   담백하게:
-    '생일 축하해. 함께한 시간들 감사하게 생각하고 있어. 오늘도 좋은 하루 보내.',
+    "생일 축하해. 함께한 시간들 감사하게 생각하고 있어. 오늘도 좋은 하루 보내.",
 };
+
+const INITIAL_FORM: LetterFormData = {
+  to: "",
+  from: "",
+  keyword: "생일",
+  content: "",
+  originalContent: "",
+  tone: null,
+  password: "",
+
+  theme: "rose",
+};
+
+const STEPS = [
+  { label: "기본 정보" },
+  { label: "편지 작성" },
+  { label: "보안 설정" },
+  { label: "편지지 선택" },
+];
 
 export default function WriteLetter() {
   const navigate = useNavigate();
-  const [form, setForm] = useState<LetterFormData>({
-    to: '',
-    from: '',
-    keyword: '생일',
-    content: '',
-    tone: null,
-    theme: 'rose',
-  });
-  const [modalOpen, setModalOpen] = useState(false);
+  // ── 마이그레이션 포인트: Zustand 추가 시 아래 2줄만 교체 ──
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const [form, setForm] = useState<LetterFormData>(INITIAL_FORM);
+  // ──────────────────────────────────────────────────────────
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollToTop = () => scrollRef.current?.scrollTo({ top: 0 });
+
+  const goNext = () => {
+    setStep((s) => (s < 4 ? ((s + 1) as 1 | 2 | 3 | 4) : s));
+    scrollToTop();
+  };
+  const goPrev = () => {
+    if (step === 1) {
+      navigate(-1);
+      return;
+    }
+    setStep((s) => (s - 1) as 1 | 2 | 3 | 4);
+    scrollToTop();
+  };
+
+  // 유효성 검사
+  const step1Valid =
+    form.to.trim() !== "" && form.from.trim() !== "" && form.keyword !== null;
+  const step2Valid = form.content.trim() !== "";
+  const step3Valid = form.password.trim() !== "";
+
+  // 스텝 상태
+  const stepBarSteps = STEPS.map((s, i) => ({
+    label: s.label,
+    status: (i + 1 < step ? "done" : i + 1 === step ? "active" : "inactive") as
+      | "done"
+      | "active"
+      | "inactive",
+  }));
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--color-cream)' }}>
-      {/* NAV: h-[56px] */}
+    <div className="h-screen flex flex-col" style={{ background: "white" }}>
+      {/* NAV */}
       <nav
-        className="fixed top-0 left-0 right-0 z-[100] h-[56px] flex items-center justify-center border-b border-black/[0.08]"
-        style={{
-          background: 'rgba(250,247,244,0.88)',
-          backdropFilter: 'blur(12px)',
-        }}
+        className="h-[52px] flex items-center justify-between px-5 border-b border-black/[0.08] flex-shrink-0 bg-white"
+        style={{ position: "sticky", top: 0, zIndex: 100 }}
       >
-        <div className="w-full max-w-[860px] flex items-center justify-between px-6">
-          <Logo />
-          <StepBar
-            steps={[
-              { label: '편지 작성 / 편지지 선택', status: 'active' },
-              { label: '공유', status: 'inactive' },
-            ]}
-          />
-        </div>
+        <button
+          onClick={goPrev}
+          className="w-8 h-8 flex items-center justify-center text-[var(--color-ink-mid)] bg-transparent pr-4 border-none cursor-pointer"
+        >
+          <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
+            <path
+              d="M9 1L1 9L9 17"
+              stroke="#5a4f4a"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <StepBar steps={stepBarSteps} />
+        <div className="w-8" />
       </nav>
 
-      <div className="pt-[56px]">
-        <div className="max-w-[860px] mx-auto px-6 pt-12 pb-[120px]">
-          {/* page-header */}
-          <div className="mb-10">
-            <p
-              className="text-[11px] font-medium tracking-[0.1em] uppercase mb-[10px]"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                color: 'var(--color-rose)',
-              }}
-            >
-              Step 01
-            </p>
-            <h1
-              className="text-[26px] font-bold tracking-[-0.02em] leading-[1.3] mb-[6px]"
-              style={{
-                fontFamily: 'var(--font-serif)',
-                color: 'var(--color-ink)',
-              }}
-            >
-              편지를 써보세요
-            </h1>
-            <p
-              className="text-[14px] leading-[1.6]"
-              style={{
-                fontFamily: 'var(--font-sans)',
-                color: 'var(--color-ink-soft)',
-              }}
-            >
-              AI가 당신의 서툰 문장을 다듬어 드릴게요.
-            </p>
-          </div>
-
-          {/* 카드 1: 수신자·발신자 + AI 키워드 */}
-          <div className="bg-white rounded-[20px] border border-black/[0.08] overflow-hidden mb-3">
-            {/* ── 수신자 · 발신자 ── */}
-            <div className="px-9 py-8 border-b border-black/[0.08]">
-              <p
-                className="text-[11px] font-medium tracking-[0.08em] uppercase mb-4"
+      {/* 스크롤 영역 */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto">
+        <div className="px-5 pt-6 pb-[100px]">
+          {/* ── STEP 1: 기본 정보 ── */}
+          {step === 1 && (
+            <>
+              <h1
+                className="font-bold leading-[1.3] tracking-[-0.02em] mb-6"
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-rose)',
+                  fontFamily: "var(--font-serif)",
+                  color: "var(--color-ink)",
+                  fontSize: 24,
                 }}
               >
-                수신자 · 발신자
-              </p>
-              <div className="grid grid-cols-2 gap-[14px]">
+                기본 정보를 입력해주세요
+              </h1>
+
+              {/* 수신자 · 발신자 */}
+              <div className="flex flex-col gap-4 mb-6">
                 <Input
                   label="To. 받는 분"
                   required
@@ -128,44 +154,45 @@ export default function WriteLetter() {
                   }
                 />
               </div>
-            </div>
 
-            {/* ── AI 키워드 ── */}
-            <div className="px-9 py-8">
-              <p
-                className="text-[11px] font-medium tracking-[0.08em] uppercase mb-4"
+              {/* 구분선 */}
+              <div
+                className="h-[12px] -mx-5 mb-5"
+                style={{ background: "var(--color-cream-mid)" }}
+              />
+
+              {/* AI 키워드 */}
+              <div
+                className="inline-flex items-center px-3 py-1 rounded-full mb-3"
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-rose)',
+                  background: "var(--color-rose-pale)",
+                  fontSize: 12,
+                  color: "var(--color-rose)",
+                  fontFamily: "var(--font-sans)",
                 }}
               >
                 AI 키워드
-              </p>
+              </div>
               <p
-                className="text-[15px] font-medium mb-1"
+                className="text-[18px] font-medium mb-1"
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-ink)',
+                  fontFamily: "var(--font-sans)",
+                  color: "var(--color-ink)",
                 }}
               >
                 어떤 마음을 담고 싶으세요?
-                <span
-                  className="ml-[6px] text-[15px]"
-                  style={{ color: 'var(--color-rose)' }}
-                >
-                  *
-                </span>
               </p>
               <p
-                className="text-[12px] leading-[1.6] mb-4"
+                className="text-[14px] mb-5"
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-ink-soft)',
+                  fontFamily: "var(--font-sans)",
+                  color: "var(--color-ink-soft)",
                 }}
               >
-                키워드를 선택하면 AI가 편지 내용에 대한 아이디어를 제공해드려요.
+                키워드를 선택하면 AI가 아이디어를 제공해드려요.
               </p>
-              <div className="flex gap-2 flex-wrap">
+              {/* 피그마: 3열 그리드 */}
+              <div className="grid grid-cols-3 gap-2">
                 {KEYWORD_LIST.map((k) => (
                   <KeywordChip
                     key={k.label}
@@ -175,123 +202,141 @@ export default function WriteLetter() {
                   />
                 ))}
               </div>
-            </div>
-          </div>
+            </>
+          )}
 
-          {/* 카드 2: 편지 내용 — overflow 허용해서 Tip이 카드 밖으로 나올 수 있게 */}
-          <div className="bg-white rounded-[20px] border border-black/[0.08] mb-3 relative">
-            <div className="px-9 py-8">
-              <p
-                className="text-[11px] font-medium tracking-[0.08em] uppercase mb-4"
+          {/* ── STEP 2: 편지 작성 ── */}
+          {step === 2 && (
+            <>
+              <h1
+                className="font-bold leading-[1.3] tracking-[-0.02em] mb-5"
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-rose)',
+                  fontFamily: "var(--font-serif)",
+                  color: "var(--color-ink)",
+                  fontSize: 24,
                 }}
               >
-                편지 내용
-              </p>
-              <p
-                className="text-[15px] font-medium mb-1"
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-ink)',
-                }}
-              >
-                하고 싶은 말을 자유롭게 적어보세요
-                <span
-                  className="ml-[6px] text-[15px]"
-                  style={{ color: 'var(--color-rose)' }}
-                >
-                  *
-                </span>
-              </p>
-              <p
-                className="text-[12px] leading-[1.6] mb-4"
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-ink-soft)',
-                }}
-              >
-                초안을 바탕으로 AI가 더욱 아름다운 문장으로 완성해드려요.
-              </p>
+                하고 싶은 말을 <br /> 자유롭게 적어보세요
+              </h1>
 
-              {/* textarea: relative 기준 */}
-              <div className="relative">
+              {/* 편지 내용 입력 */}
+              <div className="relative mb-1">
                 <Textarea
-                  placeholder="편지지 초안 내용을 작성해보세요"
                   value={form.content}
                   onChange={(e) =>
                     e.target.value.length <= MAX_CONTENT &&
                     setForm((p) => ({ ...p, content: e.target.value }))
                   }
+                  placeholder="오늘 너의 생일을 정말 축하해. 우리가 함께한 시간들이..."
                   rows={8}
-                  maxLength={MAX_CONTENT}
-                  currentLength={form.content.length}
                   showProgress={false}
-                  style={{ minHeight: 220 }}
-                />
-
-                {/* Tip 박스: textarea 우측 바깥으로 absolute */}
-                <div
-                  className="absolute top-0 text-[12px] leading-[1.7] px-4 py-[14px] rounded-[10px] border-l-2"
                   style={{
-                    left: 'calc(100% + 16px)',
-                    width: 220,
-                    background: 'var(--color-rose-pale)',
-                    borderColor: 'var(--color-rose-light)',
-                    fontFamily: 'var(--font-sans)',
-                    color: 'var(--color-ink-mid)',
+                    minHeight: 240,
+                    fontSize: 16,
+                    background: "var(--color-cream)",
+                    border: "1px solid rgba(28,23,20,0.14)",
+                    borderRadius: 12,
+                    padding: "16px",
+                  }}
+                />
+              </div>
+
+              {/* 글자수 + 원본 복구 버튼 — 피그마: 입력칸 우측 하단 */}
+              <div className="flex items-center justify-between mb-6">
+                {/* 원본으로 되돌리기: AI 적용 후에만 표시 */}
+                {form.tone && form.originalContent ? (
+                  <button
+                    onClick={() =>
+                      setForm((p) => ({
+                        ...p,
+                        content: p.originalContent,
+                        tone: null,
+                        originalContent: "",
+                      }))
+                    }
+                    className="flex items-center gap-1 text-[13px] bg-transparent border-none cursor-pointer"
+                    style={{
+                      fontFamily: "var(--font-sans)",
+                      color: "var(--color-ink-soft)",
+                    }}
+                  >
+                    <span style={{ fontSize: 16 }}>
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M2 8C2 4.686 4.686 2 8 2C10.032 2 11.822 3.013 12.928 4.572M14 8C14 11.314 11.314 14 8 14C5.968 14 4.178 12.987 3.072 11.428"
+                          stroke="#9c9189"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          d="M12 2L13.5 4.5L11 4.5"
+                          stroke="#9c9189"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>{" "}
+                    원본으로 되돌리기
+                  </button>
+                ) : (
+                  <div />
+                )}
+                <span
+                  className="text-[14px]"
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    color: "var(--color-ink-soft)",
                   }}
                 >
-                  <p
-                    className="text-[10px] font-medium tracking-[0.06em] uppercase mb-1"
-                    style={{ color: 'var(--color-rose)' }}
-                  >
-                    ✦ Tip
-                  </p>
-                  구체적인 에피소드나 추억을 언급하면 더욱 감동적인 편지가
-                  됩니다.
-                  <br />
-                  <br />
-                  예: "작년 우리가 함께 갔던 카페가 생각나…"
-                </div>
+                  {form.content.length} / {MAX_CONTENT}
+                </span>
               </div>
-            </div>
-          </div>
 
-          {/* 카드 3: AI 톤앤매너 */}
-          <div className="bg-white rounded-[20px] border border-black/[0.08] overflow-hidden">
-            <div className="px-9 py-8">
-              <p
-                className="text-[11px] font-medium tracking-[0.08em] uppercase mb-4"
+              {/* 구분선 */}
+              <div
+                className="h-[12px] -mx-5 mb-5"
+                style={{ background: "var(--color-cream-mid)" }}
+              />
+
+              {/* AI 톤앤매너 */}
+              <div
+                className="inline-flex items-center px-3 py-1 rounded-full mb-3"
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-rose)',
+                  background: "var(--color-rose-pale)",
+                  fontSize: 12,
+                  color: "var(--color-rose)",
+                  fontFamily: "var(--font-sans)",
                 }}
               >
                 AI 톤앤매너
-              </p>
+              </div>
               <p
-                className="text-[15px] font-medium mb-1"
+                className="text-[18px] font-medium mb-1"
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-ink)',
+                  fontFamily: "var(--font-sans)",
+                  color: "var(--color-ink)",
                 }}
               >
                 어떤 어조로 다듬어 드릴까요?
               </p>
               <p
-                className="text-[12px] leading-[1.6] mb-4"
+                className="text-[14px] mb-4"
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  color: 'var(--color-ink-soft)',
+                  fontFamily: "var(--font-sans)",
+                  color: "var(--color-ink-soft)",
                 }}
               >
-                사용자가 직접 쓴 초안을 바탕으로 어조를 변환해드려요.
+                선택한 어조로 ai가 다듬어 드릴게요.
               </p>
 
-              {/* tone-grid: 4열 */}
-              <div className="grid grid-cols-4 gap-[10px] mb-5">
+              {/* 피그마: 2열 그리드, 169x69px */}
+              <div className="grid grid-cols-2 gap-2">
                 {TONE_LIST.map((t) => (
                   <ToneCard
                     key={t.label}
@@ -299,130 +344,283 @@ export default function WriteLetter() {
                     label={t.label}
                     desc={t.desc}
                     active={form.tone === t.label}
-                    onClick={() =>
-                      setForm((p) => ({
-                        ...p,
-                        tone:
-                          p.tone === t.label ? null : (t.label as LetterTone),
-                      }))
-                    }
+                    onClick={() => {
+                      const newTone = (
+                        form.tone === t.label ? null : t.label
+                      ) as LetterTone | null;
+                      if (newTone) {
+                        // TODO: 실제 AI API 연동 — 현재는 mock
+                        setForm((p) => ({
+                          ...p,
+                          tone: newTone,
+                          originalContent: p.originalContent || p.content, // 최초 원본 저장
+                          content: TONE_PREVIEW[newTone],
+                        }));
+                      } else {
+                        setForm((p) => ({ ...p, tone: null }));
+                      }
+                    }}
                   />
                 ))}
               </div>
+            </>
+          )}
 
-              {/* previewBox
-                  피그마 신규:
-                  - 기본(미선택): #faf7f4 배경 + ✦ 아이콘 + 안내 텍스트
-                  - 선택 시: #fff5f6 배경 + AI 미리보기 텍스트 */}
-              <div
-                className="rounded-xl border border-black/[0.08] p-[18px] min-h-[80px] transition-colors duration-200"
+          {/* ── STEP 3: 보안 설정 ── */}
+          {step === 3 && (
+            <>
+              <h1
+                className="font-bold leading-[1.3] tracking-[-0.02em] mb-5"
                 style={{
-                  background: form.tone
-                    ? 'var(--color-rose-pale)'
-                    : 'var(--color-cream)',
+                  fontFamily: "var(--font-serif)",
+                  color: "var(--color-ink)",
+                  fontSize: 24,
                 }}
               >
-                {form.tone ? (
-                  <>
-                    <p
-                      className="text-[10px] font-medium mb-2"
-                      style={{
-                        fontFamily: 'var(--font-sans)',
-                        color: 'var(--color-rose)',
-                      }}
-                    >
-                      AI 미리보기
-                    </p>
-                    <p
-                      className="text-[13px] leading-[1.85]"
-                      style={{
-                        fontFamily: 'var(--font-serif)',
-                        color: 'var(--color-ink-mid)',
-                      }}
-                    >
-                      {TONE_PREVIEW[form.tone]}
-                    </p>
-                  </>
-                ) : (
-                  /* 피그마 신규 기본값: ✦ + 안내문 */
-                  <div className="flex flex-col items-center justify-center gap-2 py-2 text-center">
-                    <span className="text-[20px]" style={{ color: '#a7a7a7' }}>
-                      ✦
-                    </span>
-                    <p
-                      className="text-[13px] leading-[1.7]"
-                      style={{
-                        fontFamily: 'var(--font-sans)',
-                        color: 'var(--color-ink-mid)',
-                      }}
-                    >
-                      톤을 선택하지 않으면 직접 쓴 그대로 전달돼요.
-                      <br />
-                      원하신다면 위에서 톤을 선택해보세요.
-                    </p>
-                  </div>
-                )}
+                열람 비밀번호를
+                <br />
+                설정해주세요
+              </h1>
+
+              {/* 비밀번호 입력 — 피그마: 숫자만, 마스킹 안함 */}
+              <div className="flex flex-col gap-4 mb-4">
+                <Input
+                  label="열람 비밀번호"
+                  required
+                  placeholder="숫자를 입력해주세요"
+                  inputMode="numeric"
+                  type="text"
+                  value={form.password}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/[^0-9]/g, "");
+                    setForm((p) => ({ ...p, password: val }));
+                  }}
+                />
               </div>
 
-              {/* 적용 버튼: 톤 선택 시만 표시 */}
-              {form.tone && (
-                <div className="flex justify-end mt-3">
-                  <Button
-                    variant="outline-rose"
-                    size="sm"
-                    onClick={() =>
-                      setForm((p) => ({ ...p, content: TONE_PREVIEW[p.tone!] }))
-                    }
+              <p
+                className="text-[14px] leading-[1.7] mb-6"
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  color: "var(--color-ink-soft)",
+                }}
+              >
+                편지를 받는 분이 이 비밀번호를 입력해야 해요.
+                <br />
+                비밀번호와 함께 편지를 전달해 주세요.
+              </p>
+            </>
+          )}
+
+          {/* ── STEP 4: 편지지 선택 ── */}
+          {step === 4 && (
+            <>
+              <h1
+                className="font-bold leading-[1.3] tracking-[-0.02em] mb-5"
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  color: "var(--color-ink)",
+                  fontSize: 24,
+                }}
+              >
+                편지지를 골라주세요
+              </h1>
+
+              {/* 피그마: 2x2 그리드 */}
+
+              <div className="grid grid-cols-2 gap-3 mb-8">
+                {THEME_LIST.map((t) => {
+                  const active = form.theme === t.value;
+                  return (
+                    <div
+                      key={t.value}
+                      onClick={() => setForm((p) => ({ ...p, theme: t.value }))}
+                      className="flex rounded-[12px] overflow-hidden cursor-pointer bg-white transition-all"
+                      style={{
+                        height: 96,
+                        border: active
+                          ? "2px solid var(--color-rose)"
+                          : "2px solid rgba(28,23,20,0.08)",
+                      }}
+                    >
+                      {/* 좌측 스와치 */}
+                      <div
+                        className="flex-shrink-0 flex flex-col justify-end p-2"
+                        style={{
+                          width: 77,
+                          background: THEME_SWATCH_BG[t.value],
+                        }}
+                      >
+                        <div className="flex flex-col gap-1">
+                          <div
+                            className="h-1 rounded-sm w-full"
+                            style={{ background: t.accentColor, opacity: 0.8 }}
+                          />
+                          <div
+                            className="h-1 rounded-sm w-3/4"
+                            style={{ background: t.accentColor, opacity: 0.6 }}
+                          />
+                        </div>
+                      </div>
+
+                      {/* 우측 텍스트 */}
+                      <div className="flex flex-col justify-center px-3">
+                        <p
+                          className="text-[16px] font-medium"
+                          style={{
+                            fontFamily: "var(--font-sans)",
+                            color: active
+                              ? "var(--color-rose)"
+                              : "var(--color-ink)",
+                          }}
+                        >
+                          {t.label}
+                        </p>
+                        <p
+                          className="text-[12px]"
+                          style={{
+                            fontFamily: "var(--font-sans)",
+                            color: "var(--color-ink-soft)",
+                          }}
+                        >
+                          {t.sub}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              {/* 미리보기 */}
+              <p
+                className="text-[12px] mb-2"
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  color: "var(--color-ink-soft)",
+                }}
+              >
+                미리보기
+              </p>
+              <div
+                className="rounded-[16px] overflow-hidden border border-black/[0.06] mb-6"
+                style={{ boxShadow: "0 4px 20px rgba(28,23,20,0.06)" }}
+              >
+                <div
+                  className="h-[3px]"
+                  style={{
+                    background: THEME_LIST.find((t) => t.value === form.theme)
+                      ?.accentColor,
+                  }}
+                />
+                <div
+                  className="px-6 py-5"
+                  style={{ background: THEME_SWATCH_BG[form.theme] }}
+                >
+                  <div
+                    className="w-[22px] h-px mb-3"
+                    style={{ background: "var(--color-rose-light)" }}
+                  />
+                  <p
+                    className="text-[14px] italic mb-3"
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      color: THEME_LIST.find((t) => t.value === form.theme)
+                        ?.accentColor,
+                    }}
                   >
-                    이 내용으로 적용하기 →
-                  </Button>
+                    To. {form.to || "소중한 당신에게"}
+                  </p>
+                  <p
+                    className="text-[16px] leading-[1.85] mb-4 line-clamp-2"
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      color: "var(--color-ink-mid)",
+                    }}
+                  >
+                    {form.content.slice(0, 50)}
+                    {form.content.length > 50 ? "…" : ""}
+                  </p>
+                  <div className="flex justify-between pt-3 border-t border-black/[0.06]">
+                    <span
+                      className="text-[12px] italic"
+                      style={{
+                        fontFamily: "var(--font-serif)",
+                        color: THEME_LIST.find((t) => t.value === form.theme)
+                          ?.accentColor,
+                      }}
+                    >
+                      From. {form.from || "마음을 담아"}
+                    </span>
+                  </div>
                 </div>
-              )}
-            </div>
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
-      {/* BOTTOM BAR: h-[77px] */}
-      <div
-        className="fixed bottom-0 left-0 right-0 z-[90] h-[77px] flex items-center justify-center px-6 border-t border-black/[0.08]"
-        style={{
-          background: 'rgba(250,247,244,0.95)',
-          backdropFilter: 'blur(12px)',
-        }}
-      >
-        <div className="w-full max-w-[860px] flex items-center justify-between">
-          <button
-            onClick={() => navigate('/')}
-            className="text-[13px] bg-transparent border-none cursor-pointer py-[10px] transition-opacity hover:opacity-70"
-            style={{
-              fontFamily: 'var(--font-sans)',
-              color: 'var(--color-ink-soft)',
-            }}
-          >
-            ← 이전으로
-          </button>
+      {/* 하단 버튼 바 */}
+      <div className="flex-shrink-0 px-5 py-4 ">
+        {step === 1 && (
           <Button
             variant="primary"
-            size="lg"
-            onClick={() => setModalOpen(true)}
+            fullWidth
+            style={{ height: 54, fontSize: 18, borderRadius: 12 }}
+            disabled={!step1Valid}
+            onClick={goNext}
           >
-            편지지 고르기 →
+            다음
           </Button>
-        </div>
+        )}
+        {step === 2 && (
+          <Button
+            variant="primary"
+            fullWidth
+            style={{ height: 54, fontSize: 18, borderRadius: 12 }}
+            disabled={!step2Valid}
+            onClick={goNext}
+          >
+            다음
+          </Button>
+        )}
+        {step === 3 && (
+          <>
+            <div
+              className="px-4 py-3 my-3 rounded-[10px] text-[12px] text-center font-medium leading-[1.7]"
+              style={{
+                background: "var(--color-rose-pale)",
+                fontFamily: "var(--font-sans)",
+                color: "var(--color-rose)",
+              }}
+            >
+              🔒 비밀번호는 암호화되어 저장되며 패킷팀도 알 수 없어요.
+              <br />
+              비밀번호를 잊으면 복구가 불가능하니 꼭 기억해주세요.
+            </div>
+            <Button
+              variant="primary"
+              fullWidth
+              style={{ height: 54, fontSize: 18, borderRadius: 12 }}
+              disabled={!step3Valid}
+              onClick={goNext}
+            >
+              다음
+            </Button>
+          </>
+        )}
+        {step === 4 && (
+          <Button
+            variant="primary"
+            fullWidth
+            style={{ height: 54, fontSize: 18, borderRadius: 12 }}
+            onClick={() => {
+              // TODO: POST /letters API 연동
+              navigate("/share");
+            }}
+          >
+            편지 완성하기
+          </Button>
+        )}
       </div>
-
-      <ThemeSelectModal
-        isOpen={modalOpen}
-        selectedTheme={form.theme}
-        formData={{ to: form.to, from: form.from, content: form.content }}
-        onSelect={(theme) => setForm((p) => ({ ...p, theme }))}
-        onConfirm={() => {
-          setModalOpen(false);
-          navigate('/share');
-        }}
-        onClose={() => setModalOpen(false)}
-      />
     </div>
   );
 }

@@ -2,8 +2,7 @@
 import type { ButtonHTMLAttributes } from "react";
 import { kakaoShare } from "../../hooks/KakaoShare";
 
-interface KakaoShareButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface KakaoShareButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
@@ -22,12 +21,12 @@ export default function KakaoShareButton({
   return (
     <button
       onClick={() => {
-        kakaoShare({id : '123'}); //추후 설정 필요
+        kakaoShare({ id: "123" }); //추후 설정 필요
       }}
       className={`
         inline-flex items-center justify-center gap-[10px]
         py-[14px] px-5 rounded-xl
-        text-[14px] font-medium border-none
+        text-[18px] font-medium border-none
         cursor-pointer transition-all hover:opacity-90
         ${fullWidth ? "w-full" : ""}
         ${className}

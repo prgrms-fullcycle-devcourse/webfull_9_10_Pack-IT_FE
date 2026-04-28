@@ -3,8 +3,8 @@
    피그마 파일 기반 (aPJ3MWZWt53fHfVfBKPatQ)
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400;500&display=swap");
+@import "tailwindcss";
 
 /* ── CSS 변수: 브랜드 색상 / 편지지 테마 ── */
 :root {
@@ -27,8 +27,8 @@
   --color-success: #2eb872;
 
   /* Typography */
-  --font-serif: 'Noto Serif KR', serif;
-  --font-sans: 'Noto Sans KR', sans-serif;
+  --font-serif: "Noto Serif KR", serif;
+  --font-sans: "Noto Sans KR", sans-serif;
 
   /* Layout */
   --max-width: 860px;
@@ -75,8 +75,8 @@
   --color-success-bg: #edfaf3;
 
   /* Fonts */
-  --font-serif: 'Noto Serif KR', serif;
-  --font-sans: 'Noto Sans KR', sans-serif;
+  --font-serif: "Noto Serif KR", serif;
+  --font-sans: "Noto Sans KR", sans-serif;
 
   /* Border radius (피그마 기준) */
   --radius-sm: 6px;
@@ -101,9 +101,14 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-cream);
+  background-color: #e8e4df;
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
 }
