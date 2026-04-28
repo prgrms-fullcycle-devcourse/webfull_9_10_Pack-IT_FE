@@ -356,8 +356,6 @@ export default function WriteLetter() {
                           originalContent: p.originalContent || p.content, // 최초 원본 저장
                           content: TONE_PREVIEW[newTone],
                         }));
-                      } else {
-                        setForm((p) => ({ ...p, tone: null }));
                       }
                     }}
                   />
