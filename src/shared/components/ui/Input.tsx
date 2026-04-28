@@ -1,5 +1,5 @@
 // src/shared/components/ui/Input.tsx
-import type { InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -11,7 +11,7 @@ export default function Input({
   label,
   required = false,
   hint,
-  className = '',
+  className = "",
   style,
   ...props
 }: InputProps) {
@@ -20,11 +20,13 @@ export default function Input({
       {label && (
         <label
           className="text-[11px] font-medium tracking-[0.04em]"
-          style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-ink-soft)' }}
+          style={{ fontFamily: "var(--font-sans)", color: "var(--color-rose)" }}
         >
           {label}
           {required && (
-            <span className="ml-[4px]" style={{ color: 'var(--color-rose)' }}>*</span>
+            <span className="ml-[4px]" style={{ color: "var(--color-rose)" }}>
+              *
+            </span>
           )}
         </label>
       )}
@@ -38,9 +40,9 @@ export default function Input({
           ${className}
         `}
         style={{
-          fontFamily: 'var(--font-sans)',
-          background: 'var(--color-cream)',
-          color: 'var(--color-ink)',
+          fontFamily: "var(--font-sans)",
+          background: "var(--color-cream)",
+          color: "var(--color-ink)",
           ...style,
         }}
         {...props}
@@ -48,7 +50,10 @@ export default function Input({
       {hint && (
         <p
           className="text-[11px]"
-          style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-ink-soft)' }}
+          style={{
+            fontFamily: "var(--font-sans)",
+            color: "var(--color-ink-soft)",
+          }}
         >
           {hint}
         </p>
