@@ -5,7 +5,6 @@ export const HtmlToImage = async () => {
   if (!node) return;
 
     try {
-      console.log('이미지 생성 중...')
       const dataUrl = await toPng(node,{
         fontEmbedCSS : '',
         cacheBust : true
