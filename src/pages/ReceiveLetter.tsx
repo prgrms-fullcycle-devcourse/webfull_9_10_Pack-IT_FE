@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import Button from "../shared/components/ui/Button";
-import { toPng } from "html-to-image";
+import { HtmlToImage } from "../shared/utils/HtmlToImage";
 
 type Phase = "password" | "before" | "opened";
 
@@ -19,26 +19,6 @@ const MOCK = {
   accentColor: "#e8526a",
   bgColor: "linear-gradient(160deg, #fff5f7, #ffe0e8)",
   decoColor: "#f7d4da",
-};
-
-const HtmlToImage = async () => {
-  const node = document.getElementById("ImageSet");
-  if (!node) return;
-
-    try {
-      console.log('이미지 생성 중...')
-      const dataUrl = await toPng(node,{
-        fontEmbedCSS : '',
-        cacheBust : true
-      });
-
-      const link = document.createElement("a");
-      link.download = "my-image.png"; //TODO: 저장될 파일 이름
-      link.href = dataUrl;
-      link.click();
-    } catch (error) {
-      console.error("이미지 저장에 실패했어요!", error);
-    }
 };
 
 export default function ReceiveLetter() {
