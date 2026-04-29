@@ -95,7 +95,7 @@ export default function MyPage() {
     }
   }, [visibleSentList.length, sentList.length]);
 
-  const { targetRef } = useIntersectionObserver({
+  const { targetRef } = useIntersectionObserver({ //TODO: api 적용 후 로딩 시 다음 데이터 불러오기
     onIntersect: handleIntersect,
     threshold: 0.5,
   });
