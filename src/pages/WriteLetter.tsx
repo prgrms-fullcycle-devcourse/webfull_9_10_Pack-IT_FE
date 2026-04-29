@@ -41,7 +41,6 @@ const INITIAL_FORM: LetterFormData = {
   originalContent: "",
   tone: null,
   password: "",
-
   theme: "rose",
 };
 
@@ -452,11 +451,11 @@ export default function WriteLetter() {
                         <div className="flex flex-col gap-1">
                           <div
                             className="h-1 rounded-sm w-full"
-                            style={{ background: t.accentColor, opacity: 0.8 }}
+                            style={{ background: t.primaryColor, opacity: 0.8 }}
                           />
                           <div
                             className="h-1 rounded-sm w-3/4"
-                            style={{ background: t.accentColor, opacity: 0.6 }}
+                            style={{ background: t.primaryColor, opacity: 0.6 }}
                           />
                         </div>
                       </div>
@@ -506,7 +505,7 @@ export default function WriteLetter() {
                   className="h-[3px]"
                   style={{
                     background: THEME_LIST.find((t) => t.value === form.theme)
-                      ?.accentColor,
+                      ?.primaryColor,
                   }}
                 />
                 <div
@@ -522,7 +521,7 @@ export default function WriteLetter() {
                     style={{
                       fontFamily: "var(--font-serif)",
                       color: THEME_LIST.find((t) => t.value === form.theme)
-                        ?.accentColor,
+                        ?.primaryColor,
                     }}
                   >
                     To. {form.to || "소중한 당신에게"}
@@ -543,7 +542,7 @@ export default function WriteLetter() {
                       style={{
                         fontFamily: "var(--font-serif)",
                         color: THEME_LIST.find((t) => t.value === form.theme)
-                          ?.accentColor,
+                          ?.primaryColor,
                       }}
                     >
                       From. {form.from || "마음을 담아"}
@@ -612,7 +611,20 @@ export default function WriteLetter() {
             style={{ height: 54, fontSize: 18, borderRadius: 12 }}
             onClick={() => {
               // TODO: POST /letters API 연동
-              navigate("/share");
+              navigate("/share", {
+                state: {
+                  theme: form.theme,
+                  to: form.to,
+                  from: form.from,
+                  content: form.content,
+                  date: new Date().toLocaleDateString("ko-KR", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                  }),
+                  // TODO : password는 API 연동 후 서버에서 처리
+                },
+              });
             }}
           >
             편지 완성하기

@@ -68,22 +68,22 @@ export const THEME_LIST: {
   value: LetterTheme;
   label: string;
   sub: string;
-  accentColor: string;
+  primaryColor: string;
 }[] = [
-  { value: "rose", label: "로즈", sub: "따뜻한 핑크", accentColor: "#c43e55" },
+  { value: "rose", label: "로즈", sub: "따뜻한 핑크", primaryColor: "#c43e55" },
   {
     value: "ivory",
     label: "아이보리",
     sub: "부드러운 크림",
-    accentColor: "#a07040",
+    primaryColor: "#a07040",
   },
   {
     value: "paper",
     label: "페이퍼",
     sub: "빈티지 베이지",
-    accentColor: "#6a6058",
+    primaryColor: "#6a6058",
   },
-  { value: "blue", label: "블루", sub: "차분한 하늘", accentColor: "#3060a0" },
+  { value: "blue", label: "블루", sub: "차분한 하늘", primaryColor: "#3060a0" },
 ];
 
 export const THEME_SWATCH_BG: Record<LetterTheme, string> = {

@@ -12,7 +12,7 @@ const MOCK = {
   content: "진심으로 생일을 축하해! 🎂\n오늘 하루도 행복하길 바랄게.",
   from: "From. 마음을 담아",
   date: "2026년 04월 23일",
-  accentColor: "#e8526a",
+  primaryColor: "#e8526a",
   bgColor: "linear-gradient(160deg, #fff5f7, #ffe0e8)",
   decoColor: "#f7d4da",
 };
@@ -68,7 +68,7 @@ export default function SentLetterDetail() {
           <div
             className="h-[3px]"
             style={{
-              background: `linear-gradient(90deg, ${MOCK.accentColor}, #f2956a)`,
+              background: `linear-gradient(90deg, ${MOCK.primaryColor}, #f2956a)`,
             }}
           />
           <div className="px-6 py-5" style={{ background: MOCK.bgColor }}>
@@ -80,7 +80,7 @@ export default function SentLetterDetail() {
               className="text-[14px] italic mb-3"
               style={{
                 fontFamily: "var(--font-serif)",
-                color: MOCK.accentColor,
+                color: MOCK.primaryColor,
               }}
             >
               {MOCK.to}
@@ -99,7 +99,7 @@ export default function SentLetterDetail() {
                 className="text-[12px] italic"
                 style={{
                   fontFamily: "var(--font-serif)",
-                  color: MOCK.accentColor,
+                  color: MOCK.primaryColor,
                 }}
               >
                 {MOCK.from}
