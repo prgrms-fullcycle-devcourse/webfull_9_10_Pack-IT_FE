@@ -1,4 +1,4 @@
-import type { LetterItem, } from "../shared/schemas/letterSchema";
+import type { LetterItem } from "../shared/schemas/letterSchema";
 
 export const MOCK_RECEIVED: LetterItem[] = [
   {

@@ -15,12 +15,6 @@ import { KEYWORD_TAG_COLOR, THEME_MAP } from "../shared/schemas/letterSchema";
 
 
 const PAGE_SIZE = 5;
-const THEME_ACCENT: Record<string, string> = {
-  rose: "#e8526a",
-  ivory: "#c08040",
-  paper: "#8a7868",
-  blue: "#4070c0",
-};
 
 // ── EmptyState: 컴포넌트 외부 선언 (렌더 중 생성 방지) ──
 interface EmptyStateProps {
