@@ -16,7 +16,7 @@ const MOCK = {
   from: "From. 마음을 담아",
   date: "2026년 04월 23일",
   correctPassword: "1234", // TODO: API로 검증
-  accentColor: "#e8526a",
+  primaryColor: "#e8526a",
   bgColor: "linear-gradient(160deg, #fff5f7, #ffe0e8)",
   decoColor: "#f7d4da",
 };
@@ -255,12 +255,12 @@ export default function ReceiveLetter() {
             <div
               className="rounded-[16px] overflow-hidden border border-black/[0.06] mb-4"
               style={{ boxShadow: "0 4px 20px rgba(28,23,20,0.06)" }}
-              id='ImageSet'
+              id="ImageSet"
             >
               <div
                 className="h-[3px]"
                 style={{
-                  background: `linear-gradient(90deg, ${MOCK.accentColor}, #f2956a)`,
+                  background: MOCK.primaryColor,
                 }}
               />
               <div className="px-6 py-5" style={{ background: MOCK.bgColor }}>
@@ -272,7 +272,7 @@ export default function ReceiveLetter() {
                   className="text-[14px] italic mb-3"
                   style={{
                     fontFamily: "var(--font-serif)",
-                    color: MOCK.accentColor,
+                    color: MOCK.primaryColor,
                   }}
                 >
                   {MOCK.to}
@@ -291,7 +291,7 @@ export default function ReceiveLetter() {
                     className="text-[12px] italic"
                     style={{
                       fontFamily: "var(--font-serif)",
-                      color: MOCK.accentColor,
+                      color: MOCK.primaryColor,
                     }}
                   >
                     {MOCK.from}
@@ -314,7 +314,7 @@ export default function ReceiveLetter() {
               size="md"
               fullWidth={true}
               onClick={() => {
-                HtmlToImage()
+                HtmlToImage();
               }}
             >
               이미지 저장

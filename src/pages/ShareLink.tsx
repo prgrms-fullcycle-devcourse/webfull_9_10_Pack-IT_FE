@@ -1,7 +1,9 @@
 // src/pages/ShareLink.tsx
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import KakaoShareButton from "../shared/components/ui/KakaoShareButton";
+import type { LetterTheme } from "../shared/schemas/letterSchema";
+import { THEME_MAP } from "../shared/schemas/letterSchema";
 
 const MOCK = {
   to: "To. 소중한 당신에게",
@@ -13,6 +15,17 @@ const MOCK = {
 
 export default function ShareLink() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state ?? {};
+  // state가 빈값인 경우 기본값 제공
+  const theme = (state?.theme ?? "rose") as LetterTheme;
+  const to = state?.to ?? MOCK.to;
+  const from = state?.from ?? MOCK.from;
+  const body = state?.content ?? MOCK.body;
+  const date = state?.date ?? new Date().toLocaleDateString("ko-KR");
+
+  const primaryColor = THEME_MAP[theme].primaryColor;
+  const bgColor = THEME_MAP[theme].bgColor;
 
   return (
     <div
@@ -89,21 +102,20 @@ export default function ShareLink() {
         >
           <div
             className="h-[3px]"
-            style={{ background: "linear-gradient(90deg, #e8526a, #f2956a)" }}
+            style={{
+              background: primaryColor,
+            }}
           />
-          <div
-            className="px-6 py-5 text-left"
-            style={{ background: "linear-gradient(160deg, #fff5f7, #ffe0e8)" }}
-          >
+          <div className="px-6 py-5 text-left" style={{ background: bgColor }}>
             <div
               className="w-[22px] h-px mb-3"
-              style={{ background: "#f7d4da" }}
+              style={{ background: bgColor }}
             />
             <p
               className="text-[14px] italic mb-3"
-              style={{ fontFamily: "var(--font-serif)", color: "#e8526a" }}
+              style={{ fontFamily: "var(--font-serif)", color: primaryColor }}
             >
-              {MOCK.to}
+              {to}
             </p>
             <p
               className="text-[16px] leading-[1.85] mb-4 whitespace-pre-line"
@@ -112,14 +124,14 @@ export default function ShareLink() {
                 color: "var(--color-ink-mid)",
               }}
             >
-              {MOCK.body}
+              {body}
             </p>
             <div className="flex justify-between pt-3 border-t border-black/[0.06]">
               <span
                 className="text-[12px] italic"
-                style={{ fontFamily: "var(--font-serif)", color: "#e8526a" }}
+                style={{ fontFamily: "var(--font-serif)", color: primaryColor }}
               >
-                {MOCK.from}
+                {from}
               </span>
               <span
                 className="text-[11px]"
@@ -128,7 +140,7 @@ export default function ShareLink() {
                   color: "var(--color-ink-soft)",
                 }}
               >
-                {MOCK.date}
+                {date}
               </span>
             </div>
           </div>

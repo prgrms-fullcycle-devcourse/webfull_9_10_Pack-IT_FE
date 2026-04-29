@@ -1,6 +1,6 @@
 // src/shared/schemas/letterSchema.ts
 
-export type LetterTheme = "rose" | "ivory" | "paper" | "blue";
+export type LetterTheme = 1 | 2 | 3 | 4;
 export type LetterKeyword = "생일" | "응원" | "감사" | "사과" | "고백" | "화해";
 export type LetterTone = "다정하게" | "격식있게" | "감성적인" | "담백하게";
 export type MyPageTab = "sent" | "received" | "feedback";
@@ -13,7 +13,6 @@ export interface LetterFormData {
   originalContent: string; // AI 적용 직전 원본 내용 (원본 복구용)
   tone: LetterTone | null;
   password: string; // 열람 비밀번호
-
   theme: LetterTheme;
 }
 
@@ -64,31 +63,42 @@ export const TONE_LIST: { label: LetterTone; icon: string; desc: string }[] = [
   { label: "담백하게", icon: "🍃", desc: "간결하고 솔직한" },
 ];
 
-export const THEME_LIST: {
-  value: LetterTheme;
-  label: string;
-  sub: string;
-  accentColor: string;
-}[] = [
-  { value: "rose", label: "로즈", sub: "따뜻한 핑크", accentColor: "#c43e55" },
+export const THEME_MAP: Record<
+  LetterTheme,
   {
-    value: "ivory",
+    label: string;
+    sub: string;
+    primaryColor: string;
+    bgColor: string;
+    decoColor: string;
+  }
+> = {
+  1: {
+    label: "로즈",
+    sub: "따뜻한 핑크",
+    primaryColor: "#e8526a",
+    bgColor: "linear-gradient(160deg,#fff5f7,#ffe0e8)",
+    decoColor: "#f7d4da",
+  },
+  2: {
     label: "아이보리",
     sub: "부드러운 크림",
-    accentColor: "#a07040",
+    primaryColor: "#c08040",
+    bgColor: "linear-gradient(160deg,#fffbf5,#fff0dc)",
+    decoColor: "#e0c090",
   },
-  {
-    value: "paper",
+  3: {
     label: "페이퍼",
     sub: "빈티지 베이지",
-    accentColor: "#6a6058",
+    primaryColor: "#8a7868",
+    bgColor: "linear-gradient(160deg,#f8f5f0,#ede8e0)",
+    decoColor: "#c0b8a8",
   },
-  { value: "blue", label: "블루", sub: "차분한 하늘", accentColor: "#3060a0" },
-];
-
-export const THEME_SWATCH_BG: Record<LetterTheme, string> = {
-  rose: "linear-gradient(150deg, #ffe8ec, #ffc8d4)",
-  ivory: "linear-gradient(150deg, #fff8ee, #f5e8d0)",
-  paper: "linear-gradient(150deg, #f0ede8, #ddd8d0)",
-  blue: "linear-gradient(150deg, #eaf3ff, #c8deff)",
+  4: {
+    label: "블루",
+    sub: "차분한 하늘",
+    primaryColor: "#4070c0",
+    bgColor: "linear-gradient(160deg,#f0f6ff,#e0eeff)",
+    decoColor: "#a8c8f0",
+  },
 };
