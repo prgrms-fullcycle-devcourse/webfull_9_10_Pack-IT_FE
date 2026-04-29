@@ -1,25 +1,25 @@
 // src/pages/SentLetterDetail.tsx
 // 내가 쓴 편지 상세 — 피그마: 편지지 + 편지삭제 + 카카오톡으로 보내기
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import KakaoShareButton from "../shared/components/ui/KakaoShareButton";
 import Button from "../shared/components/ui/Button";
+import { THEME_MAP, type LetterItem } from "../shared/schemas/letterSchema";
 
 // TODO: useParams().id → GET /letters/:id API 연동
-const MOCK = {
-  to: "To. 소중한 당신에게",
-  content: "진심으로 생일을 축하해! 🎂\n오늘 하루도 행복하길 바랄게.",
-  from: "From. 마음을 담아",
-  date: "2026년 04월 23일",
-  primaryColor: "#e8526a",
-  bgColor: "linear-gradient(160deg, #fff5f7, #ffe0e8)",
-  decoColor: "#f7d4da",
-};
 
 export default function SentLetterDetail() {
   const navigate = useNavigate();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const location = useLocation();
+  const letter = location.state?.letter as LetterItem;
+  const theme = THEME_MAP[letter?.theme ?? 1];
+
+  if (!letter) {
+    navigate(-1);
+    return null;
+  }
 
   const handleDelete = () => {
     // TODO: DELETE /letters/:id API 연동
@@ -68,22 +68,22 @@ export default function SentLetterDetail() {
           <div
             className="h-[3px]"
             style={{
-              background: `linear-gradient(90deg, ${MOCK.primaryColor}, #f2956a)`,
+              background: theme.primaryColor,
             }}
           />
-          <div className="px-6 py-5" style={{ background: MOCK.bgColor }}>
+          <div className="px-6 py-5" style={{ background: theme.bgColor }}>
             <div
               className="w-[22px] h-px mb-3"
-              style={{ background: MOCK.decoColor }}
+              style={{ background: theme.decoColor }}
             />
             <p
               className="text-[14px] italic mb-3"
               style={{
                 fontFamily: "var(--font-serif)",
-                color: MOCK.primaryColor,
+                color: theme.primaryColor,
               }}
             >
-              {MOCK.to}
+              {letter.to}
             </p>
             <p
               className="text-[16px] leading-[1.85] mb-4 whitespace-pre-line"
@@ -92,17 +92,17 @@ export default function SentLetterDetail() {
                 color: "var(--color-ink-mid)",
               }}
             >
-              {MOCK.content}
+              {letter.content}
             </p>
             <div className="flex justify-between pt-3 border-t border-black/[0.06]">
               <span
                 className="text-[12px] italic"
                 style={{
                   fontFamily: "var(--font-serif)",
-                  color: MOCK.primaryColor,
+                  color: theme.primaryColor,
                 }}
               >
-                {MOCK.from}
+                {letter.from}
               </span>
               <span
                 className="text-[11px]"
@@ -111,7 +111,7 @@ export default function SentLetterDetail() {
                   color: "var(--color-ink-soft)",
                 }}
               >
-                {MOCK.date}
+                {letter.createdAt}
               </span>
             </div>
           </div>

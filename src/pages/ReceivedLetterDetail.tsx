@@ -81,7 +81,7 @@ export default function ReceivedLetterDetail() {
           <div
             className="h-[3px]"
             style={{
-              background: `linear-gradient(90deg, ${MOCK.primaryColor}, #f2956a)`,
+              background: MOCK.primaryColor,
             }}
           />
           <div className="px-6 py-5" style={{ background: MOCK.bgColor }}>

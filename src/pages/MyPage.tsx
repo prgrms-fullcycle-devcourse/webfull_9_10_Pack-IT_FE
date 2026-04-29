@@ -300,7 +300,11 @@ export default function MyPage() {
                     <div
                       key={item.id}
                       className="flex items-center gap-3 px-4 py-4 bg-white rounded-[14px] border border-black/[0.08] cursor-pointer"
-                      onClick={() => navigate(`/mypage/sent/${item.id}`)}
+                      onClick={() =>
+                        navigate(`/mypage/sent/${item.id}`, {
+                          state: { letter: item },
+                        })
+                      }
                     >
                       {/* 편지지 썸네일 */}
                       <div
