@@ -8,7 +8,7 @@ import type {
   LetterItem,
   UserInfo,
 } from "../shared/schemas/letterSchema";
-import { KEYWORD_TAG_COLOR } from "../shared/schemas/letterSchema";
+import { KEYWORD_TAG_COLOR, THEME_MAP } from "../shared/schemas/letterSchema";
 
 // TODO: API 연동 후 제거
 const MOCK_USER: UserInfo = {
@@ -26,7 +26,7 @@ const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -37,7 +37,7 @@ const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },
   {
@@ -48,7 +48,7 @@ const MOCK_SENT: LetterItem[] = [
     content:
       "함께 고생한 프로젝트가 드디어 마무리됐네요. 모두 정말 수고 많으셨어요!",
     keyword: "응원",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 10일",
   },
   {
@@ -58,7 +58,7 @@ const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "사과",
-    theme: "paper",
+    theme: 3,
     createdAt: "04월 10일",
   },
   {
@@ -68,7 +68,7 @@ const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "고백",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 10일",
   },
   {
@@ -78,7 +78,7 @@ const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 10일",
   },
 ];
@@ -92,17 +92,10 @@ const MOCK_RECEIVED: LetterItem[] = [
     content:
       "진심으로 생일 축하해!\n\n우리가 함께한 시간들이 나에게는 큰 선물이야. 항상 곁에 있어줘서 고마워!",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
 ];
-
-const THEME_ACCENT: Record<string, string> = {
-  rose: "#e8526a",
-  ivory: "#c08040",
-  paper: "#8a7868",
-  blue: "#4070c0",
-};
 
 // ── EmptyState: 컴포넌트 외부 선언 (렌더 중 생성 방지) ──
 interface EmptyStateProps {
@@ -302,7 +295,7 @@ export default function MyPage() {
                 {sentList.map((item) => {
                   const tagColor = KEYWORD_TAG_COLOR[item.keyword];
                   const accent =
-                    THEME_ACCENT[item.theme] ?? "var(--color-rose)";
+                    THEME_MAP[item.theme]?.primaryColor ?? "#e8525a";
                   return (
                     <div
                       key={item.id}
@@ -379,7 +372,7 @@ export default function MyPage() {
               <div className="flex flex-col gap-2">
                 {receivedList.map((item) => {
                   const accent =
-                    THEME_ACCENT[item.theme] ?? "var(--color-rose)";
+                    THEME_MAP[item.theme]?.primaryColor ?? "#e8525a";
                   return (
                     <div
                       key={item.id}

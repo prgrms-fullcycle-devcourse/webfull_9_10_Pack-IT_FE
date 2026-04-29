@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import KakaoShareButton from "../shared/components/ui/KakaoShareButton";
 import type { LetterTheme } from "../shared/schemas/letterSchema";
-import { THEME_LIST, THEME_SWATCH_BG } from "../shared/schemas/letterSchema";
+import { THEME_MAP } from "../shared/schemas/letterSchema";
 
 const MOCK = {
   to: "To. 소중한 당신에게",
@@ -24,9 +24,8 @@ export default function ShareLink() {
   const body = state?.content ?? MOCK.body;
   const date = state?.date ?? new Date().toLocaleDateString("ko-KR");
 
-  const primaryColor =
-    THEME_LIST.find((t) => t.value === theme)?.primaryColor ?? "#e8526a";
-  const bgColor = THEME_SWATCH_BG[theme];
+  const primaryColor = THEME_MAP[theme].primaryColor;
+  const bgColor = THEME_MAP[theme].bgColor;
 
   return (
     <div

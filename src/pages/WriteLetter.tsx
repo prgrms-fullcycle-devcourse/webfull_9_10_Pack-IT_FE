@@ -10,13 +10,13 @@ import KeywordChip from "../shared/components/ui/KeywordChip";
 import ToneCard from "../shared/components/ui/ToneCard";
 import type {
   LetterFormData,
+  LetterTheme,
   LetterTone,
 } from "../shared/schemas/letterSchema";
 import {
   KEYWORD_LIST,
   TONE_LIST,
-  THEME_LIST,
-  THEME_SWATCH_BG,
+  THEME_MAP,
 } from "../shared/schemas/letterSchema";
 
 const MAX_CONTENT = 500;
@@ -41,7 +41,7 @@ const INITIAL_FORM: LetterFormData = {
   originalContent: "",
   tone: null,
   password: "",
-  theme: "rose",
+  theme: 1,
 };
 
 const STEPS = [
@@ -426,12 +426,15 @@ export default function WriteLetter() {
               {/* 피그마: 2x2 그리드 */}
 
               <div className="grid grid-cols-2 gap-3 mb-8">
-                {THEME_LIST.map((t) => {
-                  const active = form.theme === t.value;
+                {Object.entries(THEME_MAP).map(([key, t]) => {
+                  const themeKey = Number(key) as LetterTheme;
+                  const active = form.theme === themeKey;
                   return (
                     <div
-                      key={t.value}
-                      onClick={() => setForm((p) => ({ ...p, theme: t.value }))}
+                      key={themeKey}
+                      onClick={() =>
+                        setForm((p) => ({ ...p, theme: themeKey }))
+                      }
                       className="flex rounded-[12px] overflow-hidden cursor-pointer bg-white transition-all"
                       style={{
                         height: 96,
@@ -445,7 +448,7 @@ export default function WriteLetter() {
                         className="flex-shrink-0 flex flex-col justify-end p-2"
                         style={{
                           width: 77,
-                          background: THEME_SWATCH_BG[t.value],
+                          background: t.bgColor,
                         }}
                       >
                         <div className="flex flex-col gap-1">
@@ -504,24 +507,22 @@ export default function WriteLetter() {
                 <div
                   className="h-[3px]"
                   style={{
-                    background: THEME_LIST.find((t) => t.value === form.theme)
-                      ?.primaryColor,
+                    background: THEME_MAP[form.theme].primaryColor,
                   }}
                 />
                 <div
                   className="px-6 py-5"
-                  style={{ background: THEME_SWATCH_BG[form.theme] }}
+                  style={{ background: THEME_MAP[form.theme].bgColor }}
                 >
                   <div
                     className="w-[22px] h-px mb-3"
-                    style={{ background: "var(--color-rose-light)" }}
+                    style={{ background: THEME_MAP[form.theme].decoColor }}
                   />
                   <p
                     className="text-[14px] italic mb-3"
                     style={{
                       fontFamily: "var(--font-serif)",
-                      color: THEME_LIST.find((t) => t.value === form.theme)
-                        ?.primaryColor,
+                      color: THEME_MAP[form.theme].primaryColor,
                     }}
                   >
                     To. {form.to || "소중한 당신에게"}
@@ -541,8 +542,7 @@ export default function WriteLetter() {
                       className="text-[12px] italic"
                       style={{
                         fontFamily: "var(--font-serif)",
-                        color: THEME_LIST.find((t) => t.value === form.theme)
-                          ?.primaryColor,
+                        color: THEME_MAP[form.theme].primaryColor,
                       }}
                     >
                       From. {form.from || "마음을 담아"}
