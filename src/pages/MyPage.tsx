@@ -1,102 +1,20 @@
 // src/pages/MyPage.tsx
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../shared/components/ui/Button";
+import { useIntersectionObserver } from "../shared/hooks/useIntersectionObserver";
+import { MOCK_SENT } from "../mockData/MockSent.ts";
+import { MOCK_RECEIVED } from "../mockData/MockReceived.ts";
+import { MOCK_USER } from "../mockData/MockUser.ts";
 
 import type {
   MyPageTab,
   LetterItem,
-  UserInfo,
 } from "../shared/schemas/letterSchema";
 import { KEYWORD_TAG_COLOR } from "../shared/schemas/letterSchema";
 
-// TODO: API 연동 후 제거
-const MOCK_USER: UserInfo = {
-  name: "마음을 담아",
-  sentCount: 7,
-  receivedCount: 1,
-};
 
-const MOCK_SENT: LetterItem[] = [
-  {
-    id: "1",
-    to: "To. 소중한 친구",
-    from: "마음을 담아",
-    preview: "진심으로 생일 축하해! 오늘 하루는...",
-    content:
-      "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
-    keyword: "생일",
-    theme: "rose",
-    createdAt: "04월 22일",
-  },
-  {
-    id: "2",
-    to: "To. 엄마",
-    from: "마음을 담아",
-    preview: "항상 저를 위해 애써주셔서 감사...",
-    content:
-      "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
-    keyword: "감사",
-    theme: "ivory",
-    createdAt: "04월 15일",
-  },
-  {
-    id: "3",
-    to: "To. 팀원들",
-    from: "마음을 담아",
-    preview: "함께 고생한 프로젝트가 드디어...",
-    content:
-      "함께 고생한 프로젝트가 드디어 마무리됐네요. 모두 정말 수고 많으셨어요!",
-    keyword: "응원",
-    theme: "blue",
-    createdAt: "04월 10일",
-  },
-  {
-    id: "4",
-    to: "To. 팀원들",
-    from: "마음을 담아",
-    preview: "함께 고생한 프로젝트가 드디어...",
-    content: "",
-    keyword: "사과",
-    theme: "paper",
-    createdAt: "04월 10일",
-  },
-  {
-    id: "5",
-    to: "To. 팀원들",
-    from: "마음을 담아",
-    preview: "함께 고생한 프로젝트가 드디어...",
-    content: "",
-    keyword: "고백",
-    theme: "rose",
-    createdAt: "04월 10일",
-  },
-  {
-    id: "6",
-    to: "To. 팀원들",
-    from: "마음을 담아",
-    preview: "함께 고생한 프로젝트가 드디어...",
-    content: "",
-    keyword: "화해",
-    theme: "blue",
-    createdAt: "04월 10일",
-  },
-];
-
-const MOCK_RECEIVED: LetterItem[] = [
-  {
-    id: "r1",
-    to: "소중한 당신에게",
-    from: "소중한 친구",
-    preview: "진심으로 생일 축하해! 오늘 하루는...",
-    content:
-      "진심으로 생일 축하해!\n\n우리가 함께한 시간들이 나에게는 큰 선물이야. 항상 곁에 있어줘서 고마워!",
-    keyword: "생일",
-    theme: "rose",
-    createdAt: "04월 22일",
-  },
-];
-
+const PAGE_SIZE = 5;
 const THEME_ACCENT: Record<string, string> = {
   rose: "#e8526a",
   ivory: "#c08040",
@@ -148,6 +66,7 @@ function EmptyState({ text, subText, onWrite }: EmptyStateProps) {
   );
 }
 
+
 export default function MyPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<MyPageTab>("sent");
@@ -155,7 +74,6 @@ export default function MyPage() {
   const [receivedList, _setReceivedList] =
     useState<LetterItem[]>(MOCK_RECEIVED);
   const [feedbackText, setFeedbackText] = useState("");
-
   const handleFeedbackSubmit = () => {
     // TODO: 이메일 앱 호출 — 피그마 기획서 기준
   };
@@ -165,6 +83,22 @@ export default function MyPage() {
     { key: "received", label: "받은 편지" },
     { key: "feedback", label: "건의하기" },
   ];
+  const [page, setPage] = useState(1);
+
+  const visibleSentList = useMemo(() => {
+    return sentList.slice(0, page * PAGE_SIZE);
+  }, [sentList, page]);
+
+  const handleIntersect = useCallback(() => {
+    if (visibleSentList.length < sentList.length) {
+      setPage((prev) => prev + 1);
+    }
+  }, [visibleSentList.length, sentList.length]);
+
+  const { targetRef } = useIntersectionObserver({
+    onIntersect: handleIntersect,
+    threshold: 0.5,
+  });
 
   return (
     <div
@@ -299,17 +233,15 @@ export default function MyPage() {
               />
             ) : (
               <div className="flex flex-col gap-2">
-                {sentList.map((item) => {
+                {visibleSentList.map((item) => {
                   const tagColor = KEYWORD_TAG_COLOR[item.keyword];
-                  const accent =
-                    THEME_ACCENT[item.theme] ?? "var(--color-rose)";
+                  const accent = THEME_ACCENT[item.theme] ?? "var(--color-rose)";
                   return (
                     <div
                       key={item.id}
                       className="flex items-center gap-3 px-4 py-4 bg-white rounded-[14px] border border-black/[0.08] cursor-pointer"
                       onClick={() => navigate(`/mypage/sent/${item.id}`)}
                     >
-                      {/* 편지지 썸네일 */}
                       <div
                         className="w-[40px] h-[50px] rounded-[7px] flex items-center justify-center text-[18px] flex-shrink-0 relative overflow-hidden"
                         style={{ background: `${accent}22` }}
@@ -321,42 +253,20 @@ export default function MyPage() {
                         ✉
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p
-                          className="text-[16px] font-medium truncate"
-                          style={{
-                            fontFamily: "var(--font-sans)",
-                            color: "var(--color-ink)",
-                          }}
-                        >
+                        <p className="text-[16px] font-medium truncate" style={{ color: "var(--color-ink)" }}>
                           {item.to}
                         </p>
-                        <p
-                          className="text-[14px] truncate"
-                          style={{
-                            fontFamily: "var(--font-sans)",
-                            color: "var(--color-ink-soft)",
-                          }}
-                        >
+                        <p className="text-[14px] truncate" style={{ color: "var(--color-ink-soft)" }}>
                           {item.preview}
                         </p>
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <p
-                          className="text-[12px] mb-1"
-                          style={{
-                            fontFamily: "var(--font-sans)",
-                            color: "var(--color-ink-soft)",
-                          }}
-                        >
+                        <p className="text-[12px] mb-1" style={{ color: "var(--color-ink-soft)" }}>
                           {item.createdAt}
                         </p>
                         <span
                           className="text-[12px] font-medium px-2 py-[3px] rounded-[5px]"
-                          style={{
-                            fontFamily: "var(--font-sans)",
-                            background: tagColor.bg,
-                            color: tagColor.color,
-                          }}
+                          style={{ background: tagColor.bg, color: tagColor.color }}
                         >
                           {item.keyword}
                         </span>
@@ -364,6 +274,17 @@ export default function MyPage() {
                     </div>
                   );
                 })}
+
+                {/* [핵심] 레이지 스크롤 타겟: 데이터가 더 있을 때만 노출 */}
+                {visibleSentList.length < sentList.length && (
+                  <div
+                    ref={targetRef}
+                    className="flex items-center justify-center py-8 text-[14px]"
+                    style={{ color: "var(--color-ink-soft)", fontFamily: "var(--font-sans)" }}
+                  >
+                    마음을 불러오는 중...
+                  </div>
+                )}
               </div>
             ))}
 
