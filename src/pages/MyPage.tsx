@@ -11,7 +11,7 @@ import type {
   MyPageTab,
   LetterItem,
 } from "../shared/schemas/letterSchema";
-import { KEYWORD_TAG_COLOR } from "../shared/schemas/letterSchema";
+import { KEYWORD_TAG_COLOR, THEME_MAP } from "../shared/schemas/letterSchema";
 
 
 const PAGE_SIZE = 5;
@@ -235,12 +235,17 @@ export default function MyPage() {
               <div className="flex flex-col gap-2">
                 {visibleSentList.map((item) => {
                   const tagColor = KEYWORD_TAG_COLOR[item.keyword];
-                  const accent = THEME_ACCENT[item.theme] ?? "var(--color-rose)";
+                  const accent =
+                    THEME_MAP[item.theme]?.primaryColor ?? "#e8525a";
                   return (
                     <div
                       key={item.id}
                       className="flex items-center gap-3 px-4 py-4 bg-white rounded-[14px] border border-black/[0.08] cursor-pointer"
-                      onClick={() => navigate(`/mypage/sent/${item.id}`)}
+                      onClick={() =>
+                        navigate(`/mypage/sent/${item.id}`, {
+                          state: { letter: item },
+                        })
+                      }
                     >
                       <div
                         className="w-[40px] h-[50px] rounded-[7px] flex items-center justify-center text-[18px] flex-shrink-0 relative overflow-hidden"
@@ -300,7 +305,7 @@ export default function MyPage() {
               <div className="flex flex-col gap-2">
                 {receivedList.map((item) => {
                   const accent =
-                    THEME_ACCENT[item.theme] ?? "var(--color-rose)";
+                    THEME_MAP[item.theme]?.primaryColor ?? "#e8525a";
                   return (
                     <div
                       key={item.id}
