@@ -3,7 +3,9 @@ import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../shared/components/ui/Button";
 import { useIntersectionObserver } from "../shared/hooks/useIntersectionObserver";
-
+import { MOCK_SENT } from "../mockData/MockSent.ts";
+import { MOCK_RECEIVED } from "../mockData/MockReceived.ts";
+import { MOCK_USER } from "../mockData/MockUser.ts";
 
 import type {
   MyPageTab,
