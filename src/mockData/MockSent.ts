@@ -10,7 +10,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -21,7 +21,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -31,7 +31,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -42,7 +42,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -52,7 +52,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -63,7 +63,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -73,7 +73,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -84,7 +84,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -94,7 +94,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -105,7 +105,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -115,7 +115,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -126,7 +126,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -136,7 +136,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -147,7 +147,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -157,7 +157,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -168,7 +168,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -178,7 +178,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -189,7 +189,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -199,7 +199,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -210,7 +210,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -220,7 +220,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -231,7 +231,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -241,7 +241,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -252,7 +252,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -262,7 +262,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -273,7 +273,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -283,7 +283,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -294,7 +294,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -304,7 +304,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -315,7 +315,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -325,7 +325,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -336,7 +336,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -346,7 +346,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -357,7 +357,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -367,7 +367,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -378,7 +378,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -388,7 +388,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -399,7 +399,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -409,7 +409,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -420,7 +420,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -430,7 +430,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -441,7 +441,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -451,7 +451,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -462,7 +462,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -472,7 +472,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -483,7 +483,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -493,7 +493,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -504,7 +504,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -514,7 +514,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -525,7 +525,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -535,7 +535,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -546,7 +546,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -556,7 +556,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -567,7 +567,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -577,7 +577,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -588,7 +588,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -598,7 +598,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -609,7 +609,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -619,7 +619,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -630,7 +630,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -640,7 +640,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -651,7 +651,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -661,7 +661,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -672,7 +672,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -682,7 +682,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -693,7 +693,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -703,7 +703,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -714,7 +714,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -724,7 +724,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -735,7 +735,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -745,7 +745,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -756,7 +756,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -766,7 +766,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -777,7 +777,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -787,7 +787,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -798,7 +798,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -808,7 +808,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -819,7 +819,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -829,7 +829,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -840,7 +840,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -850,7 +850,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -861,7 +861,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -871,7 +871,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -882,7 +882,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -892,7 +892,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -903,7 +903,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -913,7 +913,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -924,7 +924,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -934,7 +934,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -945,7 +945,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -955,7 +955,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -966,7 +966,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -976,7 +976,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -987,7 +987,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -997,7 +997,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1008,7 +1008,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1018,7 +1018,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1029,7 +1029,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1039,7 +1039,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1050,7 +1050,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1060,7 +1060,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1071,7 +1071,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1081,7 +1081,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1092,7 +1092,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1102,7 +1102,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1113,7 +1113,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1123,7 +1123,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1134,7 +1134,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1144,7 +1144,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1155,7 +1155,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1165,7 +1165,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1176,7 +1176,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1186,7 +1186,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1197,7 +1197,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1207,7 +1207,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1218,7 +1218,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1228,7 +1228,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1239,7 +1239,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1249,7 +1249,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1260,7 +1260,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1270,7 +1270,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1281,7 +1281,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1291,7 +1291,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1302,7 +1302,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1312,7 +1312,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1323,7 +1323,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1333,7 +1333,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1344,7 +1344,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1354,7 +1354,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1365,7 +1365,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1375,7 +1375,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1386,7 +1386,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1396,7 +1396,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1407,7 +1407,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1417,7 +1417,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1428,7 +1428,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1438,7 +1438,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1449,7 +1449,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1459,7 +1459,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1470,7 +1470,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1480,7 +1480,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1491,7 +1491,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1501,7 +1501,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1512,7 +1512,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1522,7 +1522,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1533,7 +1533,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1543,7 +1543,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1554,7 +1554,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1564,7 +1564,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1575,7 +1575,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1585,7 +1585,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1596,7 +1596,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1606,7 +1606,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1617,7 +1617,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1627,7 +1627,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1638,7 +1638,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1648,7 +1648,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1659,7 +1659,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1669,7 +1669,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1680,7 +1680,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1690,7 +1690,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1701,7 +1701,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1711,7 +1711,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1722,7 +1722,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },  {
     id: "1",
@@ -1732,7 +1732,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
     keyword: "생일",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 22일",
   },
   {
@@ -1743,7 +1743,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "항상 저를 위해 애써주셔서 감사드려요. 엄마 덕분에 제가 이렇게 잘 자랄 수 있었어요.",
     keyword: "감사",
-    theme: "ivory",
+    theme: 2,
     createdAt: "04월 15일",
   },
   {
@@ -1754,7 +1754,7 @@ export const MOCK_SENT: LetterItem[] = [
     content:
       "함께 고생한 프로젝트가 드디어 마무리됐네요. 모두 정말 수고 많으셨어요!",
     keyword: "응원",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 10일",
   },
   {
@@ -1764,7 +1764,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "사과",
-    theme: "paper",
+    theme: 3,
     createdAt: "04월 10일",
   },
   {
@@ -1774,7 +1774,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "고백",
-    theme: "rose",
+    theme: 1,
     createdAt: "04월 10일",
   },
   {
@@ -1784,7 +1784,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1793,7 +1793,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1802,7 +1802,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1811,7 +1811,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1820,7 +1820,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1829,7 +1829,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1838,7 +1838,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1847,7 +1847,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1856,7 +1856,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1865,7 +1865,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1874,7 +1874,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1883,7 +1883,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1892,7 +1892,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1901,7 +1901,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1910,7 +1910,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1919,7 +1919,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1928,7 +1928,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1937,7 +1937,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1946,7 +1946,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1955,7 +1955,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1964,7 +1964,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1973,7 +1973,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1982,7 +1982,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -1991,7 +1991,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -2000,7 +2000,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -2009,7 +2009,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -2018,7 +2018,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -2027,7 +2027,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },  {
     id: "6",
@@ -2036,7 +2036,7 @@ export const MOCK_SENT: LetterItem[] = [
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
     keyword: "화해",
-    theme: "blue",
+    theme: 4,
     createdAt: "04월 12일",
   },
 ];
