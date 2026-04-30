@@ -3,11 +3,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import KakaoShareButton from "../shared/components/ui/KakaoShareButton";
 import type { LetterTheme } from "../shared/schemas/letterSchema";
-import { THEME_MAP } from "../shared/schemas/letterSchema";
+import LetterPaper from "../shared/components/ui/LetterPaper";
 
 const MOCK = {
   to: "To. 소중한 당신에게",
-  body: "진심으로 생일을 축하해! 🎂\n오늘 하루도 행복하길 바랄게.",
+  content: "진심으로 생일을 축하해! 🎂\n오늘 하루도 행복하길 바랄게.",
   from: "From. 마음을 담아",
   date: "2026년 04월 23일",
   password: "1234",
@@ -18,14 +18,12 @@ export default function ShareLink() {
   const location = useLocation();
   const state = location.state ?? {};
   // state가 빈값인 경우 기본값 제공
-  const theme = (state?.theme ?? "rose") as LetterTheme;
+  const theme = (state?.theme ?? 1) as LetterTheme;
   const to = state?.to ?? MOCK.to;
   const from = state?.from ?? MOCK.from;
-  const body = state?.content ?? MOCK.body;
-  const date = state?.date ?? new Date().toLocaleDateString("ko-KR");
-
-  const primaryColor = THEME_MAP[theme].primaryColor;
-  const bgColor = THEME_MAP[theme].bgColor;
+  const content = state?.content ?? MOCK.content;
+  const now = new Date();
+  const date = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(2, "0")}월 ${String(now.getDate()).padStart(2, "0")}일`;
 
   return (
     <div
@@ -96,55 +94,15 @@ export default function ShareLink() {
         </p>
 
         {/* 편지 미리보기: 350x183 */}
-        <div
-          className="w-full rounded-[16px] overflow-hidden border border-black/[0.06] mb-5"
-          style={{ boxShadow: "0 4px 20px rgba(28,23,20,0.06)" }}
-        >
-          <div
-            className="h-[3px]"
-            style={{
-              background: primaryColor,
-            }}
-          />
-          <div className="px-6 py-5 text-left" style={{ background: bgColor }}>
-            <div
-              className="w-[22px] h-px mb-3"
-              style={{ background: bgColor }}
-            />
-            <p
-              className="text-[14px] italic mb-3"
-              style={{ fontFamily: "var(--font-serif)", color: primaryColor }}
-            >
-              {to}
-            </p>
-            <p
-              className="text-[16px] leading-[1.85] mb-4 whitespace-pre-line"
-              style={{
-                fontFamily: "var(--font-serif)",
-                color: "var(--color-ink-mid)",
-              }}
-            >
-              {body}
-            </p>
-            <div className="flex justify-between pt-3 border-t border-black/[0.06]">
-              <span
-                className="text-[12px] italic"
-                style={{ fontFamily: "var(--font-serif)", color: primaryColor }}
-              >
-                {from}
-              </span>
-              <span
-                className="text-[11px]"
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  color: "var(--color-ink-soft)",
-                }}
-              >
-                {date}
-              </span>
-            </div>
-          </div>
-        </div>
+
+        <LetterPaper
+          theme={theme}
+          to={to}
+          content={content}
+          from={from}
+          date={date}
+          preview
+        />
 
         {/* 열람용 비밀번호: field 350x92 */}
         <div className="w-full text-left mb-5">

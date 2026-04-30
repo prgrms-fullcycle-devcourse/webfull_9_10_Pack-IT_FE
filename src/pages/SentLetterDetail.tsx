@@ -5,7 +5,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import KakaoShareButton from "../shared/components/ui/KakaoShareButton";
 import Button from "../shared/components/ui/Button";
-import { THEME_MAP, type LetterItem } from "../shared/schemas/letterSchema";
+import { type LetterItem } from "../shared/schemas/letterSchema";
+import BackButton from "../shared/components/ui/BackButton";
+import LetterPaper from "../shared/components/ui/LetterPaper";
 
 // TODO: useParams().id → GET /letters/:id API 연동
 
@@ -13,8 +15,8 @@ export default function SentLetterDetail() {
   const navigate = useNavigate();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const location = useLocation();
+  const activeTab = location.state?.activeTab ?? "sent";
   const letter = location.state?.letter as LetterItem;
-  const theme = THEME_MAP[letter?.theme ?? 1];
 
   if (!letter) {
     navigate(-1);
@@ -37,20 +39,9 @@ export default function SentLetterDetail() {
         className="h-[52px] flex items-center px-5 border-b border-black/[0.08] flex-shrink-0 bg-white"
         style={{ position: "sticky", top: 0, zIndex: 100 }}
       >
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-1 text-[16px] bg-transparent border-none pr-4 cursor-pointer mr-auto"
-        >
-          <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
-            <path
-              d="M9 1L1 9L9 17"
-              stroke="#5a4f4a"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+        <BackButton
+          onClick={() => navigate("/mypage", { state: { activeTab } })}
+        />
         <span
           className="text-[16px] font-bold absolute left-1/2 -translate-x-1/2"
           style={{ fontFamily: "var(--font-serif)", color: "var(--color-ink)" }}
@@ -61,61 +52,16 @@ export default function SentLetterDetail() {
 
       <div className="flex-1 overflow-y-auto px-5 py-6">
         {/* 편지지 */}
-        <div
-          className="rounded-[16px] overflow-hidden border border-black/[0.06] mb-4"
-          style={{ boxShadow: "0 4px 20px rgba(28,23,20,0.06)" }}
-        >
-          <div
-            className="h-[3px]"
-            style={{
-              background: theme.primaryColor,
-            }}
-          />
-          <div className="px-6 py-5" style={{ background: theme.bgColor }}>
-            <div
-              className="w-[22px] h-px mb-3"
-              style={{ background: theme.decoColor }}
-            />
-            <p
-              className="text-[14px] italic mb-3"
-              style={{
-                fontFamily: "var(--font-serif)",
-                color: theme.primaryColor,
-              }}
-            >
-              {letter.to}
-            </p>
-            <p
-              className="text-[16px] leading-[1.85] mb-4 whitespace-pre-line"
-              style={{
-                fontFamily: "var(--font-serif)",
-                color: "var(--color-ink-mid)",
-              }}
-            >
-              {letter.content}
-            </p>
-            <div className="flex justify-between pt-3 border-t border-black/[0.06]">
-              <span
-                className="text-[12px] italic"
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  color: theme.primaryColor,
-                }}
-              >
-                {letter.from}
-              </span>
-              <span
-                className="text-[11px]"
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  color: "var(--color-ink-soft)",
-                }}
-              >
-                {letter.createdAt}
-              </span>
-            </div>
-          </div>
-        </div>
+        <LetterPaper
+          theme={letter.theme}
+          to={letter.to}
+          content={letter.content}
+          from={letter.from}
+          date={letter.createdAt}
+          className="mb-4"
+          scrollable
+        />
+
         <Button
           variant="ghost"
           size="md"

@@ -18,6 +18,8 @@ import {
   TONE_LIST,
   THEME_MAP,
 } from "../shared/schemas/letterSchema";
+import BackButton from "../shared/components/ui/BackButton";
+import LetterPaper from "../shared/components/ui/LetterPaper";
 
 const MAX_CONTENT = 500;
 
@@ -97,20 +99,11 @@ export default function WriteLetter() {
         className="h-[52px] flex items-center justify-between px-5 border-b border-black/[0.08] flex-shrink-0 bg-white"
         style={{ position: "sticky", top: 0, zIndex: 100 }}
       >
-        <button
-          onClick={goPrev}
-          className="w-8 h-8 flex items-center justify-center text-[var(--color-ink-mid)] bg-transparent pr-4 border-none cursor-pointer"
-        >
-          <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
-            <path
-              d="M9 1L1 9L9 17"
-              stroke="#5a4f4a"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+        <BackButton
+          onClick={() => {
+            goPrev();
+          }}
+        />
         <StepBar steps={stepBarSteps} />
         <div className="w-8" />
       </nav>
@@ -500,56 +493,14 @@ export default function WriteLetter() {
               >
                 미리보기
               </p>
-              <div
-                className="rounded-[16px] overflow-hidden border border-black/[0.06] mb-6"
-                style={{ boxShadow: "0 4px 20px rgba(28,23,20,0.06)" }}
-              >
-                <div
-                  className="h-[3px]"
-                  style={{
-                    background: THEME_MAP[form.theme].primaryColor,
-                  }}
-                />
-                <div
-                  className="px-6 py-5"
-                  style={{ background: THEME_MAP[form.theme].bgColor }}
-                >
-                  <div
-                    className="w-[22px] h-px mb-3"
-                    style={{ background: THEME_MAP[form.theme].decoColor }}
-                  />
-                  <p
-                    className="text-[14px] italic mb-3"
-                    style={{
-                      fontFamily: "var(--font-serif)",
-                      color: THEME_MAP[form.theme].primaryColor,
-                    }}
-                  >
-                    To. {form.to || "소중한 당신에게"}
-                  </p>
-                  <p
-                    className="text-[16px] leading-[1.85] mb-4 line-clamp-2"
-                    style={{
-                      fontFamily: "var(--font-serif)",
-                      color: "var(--color-ink-mid)",
-                    }}
-                  >
-                    {form.content.slice(0, 50)}
-                    {form.content.length > 50 ? "…" : ""}
-                  </p>
-                  <div className="flex justify-between pt-3 border-t border-black/[0.06]">
-                    <span
-                      className="text-[12px] italic"
-                      style={{
-                        fontFamily: "var(--font-serif)",
-                        color: THEME_MAP[form.theme].primaryColor,
-                      }}
-                    >
-                      From. {form.from || "마음을 담아"}
-                    </span>
-                  </div>
-                </div>
-              </div>
+
+              <LetterPaper
+                theme={form.theme}
+                to={form.to}
+                content={form.content}
+                from={form.from}
+                preview
+              />
             </>
           )}
         </div>
