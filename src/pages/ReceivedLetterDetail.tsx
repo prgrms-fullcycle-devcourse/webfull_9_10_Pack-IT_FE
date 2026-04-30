@@ -7,6 +7,7 @@ import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
 import type { LetterItem } from "../shared/schemas/letterSchema";
+import { HtmlToImage } from "../shared/utils/HtmlToImage";
 
 // TODO: useParams().id → GET /letters/:id API 연동
 
@@ -60,7 +61,7 @@ export default function ReceivedLetterDetail() {
         </span>
       </nav>
 
-      <div className="flex-1 overflow-y-auto px-5 py-6">
+      <div className="flex-1 overflow-y-auto px-5 py-6" id="ImageSet">
         {/* 편지지 — 피그마: 내용 전체, 초과 시 스크롤 */}
         <LetterPaper
           theme={letter.theme}
@@ -78,7 +79,7 @@ export default function ReceivedLetterDetail() {
             variant="ghost"
             size="md"
             fullWidth={true}
-            onClick={handleImageSave}
+            onClick={HtmlToImage}
           >
             이미지 저장
           </Button>
