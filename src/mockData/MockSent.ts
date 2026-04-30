@@ -4,7 +4,7 @@ import type { LetterItem } from "../shared/schemas/letterSchema";
 export const MOCK_SENT: LetterItem[] = [
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -15,7 +15,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -26,7 +26,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -37,7 +37,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -48,7 +48,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -59,7 +59,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -70,7 +70,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -81,7 +81,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -92,7 +92,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -103,7 +103,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -114,7 +114,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -125,7 +125,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -136,7 +136,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -147,7 +147,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -158,7 +158,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -169,7 +169,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -180,7 +180,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -191,7 +191,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -202,7 +202,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -213,7 +213,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -224,7 +224,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -235,7 +235,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -246,7 +246,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -257,7 +257,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -268,7 +268,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -279,7 +279,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -290,7 +290,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -301,7 +301,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -312,7 +312,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -323,7 +323,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -334,7 +334,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -345,7 +345,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -356,7 +356,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -367,7 +367,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -378,7 +378,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -389,7 +389,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -400,7 +400,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -411,7 +411,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -422,7 +422,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -433,7 +433,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -444,7 +444,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -455,7 +455,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -466,7 +466,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -477,7 +477,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -488,7 +488,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -499,7 +499,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -510,7 +510,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -521,7 +521,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -532,7 +532,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -543,7 +543,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -554,7 +554,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -565,7 +565,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -576,7 +576,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -587,7 +587,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -598,7 +598,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -609,7 +609,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -620,7 +620,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -631,7 +631,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -642,7 +642,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -653,7 +653,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -664,7 +664,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -675,7 +675,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -686,7 +686,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -697,7 +697,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -708,7 +708,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -719,7 +719,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -730,7 +730,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -741,7 +741,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -752,7 +752,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -763,7 +763,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -774,7 +774,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -785,7 +785,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -796,7 +796,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -807,7 +807,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -818,7 +818,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -829,7 +829,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -840,7 +840,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -851,7 +851,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -862,7 +862,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -873,7 +873,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -884,7 +884,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -895,7 +895,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -906,7 +906,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -917,7 +917,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -928,7 +928,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -939,7 +939,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -950,7 +950,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -961,7 +961,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -972,7 +972,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -983,7 +983,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -994,7 +994,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1005,7 +1005,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1016,7 +1016,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1027,7 +1027,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1038,7 +1038,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1049,7 +1049,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1060,7 +1060,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1071,7 +1071,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1082,7 +1082,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1093,7 +1093,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1104,7 +1104,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1115,7 +1115,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1126,7 +1126,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1137,7 +1137,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1148,7 +1148,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1159,7 +1159,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1170,7 +1170,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1181,7 +1181,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1192,7 +1192,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1203,7 +1203,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1214,7 +1214,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1225,7 +1225,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1236,7 +1236,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1247,7 +1247,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1258,7 +1258,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1269,7 +1269,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1280,7 +1280,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1291,7 +1291,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1302,7 +1302,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1313,7 +1313,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1324,7 +1324,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1335,7 +1335,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1346,7 +1346,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1357,7 +1357,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1368,7 +1368,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1379,7 +1379,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1390,7 +1390,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1401,7 +1401,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1412,7 +1412,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1423,7 +1423,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1434,7 +1434,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1445,7 +1445,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1456,7 +1456,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1467,7 +1467,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1478,7 +1478,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1489,7 +1489,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1500,7 +1500,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1511,7 +1511,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1522,7 +1522,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1533,7 +1533,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1544,7 +1544,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1555,7 +1555,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1566,7 +1566,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1577,7 +1577,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1588,7 +1588,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1599,7 +1599,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1610,7 +1610,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1621,7 +1621,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1632,7 +1632,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1643,7 +1643,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1654,7 +1654,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1665,7 +1665,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1676,7 +1676,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1687,7 +1687,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1698,7 +1698,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1709,7 +1709,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1720,7 +1720,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1731,7 +1731,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1742,7 +1742,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1753,7 +1753,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1764,7 +1764,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1775,7 +1775,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1786,7 +1786,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1797,7 +1797,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1808,7 +1808,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "1",
-    to: "To. 소중한 친구",
+    to: "소중한 친구",
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
@@ -1819,7 +1819,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "2",
-    to: "To. 엄마",
+    to: "엄마",
     from: "마음을 담아",
     preview: "항상 저를 위해 애써주셔서 감사...",
     content:
@@ -1830,7 +1830,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "3",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content:
@@ -1841,7 +1841,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "4",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1851,7 +1851,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "5",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1861,7 +1861,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1871,7 +1871,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1881,7 +1881,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1891,7 +1891,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1901,7 +1901,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1911,7 +1911,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1921,7 +1921,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1931,7 +1931,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1941,7 +1941,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1951,7 +1951,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1961,7 +1961,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1971,7 +1971,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1981,7 +1981,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -1991,7 +1991,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2001,7 +2001,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2011,7 +2011,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2021,7 +2021,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2031,7 +2031,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2041,7 +2041,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2051,7 +2051,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2061,7 +2061,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2071,7 +2071,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2081,7 +2081,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2091,7 +2091,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2101,7 +2101,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2111,7 +2111,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2121,7 +2121,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2131,7 +2131,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",
@@ -2141,7 +2141,7 @@ export const MOCK_SENT: LetterItem[] = [
   },
   {
     id: "6",
-    to: "To. 팀원들",
+    to: "팀원들",
     from: "마음을 담아",
     preview: "함께 고생한 프로젝트가 드디어...",
     content: "",

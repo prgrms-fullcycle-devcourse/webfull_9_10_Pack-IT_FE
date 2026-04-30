@@ -130,19 +130,20 @@ export default function MyPage() {
             >
               {MOCK_USER.name}
             </span>
-            <button
+            <Button
+              variant="primary"
+              size="sm"
+              style={{
+                background: "var(--color-rose-pale)",
+                color: "var(--color-rose)",
+                boxShadow: "none",
+              }}
               onClick={() => {
                 /* TODO: 로그아웃 */
               }}
-              className="px-4 py-[6px] rounded-[8px] text-[13px] font-medium border-none cursor-pointer"
-              style={{
-                fontFamily: "var(--font-sans)",
-                background: "var(--color-rose-pale)",
-                color: "var(--color-rose)",
-              }}
             >
               로그아웃
-            </button>
+            </Button>
           </div>
           {/* 쓴 편지 / 받은 편지 카운트 — 피그마: 2열 */}
 

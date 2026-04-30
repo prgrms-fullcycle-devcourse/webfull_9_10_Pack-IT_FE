@@ -26,6 +26,7 @@ export default function LetterListItem({
       onClick={() => onClick?.(item)}
       className={`
         flex items-center gap-3 px-4 py-4 bg-white rounded-[14px] border border-black/[0.08] cursor-pointer
+        active:scale-[0.97] transition-transform duration-100
       `}
     >
       {/* thumb */}
@@ -48,7 +49,7 @@ export default function LetterListItem({
           className="text-[16px] font-medium truncate"
           style={{ fontFamily: "var(--font-sans)", color: "var(--color-ink)" }}
         >
-          {type === "sent" ? item.to : `From. ${item.from}`}
+          {type === "sent" ? `To. ${item.to}` : `From. ${item.from}`}
         </p>
         <p
           className={`text-[14px] truncate `}
