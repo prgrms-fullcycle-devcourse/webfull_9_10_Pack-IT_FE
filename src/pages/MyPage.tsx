@@ -1,6 +1,6 @@
 // src/pages/MyPage.tsx
 import { useCallback, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../shared/components/ui/Button";
 import { useIntersectionObserver } from "../shared/hooks/useIntersectionObserver";
 import { MOCK_SENT } from "../mockData/MockSent.ts";
@@ -8,7 +8,6 @@ import { MOCK_RECEIVED } from "../mockData/MockReceived.ts";
 import { MOCK_USER } from "../mockData/MockUser.ts";
 
 import type { MyPageTab, LetterItem } from "../shared/schemas/letterSchema";
-import { KEYWORD_TAG_COLOR, THEME_MAP } from "../shared/schemas/letterSchema";
 import BackButton from "../shared/components/ui/BackButton.tsx";
 import LetterListItem from "../shared/components/ui/LetterListItem.tsx";
 
@@ -60,11 +59,15 @@ function EmptyState({ text, subText, onWrite }: EmptyStateProps) {
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<MyPageTab>("sent");
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState<MyPageTab>(
+    location.state?.activeTab ?? "sent",
+  );
   const [sentList, _setSentList] = useState<LetterItem[]>(MOCK_SENT);
   const [receivedList, _setReceivedList] =
     useState<LetterItem[]>(MOCK_RECEIVED);
   const [feedbackText, setFeedbackText] = useState("");
+
   const handleFeedbackSubmit = () => {
     // TODO: 이메일 앱 호출 — 피그마 기획서 기준
   };
@@ -222,7 +225,7 @@ export default function MyPage() {
                       type="sent"
                       onClick={() =>
                         navigate(`/mypage/sent/${item.id}`, {
-                          state: { letter: item },
+                          state: { letter: item, activeTab },
                         })
                       }
                     />
@@ -263,7 +266,7 @@ export default function MyPage() {
                       type="received"
                       onClick={() =>
                         navigate(`/mypage/sent/${item.id}`, {
-                          state: { letter: item },
+                          state: { letter: item, activeTab },
                         })
                       }
                     />

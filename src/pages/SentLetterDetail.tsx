@@ -15,6 +15,7 @@ export default function SentLetterDetail() {
   const navigate = useNavigate();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const location = useLocation();
+  const activeTab = location.state?.activeTab ?? "sent";
   const letter = location.state?.letter as LetterItem;
 
   if (!letter) {
@@ -38,7 +39,9 @@ export default function SentLetterDetail() {
         className="h-[52px] flex items-center px-5 border-b border-black/[0.08] flex-shrink-0 bg-white"
         style={{ position: "sticky", top: 0, zIndex: 100 }}
       >
-        <BackButton />
+        <BackButton
+          onClick={() => navigate("/mypage", { state: { activeTab } })}
+        />
         <span
           className="text-[16px] font-bold absolute left-1/2 -translate-x-1/2"
           style={{ fontFamily: "var(--font-serif)", color: "var(--color-ink)" }}
