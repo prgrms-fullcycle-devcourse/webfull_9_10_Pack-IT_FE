@@ -7,9 +7,10 @@ interface LetterPaperProps {
   to: string;
   content: string;
   from: string;
-  date: string;
+  date?: string;
   preview?: boolean;
   scrollable?: boolean;
+  scrollShare?: boolean;
   className?: string;
 }
 
@@ -21,22 +22,24 @@ export default function LetterPaper({
   date,
   preview = false,
   className = "",
+  scrollable = false,
+  scrollShare = false,
 }: LetterPaperProps) {
   const t = THEME_MAP[theme];
   const displayPreview = preview
-    ? content.slice(0, 50) + (content.length > 50 ? "..." : "")
+    ? content.slice(0, 46) + (content.length > 46 ? "..." : "")
     : content;
 
   return (
     <div
-      className={`rounded-[16px] overflow-hidden border border-black/[0.06] ${className}`}
+      className={`w-full mb-5 rounded-[16px] overflow-hidden border border-black/[0.06] ${className}`}
       style={{ boxShadow: "0 4px 20px rgba(28,23,20,0.06)" }}
     >
       {/* 상단 띠지 */}
       <div className="h-[3px]" style={{ background: t.primaryColor }} />
 
       {/* 편지지 본문 */}
-      <div className="px-6 py-5" style={{ background: t.bgColor }}>
+      <div className="text-left px-6 py-5" style={{ background: t.bgColor }}>
         {/* 장식선 */}
         <div
           className="w-[22px] h-px mb-3"
@@ -45,18 +48,20 @@ export default function LetterPaper({
 
         {/* To */}
         <p
-          className="text-[14px] italic mb-3"
+          className=" text-[14px] italic mb-3"
           style={{ fontFamily: "var(--font-serif)", color: t.primaryColor }}
         >
-          {to}
+          To. {to}
         </p>
 
         {/* 편지 내용 */}
         <p
-          className="text-[16px] leading-[1.85] mb-4 whitespace-pre-line"
+          className=" text-[16px] leading-[1.85] mb-4 whitespace-pre-line"
           style={{
             fontFamily: "var(--font-serif)",
             color: "var(--color-ink-mid)",
+            ...(scrollable && { maxHeight: 340, overflowY: "auto" }),
+            ...(scrollShare && { maxHeight: 200, overflowY: "auto" }),
           }}
         >
           {displayPreview}
@@ -68,7 +73,7 @@ export default function LetterPaper({
             className="text-[12px] italic"
             style={{ fontFamily: "var(--font-serif)", color: t.primaryColor }}
           >
-            {from}
+            From. {from}
           </span>
           <span
             className="text-[11px]"

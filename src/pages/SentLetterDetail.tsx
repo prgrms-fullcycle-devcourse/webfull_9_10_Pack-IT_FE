@@ -56,6 +56,7 @@ export default function SentLetterDetail() {
           from={letter.from}
           date={letter.createdAt}
           className="mb-4"
+          scrollable
         />
 
         <Button

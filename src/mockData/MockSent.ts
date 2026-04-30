@@ -1,5 +1,5 @@
 // TODO: API 연동 후 제거
-import type { LetterItem, } from "../shared/schemas/letterSchema";
+import type { LetterItem } from "../shared/schemas/letterSchema";
 
 export const MOCK_SENT: LetterItem[] = [
   {
@@ -8,7 +8,7 @@ export const MOCK_SENT: LetterItem[] = [
     from: "마음을 담아",
     preview: "진심으로 생일 축하해! 오늘 하루는...",
     content:
-      "진심으로 생일 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다.",
+      "오늘 너의 생일을 진심으로 축하해.\n\n벌써 이렇게 또 한 해가 지나갔다는 게 신기하기도 하고, 그만큼 우리가 함께한 시간이 쌓였다는 게 새삼 감사하게 느껴져.\n\n처음 우리가 만났던 날이 생각나. 그때는 서로 어색하기만 했는데, 지금은 이렇게 편하게 마음을 나눌 수 있는 사이가 됐잖아.\n\n네가 내 곁에 있어줘서 얼마나 든든한지 몰라. 힘든 날에도 네 얼굴만 보면 왠지 다 괜찮아질 것 같은 기분이 들거든.\n\n앞으로도 네가 하고 싶은 것들 다 해내고, 원하는 것들 다 이루길 바랄게.\n\n오늘 하루만큼은 네가 세상에서 제일 특별한 사람이라는 걸 느꼈으면 좋겠어. 생일 축하해! 🎂✨",
     keyword: "생일",
     theme: 1,
     createdAt: "04월 22일",
@@ -23,7 +23,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -44,7 +45,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -65,7 +67,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -86,7 +89,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -107,7 +111,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -128,7 +133,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -149,7 +155,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -170,7 +177,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -191,7 +199,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -212,7 +221,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -233,7 +243,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -254,7 +265,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -275,7 +287,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -296,7 +309,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -317,7 +331,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -338,7 +353,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -359,7 +375,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -380,7 +397,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -401,7 +419,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -422,7 +441,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -443,7 +463,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -464,7 +485,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -485,7 +507,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -506,7 +529,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -527,7 +551,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -548,7 +573,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -569,7 +595,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -590,7 +617,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -611,7 +639,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -632,7 +661,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -653,7 +683,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -674,7 +705,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -695,7 +727,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -716,7 +749,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -737,7 +771,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -758,7 +793,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -779,7 +815,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -800,7 +837,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -821,7 +859,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -842,7 +881,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -863,7 +903,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -884,7 +925,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -905,7 +947,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -926,7 +969,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -947,7 +991,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -968,7 +1013,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -989,7 +1035,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1010,7 +1057,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1031,7 +1079,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1052,7 +1101,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1073,7 +1123,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1094,7 +1145,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1115,7 +1167,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1136,7 +1189,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1157,7 +1211,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1178,7 +1233,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1199,7 +1255,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1220,7 +1277,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1241,7 +1299,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1262,7 +1321,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1283,7 +1343,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1304,7 +1365,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1325,7 +1387,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1346,7 +1409,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1367,7 +1431,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1388,7 +1453,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1409,7 +1475,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1430,7 +1497,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1451,7 +1519,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1472,7 +1541,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1493,7 +1563,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1514,7 +1585,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1535,7 +1607,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1556,7 +1629,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1577,7 +1651,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1598,7 +1673,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1619,7 +1695,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1640,7 +1717,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1661,7 +1739,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1682,7 +1761,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1703,7 +1783,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1724,7 +1805,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "감사",
     theme: 2,
     createdAt: "04월 15일",
-  },  {
+  },
+  {
     id: "1",
     to: "To. 소중한 친구",
     from: "마음을 담아",
@@ -1786,7 +1868,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1795,7 +1878,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1804,7 +1888,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1813,7 +1898,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1822,7 +1908,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1831,7 +1918,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1840,7 +1928,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1849,7 +1938,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1858,7 +1948,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1867,7 +1958,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1876,7 +1968,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1885,7 +1978,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1894,7 +1988,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1903,7 +1998,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1912,7 +2008,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1921,7 +2018,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1930,7 +2028,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1939,7 +2038,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1948,7 +2048,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1957,7 +2058,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1966,7 +2068,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1975,7 +2078,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1984,7 +2088,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -1993,7 +2098,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -2002,7 +2108,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -2011,7 +2118,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -2020,7 +2128,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",
@@ -2029,7 +2138,8 @@ export const MOCK_SENT: LetterItem[] = [
     keyword: "화해",
     theme: 4,
     createdAt: "04월 12일",
-  },  {
+  },
+  {
     id: "6",
     to: "To. 팀원들",
     from: "마음을 담아",

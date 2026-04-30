@@ -66,6 +66,7 @@ export default function ReceivedLetterDetail() {
           from={letter.from}
           date={letter.createdAt}
           className="mb-4"
+          scrollable
         />
 
         {/* 이미지 저장 + 편지 삭제 — 피그마: 2열 버튼 */}
