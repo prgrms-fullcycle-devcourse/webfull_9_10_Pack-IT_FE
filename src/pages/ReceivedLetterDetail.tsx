@@ -29,11 +29,6 @@ export default function ReceivedLetterDetail() {
     navigate(-1);
   };
 
-  const handleImageSave = () => {
-    // TODO: 편지지 이미지 저장 (png 형식) — html2canvas 등 활용
-    alert("이미지 저장 기능 구현 예정입니다.");
-  };
-
   const handleReply = () => {
     // 피그마: 수신자를 발신자로, 발신자를 수신자로 swap하여 편지쓰기 이동
     // TODO: navigate state로 to/from 전달
