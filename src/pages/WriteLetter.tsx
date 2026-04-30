@@ -18,6 +18,7 @@ import {
   TONE_LIST,
   THEME_MAP,
 } from "../shared/schemas/letterSchema";
+import BackButton from "../shared/components/ui/BackButton";
 
 const MAX_CONTENT = 500;
 
@@ -97,20 +98,11 @@ export default function WriteLetter() {
         className="h-[52px] flex items-center justify-between px-5 border-b border-black/[0.08] flex-shrink-0 bg-white"
         style={{ position: "sticky", top: 0, zIndex: 100 }}
       >
-        <button
-          onClick={goPrev}
-          className="w-8 h-8 flex items-center justify-center text-[var(--color-ink-mid)] bg-transparent pr-4 border-none cursor-pointer"
-        >
-          <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
-            <path
-              d="M9 1L1 9L9 17"
-              stroke="#5a4f4a"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+        <BackButton
+          onClick={() => {
+            goPrev();
+          }}
+        />
         <StepBar steps={stepBarSteps} />
         <div className="w-8" />
       </nav>

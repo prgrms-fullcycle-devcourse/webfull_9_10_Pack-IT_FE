@@ -7,12 +7,10 @@ import { MOCK_SENT } from "../mockData/MockSent.ts";
 import { MOCK_RECEIVED } from "../mockData/MockReceived.ts";
 import { MOCK_USER } from "../mockData/MockUser.ts";
 
-import type {
-  MyPageTab,
-  LetterItem,
-} from "../shared/schemas/letterSchema";
+import type { MyPageTab, LetterItem } from "../shared/schemas/letterSchema";
 import { KEYWORD_TAG_COLOR, THEME_MAP } from "../shared/schemas/letterSchema";
-
+import BackButton from "../shared/components/ui/BackButton.tsx";
+import LetterListItem from "../shared/components/ui/LetterListItem.tsx";
 
 const PAGE_SIZE = 5;
 
@@ -60,7 +58,6 @@ function EmptyState({ text, subText, onWrite }: EmptyStateProps) {
   );
 }
 
-
 export default function MyPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<MyPageTab>("sent");
@@ -89,7 +86,8 @@ export default function MyPage() {
     }
   }, [visibleSentList.length, sentList.length]);
 
-  const { targetRef } = useIntersectionObserver({ //TODO: api 적용 후 로딩 시 다음 데이터 불러오기
+  const { targetRef } = useIntersectionObserver({
+    //TODO: api 적용 후 로딩 시 다음 데이터 불러오기
     onIntersect: handleIntersect,
     threshold: 0.5,
   });
@@ -104,20 +102,8 @@ export default function MyPage() {
         className="flex flex-shrink-0 h-[52px] items-center justify-between px-5 border-b border-black/[0.08] flex-shrink-0 bg-white"
         style={{ position: "sticky", top: 0, zIndex: 100 }}
       >
-        <button
-          onClick={() => navigate("/")}
-          className="w-8 h-8 flex items-center justify-center text-[16px] bg-transparent pr-4 border-none cursor-pointer"
-        >
-          <svg width="10" height="18" viewBox="0 0 10 18" fill="none">
-            <path
-              d="M9 1L1 9L9 17"
-              stroke="#5a4f4a"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
+        <BackButton onClick={() => navigate("/")} />
+
         <Button
           variant="primary"
           size="sm"
@@ -156,6 +142,7 @@ export default function MyPage() {
             </button>
           </div>
           {/* 쓴 편지 / 받은 편지 카운트 — 피그마: 2열 */}
+
           <div className="grid grid-cols-2 gap-3">
             {[
               { n: MOCK_USER.sentCount, l: "쓴 편지" },
@@ -228,49 +215,17 @@ export default function MyPage() {
             ) : (
               <div className="flex flex-col gap-2">
                 {visibleSentList.map((item) => {
-                  const tagColor = KEYWORD_TAG_COLOR[item.keyword];
-                  const accent =
-                    THEME_MAP[item.theme]?.primaryColor ?? "#e8525a";
                   return (
-                    <div
+                    <LetterListItem
                       key={item.id}
-                      className="flex items-center gap-3 px-4 py-4 bg-white rounded-[14px] border border-black/[0.08] cursor-pointer"
+                      item={item}
+                      type="sent"
                       onClick={() =>
                         navigate(`/mypage/sent/${item.id}`, {
                           state: { letter: item },
                         })
                       }
-                    >
-                      <div
-                        className="w-[40px] h-[50px] rounded-[7px] flex items-center justify-center text-[18px] flex-shrink-0 relative overflow-hidden"
-                        style={{ background: `${accent}22` }}
-                      >
-                        <div
-                          className="absolute top-0 left-0 right-0 h-[2px]"
-                          style={{ background: accent }}
-                        />
-                        ✉
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[16px] font-medium truncate" style={{ color: "var(--color-ink)" }}>
-                          {item.to}
-                        </p>
-                        <p className="text-[14px] truncate" style={{ color: "var(--color-ink-soft)" }}>
-                          {item.preview}
-                        </p>
-                      </div>
-                      <div className="text-right flex-shrink-0">
-                        <p className="text-[12px] mb-1" style={{ color: "var(--color-ink-soft)" }}>
-                          {item.createdAt}
-                        </p>
-                        <span
-                          className="text-[12px] font-medium px-2 py-[3px] rounded-[5px]"
-                          style={{ background: tagColor.bg, color: tagColor.color }}
-                        >
-                          {item.keyword}
-                        </span>
-                      </div>
-                    </div>
+                    />
                   );
                 })}
 
@@ -279,7 +234,10 @@ export default function MyPage() {
                   <div
                     ref={targetRef}
                     className="flex items-center justify-center py-8 text-[14px]"
-                    style={{ color: "var(--color-ink-soft)", fontFamily: "var(--font-sans)" }}
+                    style={{
+                      color: "var(--color-ink-soft)",
+                      fontFamily: "var(--font-sans)",
+                    }}
                   >
                     마음을 불러오는 중...
                   </div>
@@ -298,56 +256,17 @@ export default function MyPage() {
             ) : (
               <div className="flex flex-col gap-2">
                 {receivedList.map((item) => {
-                  const accent =
-                    THEME_MAP[item.theme]?.primaryColor ?? "#e8525a";
                   return (
-                    <div
+                    <LetterListItem
                       key={item.id}
-                      className="flex items-center gap-3 px-4 py-4 bg-white rounded-[14px] border border-black/[0.08] cursor-pointer"
-                      onClick={() => navigate(`/mypage/received/${item.id}`)}
-                    >
-                      <div
-                        className="w-[40px] h-[50px] rounded-[7px] flex items-center justify-center text-[18px] flex-shrink-0 relative overflow-hidden"
-                        style={{ background: `${accent}22` }}
-                      >
-                        <div
-                          className="absolute top-0 left-0 right-0 h-[2px]"
-                          style={{ background: accent }}
-                        />
-                        ✉
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p
-                          className="text-[16px] font-medium truncate"
-                          style={{
-                            fontFamily: "var(--font-sans)",
-                            color: "var(--color-ink)",
-                          }}
-                        >
-                          From. {item.from}
-                        </p>
-                        <p
-                          className="text-[14px] truncate"
-                          style={{
-                            fontFamily: "var(--font-sans)",
-                            color: "var(--color-ink-soft)",
-                          }}
-                        >
-                          {item.preview}
-                        </p>
-                      </div>
-                      <div className="text-right flex-shrink-0">
-                        <p
-                          className="text-[12px]"
-                          style={{
-                            fontFamily: "var(--font-sans)",
-                            color: "var(--color-ink-soft)",
-                          }}
-                        >
-                          {item.createdAt}
-                        </p>
-                      </div>
-                    </div>
+                      item={item}
+                      type="received"
+                      onClick={() =>
+                        navigate(`/mypage/sent/${item.id}`, {
+                          state: { letter: item },
+                        })
+                      }
+                    />
                   );
                 })}
               </div>
