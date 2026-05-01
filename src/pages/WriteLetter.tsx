@@ -50,7 +50,7 @@ const STEPS = [
   { label: "기본 정보" },
   { label: "편지 작성" },
   { label: "편지지 선택" },
-  { label: "보안 설정" },
+  { label: "비밀번호" },
 ];
 
 export default function WriteLetter() {
@@ -467,9 +467,9 @@ export default function WriteLetter() {
                   fontSize: 24,
                 }}
               >
-                열람 비밀번호를
+                둘만의 편지로 만들고 싶다면
                 <br />
-                설정해주세요
+                비밀번호를 설정해보세요
               </h1>
 
               {/* 비밀번호 입력 — 피그마: 숫자만, 마스킹 안함 */}
@@ -496,9 +496,9 @@ export default function WriteLetter() {
                   color: "var(--color-rose)",
                 }}
               >
-                🔒 비밀번호는 암호화되어 저장되며 패킷팀도 알 수 없어요.
+                🔒 비밀번호는 받는 분에게도 꼭 알려주세요.
                 <br />
-                비밀번호를 잊으면 복구가 불가능하니 꼭 기억해주세요.
+                잊어버리면 복구가 어려워요.
               </div>
             </>
           )}
