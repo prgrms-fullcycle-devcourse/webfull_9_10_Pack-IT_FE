@@ -7,6 +7,7 @@ import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
 import type { LetterItem } from "../shared/schemas/letterSchema";
+import { HtmlToImage } from "../shared/utils/HtmlToImage";
 
 // TODO: useParams().id → GET /letters/:id API 연동
 
@@ -26,11 +27,6 @@ export default function ReceivedLetterDetail() {
     // TODO: DELETE /letters/:id API 연동
     // 삭제 성공 시 이전화면 이동 + 토스트 "편지를 삭제했습니다"
     navigate(-1);
-  };
-
-  const handleImageSave = () => {
-    // TODO: 편지지 이미지 저장 (png 형식) — html2canvas 등 활용
-    alert("이미지 저장 기능 구현 예정입니다.");
   };
 
   const handleReply = () => {
@@ -60,7 +56,7 @@ export default function ReceivedLetterDetail() {
         </span>
       </nav>
 
-      <div className="flex-1 overflow-y-auto px-5 py-6">
+      <div className="flex-1 overflow-y-auto px-5 py-6" id="ImageSet">
         {/* 편지지 — 피그마: 내용 전체, 초과 시 스크롤 */}
         <LetterPaper
           theme={letter.theme}
@@ -78,7 +74,7 @@ export default function ReceivedLetterDetail() {
             variant="ghost"
             size="md"
             fullWidth={true}
-            onClick={handleImageSave}
+            onClick={HtmlToImage}
           >
             이미지 저장
           </Button>
