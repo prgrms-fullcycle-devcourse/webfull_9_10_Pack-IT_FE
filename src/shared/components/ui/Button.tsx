@@ -78,6 +78,7 @@ export default function Button({
         ${fullWidth ? "w-full" : ""}
         ${disabled ? "opacity-40 cursor-not-allowed pointer-events-none" : ""}
         ${className}
+        active:scale-[0.97] transition-transform duration-100
       `}
       style={{ fontFamily: "var(--font-sans)", ...v.style, ...style }}
       {...props}
