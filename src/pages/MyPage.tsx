@@ -77,17 +77,35 @@ export default function MyPage() {
     { key: "received", label: "받은 편지" },
     { key: "feedback", label: "건의하기" },
   ];
-  const [page, setPage] = useState(1);
+  const [sentPage, setSentPage] = useState(1);
+  const [receivedPage, setReceivedPage] = useState(1);
 
   const visibleSentList = useMemo(() => {
-    return sentList.slice(0, page * PAGE_SIZE);
-  }, [sentList, page]);
+    return sentList.slice(0, sentPage * PAGE_SIZE);
+  }, [sentList, sentPage]);
+
+  const visibleReceivedList = useMemo(() => {
+    return receivedList.slice(0, receivedPage * PAGE_SIZE);
+  }, [receivedList, receivedPage]);
 
   const handleIntersect = useCallback(() => {
-    if (visibleSentList.length < sentList.length) {
-      setPage((prev) => prev + 1);
+    if (activeTab === "sent" && visibleSentList.length < sentList.length) {
+      setSentPage((prev) => prev + 1);
     }
-  }, [visibleSentList.length, sentList.length]);
+
+    if (
+      activeTab === "received" &&
+      visibleReceivedList.length < receivedList.length
+    ) {
+      setReceivedPage((prev) => prev + 1);
+    }
+  }, [
+    activeTab,
+    visibleSentList.length,
+    sentList.length,
+    visibleReceivedList.length,
+    receivedList.length,
+  ]);
 
   const { targetRef } = useIntersectionObserver({
     //TODO: api 적용 후 로딩 시 다음 데이터 불러오기
@@ -259,20 +277,32 @@ export default function MyPage() {
               />
             ) : (
               <div className="flex flex-col gap-2">
-                {receivedList.map((item) => {
+                {visibleReceivedList.map((item) => {
                   return (
                     <LetterListItem
                       key={item.id}
                       item={item}
                       type="received"
                       onClick={() =>
-                        navigate(`/mypage/sent/${item.id}`, {
+                        navigate(`/mypage/received/${item.id}`, {
                           state: { letter: item, activeTab },
                         })
                       }
                     />
                   );
                 })}
+                {visibleReceivedList.length < receivedList.length && (
+                  <div
+                    ref={targetRef}
+                    className="flex items-center justify-center py-8 text-[14px]"
+                    style={{
+                      color: "var(--color-ink-soft)",
+                      fontFamily: "var(--font-sans)",
+                    }}
+                  >
+                    마음을 불러오는 중...
+                  </div>
+                )}
               </div>
             ))}
 
