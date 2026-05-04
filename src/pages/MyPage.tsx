@@ -39,7 +39,6 @@ export default function MyPage() {
   
   const [sentList] = useState<LetterItem[]>(MOCK_SENT);
   const [receivedList] = useState<LetterItem[]>(MOCK_RECEIVED);
-  const [feedbackText, setFeedbackText] = useState("");
 
   const handleLetterClick = (item: LetterItem) => {
     // TODO: 필요시 type에 따라 라우팅 분기 (/mypage/received/ 등)
