@@ -94,7 +94,7 @@ export default function WriteLetter() {
   }));
 
   const { mutate } = usePostApiLettersAiGenerate();
-  const handleGenerateClick = (selectedTone) => {
+  const handleGenerateClick = (selectedTone : LetterTone) => {
     setForm((p) => ({
       ...p,
       tone: selectedTone,
