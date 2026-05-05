@@ -85,7 +85,7 @@ export default function WriteLetter() {
   }));
 
   const { mutate: aiGenerateMutate } = usePostApiLettersAiGenerate();
-  const aiGenerateClick = (selectedTone : LetterTone) => {
+  const aiGenerateClick = (selectedTone: LetterTone) => {
     setForm((p) => ({
       ...p,
       tone: selectedTone!,
@@ -118,7 +118,7 @@ export default function WriteLetter() {
           // sender_id : , //TODO: 센더 아이디
           sender_name: form.from,
           receiver_name: form.to,
-          category: form.keyword,
+          category: form.keyword!,
           content: form.content ? form.content : form.originalContent,
           theme: form.theme,
           password: form.password,
@@ -127,7 +127,7 @@ export default function WriteLetter() {
       {
         onSuccess: (data) => {
           console.log("성공:", data);
-          
+
           navigate("/share", {
             state: {
               theme: form.theme,
@@ -139,7 +139,7 @@ export default function WriteLetter() {
                 month: "2-digit",
                 day: "2-digit",
               }),
-              id:data.data.letter_id
+              id: data!.data!.letter_id,
               // TODO : password는 API 연동 후 서버에서 처리
             },
           });
@@ -433,7 +433,7 @@ export default function WriteLetter() {
                   placeholder="숫자를 입력해주세요"
                   inputMode="numeric"
                   type="text"
-                  value={form.password}
+                  value={form.password ?? ""}
                   onChange={(e) => {
                     const val = e.target.value.replace(/[^0-9]/g, "");
                     setForm((p) => ({ ...p, password: Number(val) }));
