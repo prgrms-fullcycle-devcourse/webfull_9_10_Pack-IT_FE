@@ -103,8 +103,8 @@ export default function WriteLetter() {
     }));
     mutate({
       data: {
-        category: form.keyword,
-        tone: form.tone,
+        category: form.keyword!,
+        tone: form.tone!,
         draft_content: form.originalContent
       }
     }, {
