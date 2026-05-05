@@ -85,7 +85,7 @@ export default function WriteLetter() {
   }));
 
   const { mutate: aiGenerateMutate } = usePostApiLettersAiGenerate();
-  const aiGenerateClick = (selectedTone) => {
+  const aiGenerateClick = (selectedTone : LetterTone) => {
     setForm((p) => ({
       ...p,
       tone: selectedTone,
@@ -101,7 +101,7 @@ export default function WriteLetter() {
       },
       {
         onSuccess: (data) => {
-          setForm((p) => ({ ...p, content: data.data.ai_content }));
+          setForm((p) => ({ ...p, content: data!.data!.ai_content as string }));
         },
         onError: (error) => {
           console.error("실패:", error);
