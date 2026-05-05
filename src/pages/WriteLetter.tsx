@@ -88,8 +88,8 @@ export default function WriteLetter() {
   const aiGenerateClick = (selectedTone : LetterTone) => {
     setForm((p) => ({
       ...p,
-      tone: selectedTone,
-      originalContent: p.originalContent,
+      tone: selectedTone!,
+      originalContent: p.originalContent!,
     }));
     aiGenerateMutate(
       {
