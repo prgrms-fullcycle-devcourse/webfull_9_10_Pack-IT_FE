@@ -7,14 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "orval": "orval --config ./orval.config.ts"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.99.2",
     "axios": "^1.15.1",
     "html-to-image": "^1.11.13",
-    "orval": "^8.9.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-router-dom": "^7.14.1",
