@@ -94,8 +94,8 @@ export default function WriteLetter() {
     aiGenerateMutate(
       {
         data: {
-          category: form.keyword,
-          tone: form.tone,
+          category: form.keyword!,
+          tone: form.tone!,
           draft_content: form.originalContent,
         },
       },
