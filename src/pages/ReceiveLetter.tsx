@@ -259,10 +259,10 @@ export default function ReceiveLetter() {
             {/* 편지지 */}
             <LetterPaper
               theme={(letter?.theme as LetterTheme) ?? 1}
-              to={letter?.receiverName}
-              content={letter?.content}
-              from={letter?.senderName}
-              date={letter?.publishedAt}
+              to={letter?.receiverName ?? ''}
+              content={letter?.content ?? ''}
+              from={letter?.senderName ?? ''}
+              date={letter?.publishedAt ?? ''}
             />
 
             <Button

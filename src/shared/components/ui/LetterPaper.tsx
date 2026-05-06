@@ -1,6 +1,7 @@
 // src/features/letter/components/LetterPaper.tsx
 import type { LetterTheme } from "../../../shared/schemas/letterSchema";
 import { THEME_MAP } from "../../../shared/schemas/letterSchema";
+import { formatDate } from "../../utils/FormatDate";
 
 interface LetterPaperProps {
   theme: LetterTheme;
@@ -82,7 +83,7 @@ export default function LetterPaper({
               color: "var(--color-ink-soft)",
             }}
           >
-            {date}
+            {formatDate(date)}
           </span>
         </div>
       </div>
