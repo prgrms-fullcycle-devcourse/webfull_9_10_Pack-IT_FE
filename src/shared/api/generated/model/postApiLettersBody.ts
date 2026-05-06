@@ -23,5 +23,5 @@ export type PostApiLettersBody = {
   /** 선택한 편지 테마 번호 (1~5) */
   theme: number;
   /** 발신자가 설정한 비밀번호 */
-  password: number;
+  password: number | null;
 };

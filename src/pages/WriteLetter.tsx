@@ -121,7 +121,7 @@ export default function WriteLetter() {
           category: form.keyword!,
           content: form.content ? form.content : form.originalContent,
           theme: form.theme,
-          password: form.password,
+          password: form.password, //TODO : 비밀번호는 없을수도 있다ㅇㅇ
         },
       },
       {
