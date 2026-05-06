@@ -456,7 +456,7 @@ export default function WriteLetter() {
             </>
           )}
 
-          {/* ── STEP 4: 보안 설정 ── */}
+          {/* ── STEP 4: 비밀번호 ── */}
           {step === 4 && (
             <>
               <h1
@@ -475,9 +475,9 @@ export default function WriteLetter() {
               {/* 비밀번호 입력 — 피그마: 숫자만, 마스킹 안함 */}
               <div className="flex flex-col gap-4 mb-4">
                 <Input
-                  label="열람 비밀번호"
+                  label="열람 비밀번호(선택)"
                   required
-                  placeholder="숫자를 입력해주세요"
+                  placeholder="숫자를 입력해주세요(선택)"
                   inputMode="numeric"
                   type="text"
                   value={form.letterPassword}
