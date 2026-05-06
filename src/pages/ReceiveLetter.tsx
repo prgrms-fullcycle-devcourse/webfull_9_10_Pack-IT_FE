@@ -23,7 +23,10 @@ const MOCK = {
 
 export default function ReceiveLetter() {
   const navigate = useNavigate();
-  const [phase, setPhase] = useState<Phase>("password");
+  const hasPassword = true; // TODO : API 연동 후 교체
+  const [phase, setPhase] = useState<Phase>(
+    hasPassword ? "password" : "before",
+  );
   const [pw, setPw] = useState("");
   const [pwError, setPwError] = useState("");
 

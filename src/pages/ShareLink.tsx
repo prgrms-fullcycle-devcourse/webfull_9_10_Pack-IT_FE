@@ -25,6 +25,8 @@ export default function ShareLink() {
   const now = new Date();
   const date = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(2, "0")}월 ${String(now.getDate()).padStart(2, "0")}일`;
 
+  const letterPassword = state?.letterPassword ?? "";
+
   return (
     <div
       className="min-h-screen flex flex-col"
@@ -105,34 +107,47 @@ export default function ShareLink() {
         />
 
         {/* 열람용 비밀번호: field 350x92 */}
-        <div className="w-full text-left mb-5">
-          <p
-            className="text-[12px] font-medium mb-2"
-            style={{
-              fontFamily: "var(--font-sans)",
-              color: "var(--color-rose)",
-            }}
-          >
-            🔒 열람용 비밀번호
-          </p>
-          <div
-            className="w-full px-4 py-[14px] rounded-[12px]"
-            style={{
-              background: "var(--color-rose-pale)",
-              border: "1px solid var(--color-rose-light)",
-            }}
-          >
-            <span
-              className="text-[16px]"
+        {letterPassword && (
+          <div className="w-full text-left mb-5">
+            <p
+              className="text-[12px] font-medium mb-2"
               style={{
                 fontFamily: "var(--font-sans)",
-                color: "var(--color-ink)",
+                color: "var(--color-rose)",
               }}
             >
-              {MOCK.password}
-            </span>
+              🔒 열람용 비밀번호
+            </p>
+            <div
+              className="w-full px-4 py-[14px] rounded-[12px] mb-2"
+              style={{
+                background: "var(--color-rose-pale)",
+                border: "1px solid var(--color-rose-light)",
+              }}
+            >
+              <span
+                className="text-[16px]"
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  color: "var(--color-ink)",
+                }}
+              >
+                {MOCK.password}
+              </span>
+            </div>
+            <p
+              className="text-[14px] leading-[1.7] "
+              style={{
+                fontFamily: "var(--font-sans)",
+                color: "var(--color-ink-soft)",
+              }}
+            >
+              편지를 받는 분이 이 비밀번호를 입력해야 해요.
+              <br />
+              비밀번호와 함께 편지를 전달해 주세요.
+            </p>
           </div>
-        </div>
+        )}
       </div>
       <div className="flex-shrink-0 px-5 py-4 ">
         <KakaoShareButton
