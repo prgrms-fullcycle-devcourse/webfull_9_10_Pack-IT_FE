@@ -119,7 +119,7 @@ export default function WriteLetter() {
           category: form.keyword!,
           content: form.content ? form.content : form.originalContent,
           theme: form.theme,
-          password: Number(form.letterPassword),
+          password: form.letterPassword ? Number(form.letterPassword) : null,
         },
       },
       {
