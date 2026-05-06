@@ -20,7 +20,10 @@ import {
 } from "../shared/schemas/letterSchema";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
-import { usePostApiLettersAiGenerate } from "../shared/api/generated/letters/letters";
+import {
+  usePostApiLetters,
+  usePostApiLettersAiGenerate,
+} from "../shared/api/generated/letters/letters";
 
 const MAX_CONTENT = 500;
 
@@ -31,7 +34,7 @@ const INITIAL_FORM: LetterFormData = {
   content: "",
   originalContent: "",
   tone: null,
-  letterPassword: "",
+letterPassword: null,
   theme: 1,
 };
 
@@ -102,8 +105,49 @@ export default function WriteLetter() {
         onError: (error) => {
           console.error("실패:", error);
         },
+      }
+    );
+  };
 
-    });
+  const { mutate: completePostLetterMutate } = usePostApiLetters();
+  const postLetterClick = () => {
+    completePostLetterMutate(
+      {
+        data: {
+          // sender_id : , //TODO: 센더 아이디
+          sender_name: form.from,
+          receiver_name: form.to,
+          category: form.keyword!,
+          content: form.content ? form.content : form.originalContent,
+          theme: form.theme,
+          password: form.letterPassword ? Number(form.letterPassword) : null,
+        },
+      },
+      {
+        onSuccess: (data) => {
+          console.log("성공:", data);
+
+          navigate("/share", {
+            state: {
+              theme: form.theme,
+              to: form.to,
+              from: form.from,
+              content: form.content,
+              date: new Date().toLocaleDateString("ko-KR", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              }),
+              id: data!.data!.letter_id,
+              letterPassword: form.letterPassword,
+            },
+          });
+        },
+        onError: (error) => {
+          console.error("실패:", error);
+        },
+      }
+    );
   };
 
   return (
@@ -356,7 +400,7 @@ export default function WriteLetter() {
                         form.tone === t.label ? null : t.label
                       ) as LetterTone | null;
                       if (newTone) {
-                        aiGenerateClick(newTone)
+                        aiGenerateClick(newTone);
                       }
                     }}
                   />
@@ -491,7 +535,7 @@ export default function WriteLetter() {
                   placeholder="숫자를 입력해주세요(선택)"
                   inputMode="numeric"
                   type="text"
-                  value={form.letterPassword}
+                  value={form.letterPassword ? form.letterPassword : ""}
                   onChange={(e) => {
                     const val = e.target.value.replace(/[^0-9]/g, "");
                     setForm((p) => ({ ...p, letterPassword: val }));
@@ -557,22 +601,7 @@ export default function WriteLetter() {
               fullWidth
               style={{ height: 54, fontSize: 18, borderRadius: 12 }}
               onClick={() => {
-                // TODO: POST /letters API 연동
-                navigate("/share", {
-                  state: {
-                    theme: form.theme,
-                    to: form.to,
-                    from: form.from,
-                    content: form.content,
-                    date: new Date().toLocaleDateString("ko-KR", {
-                      year: "numeric",
-                      month: "2-digit",
-                      day: "2-digit",
-                    }),
-                    letterPassword: form.letterPassword,
-                    // TODO : password는 API 연동 후 서버에서 처리
-                  },
-                });
+                postLetterClick();
               }}
             >
               편지 완성하기
