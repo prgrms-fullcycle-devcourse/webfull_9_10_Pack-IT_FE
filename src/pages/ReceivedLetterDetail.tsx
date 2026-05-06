@@ -16,7 +16,7 @@ export default function ReceivedLetterDetail() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const location = useLocation();
   const letter = location.state?.letter as LetterItem;
-  const activeTab = location.state?.activeTab ?? "received";
+  const activeTab = location.state?.activeTab ?? "sent";
 
   if (!letter) {
     navigate(-1);
