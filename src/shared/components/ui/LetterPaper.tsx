@@ -35,6 +35,7 @@ export default function LetterPaper({
     <div
       className={`w-full mb-5 rounded-[16px] overflow-hidden border border-black/[0.06] ${className}`}
       style={{ boxShadow: "0 4px 20px rgba(28,23,20,0.06)" }}
+      id='ImageSet'
     >
       {/* 상단 띠지 */}
       <div className="h-[3px]" style={{ background: t.primaryColor }} />

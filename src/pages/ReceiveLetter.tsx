@@ -32,15 +32,18 @@ export default function ReceiveLetter() {
   const handlePwSubmit = () => {
     if (!pw) return;
 
-    verifyPassword({letterId:letterId!, data:{password:pw}}, {
-      onSuccess: () => {
-        setPwError("");
-        setPhase('before');
-
+    verifyPassword(
+      { letterId: letterId!, data: { password: pw } },
+      {
+        onSuccess: () => {
+          setPwError("");
+          setPhase("before");
+        },
+        onError: () => {
+          setPwError("비밀번호가 올바르지 않아요. 다시 확인해주세요.");
+        },
       },
-      onError: () => {
-        setPwError("비밀번호가 올바르지 않아요. 다시 확인해주세요.");}
-    })
+    );
   };
 
   const handleOpen = () => {
@@ -259,10 +262,10 @@ export default function ReceiveLetter() {
             {/* 편지지 */}
             <LetterPaper
               theme={(letter?.theme as LetterTheme) ?? 1}
-              to={letter?.receiverName ?? ''}
-              content={letter?.content ?? ''}
-              from={letter?.senderName ?? ''}
-              date={letter?.publishedAt ?? ''}
+              to={letter?.receiverName ?? ""}
+              content={letter?.content ?? ""}
+              from={letter?.senderName ?? ""}
+              date={letter?.publishedAt ?? ""}
             />
 
             <Button
@@ -296,7 +299,15 @@ export default function ReceiveLetter() {
               variant="primary"
               size="xlg"
               fullWidth={true}
-              onClick={() => navigate("/write")}
+              onClick={() =>
+                navigate("/write", {
+                  state: {
+                    to: letter?.senderName,
+                    from: letter?.receiverName,
+                    returnTo:'/mypage',
+                  },
+                })
+              }
             >
               답장 쓰기
             </Button>
