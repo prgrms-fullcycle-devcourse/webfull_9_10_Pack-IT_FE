@@ -20,6 +20,7 @@ import {
 } from "../shared/schemas/letterSchema";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
+import { usePostApiLettersAiGenerate } from "../shared/api/generated/letters/letters";
 
 const MAX_CONTENT = 500;
 
@@ -89,6 +90,31 @@ export default function WriteLetter() {
       | "active"
       | "inactive",
   }));
+
+  const { mutate } = usePostApiLettersAiGenerate();
+  const handleGenerateClick = (selectedTone : LetterTone) => {
+    setForm((p) => ({
+      ...p,
+      tone: selectedTone,
+      originalContent: p.originalContent || p.content, // 최초 원본 저장
+      content: TONE_PREVIEW[selectedTone],
+    }));
+    mutate({
+      data: {
+        category: form.keyword!,
+        tone: form.tone!,
+        draft_content: form.originalContent
+      }
+    }, {
+      onSuccess: (data) => {
+        console.log("성공:", data);
+        setForm((p) => ({ ...p, content: data!.data!.ai_content as string }))
+      },
+      onError: (error) => {
+        console.error("실패:", error);
+      }
+    });
+  };
 
   return (
     <div className="h-screen flex flex-col" style={{ background: "white" }}>
@@ -339,13 +365,7 @@ export default function WriteLetter() {
                         form.tone === t.label ? null : t.label
                       ) as LetterTone | null;
                       if (newTone) {
-                        // TODO: 실제 AI API 연동 — 현재는 mock
-                        setForm((p) => ({
-                          ...p,
-                          tone: newTone,
-                          originalContent: p.originalContent || p.content, // 최초 원본 저장
-                          content: TONE_PREVIEW[newTone],
-                        }));
+                        handleGenerateClick(newTone)
                       }
                     }}
                   />
