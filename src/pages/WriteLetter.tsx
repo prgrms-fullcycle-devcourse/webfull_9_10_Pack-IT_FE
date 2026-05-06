@@ -24,18 +24,6 @@ import { usePostApiLettersAiGenerate } from "../shared/api/generated/letters/let
 
 const MAX_CONTENT = 500;
 
-// TODO: 실제 AI API 연동으로 교체
-const TONE_PREVIEW: Record<LetterTone, string> = {
-  다정하게:
-    "진심으로 생일 축하해! 🎂 오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다. 항상 곁에 있어줘서 고맙고, 오늘 정말 좋은 하루 보내! ✨",
-  격식있게:
-    "귀하의 생신을 진심으로 축하드립니다. 그동안 함께하며 쌓아온 소중한 인연에 깊이 감사드리며, 앞으로도 건강하고 행복한 나날이 이어지기를 진심으로 바랍니다.",
-  감성적인:
-    "너의 생일을 진심으로 축하해. 세상에 네가 온 날이 오늘이라서 참 다행이라는 생각이 들어. 네가 걷는 모든 길에 행복이 내려앉는 하루가 되었으면 좋겠다. 🎂🌙",
-  담백하게:
-    "생일 축하해. 함께한 시간들 감사하게 생각하고 있어. 오늘도 좋은 하루 보내.",
-};
-
 const INITIAL_FORM: LetterFormData = {
   to: "",
   from: "",
