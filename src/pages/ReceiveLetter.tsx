@@ -1,44 +1,46 @@
 // src/pages/ReceiveLetter.tsx
 // 비밀번호 입력 → 봉투 오픈 전 → 편지 열람 한 파일에서 상태 관리
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import Button from "../shared/components/ui/Button";
 import { HtmlToImage } from "../shared/utils/HtmlToImage";
+import { useGetApiLettersLetterId, useVerifyLetterPassword } from "../shared/api/generated/letters/letters";
+import LetterPaper from "../shared/components/ui/LetterPaper";
+import type { LetterTheme } from "../shared/schemas/letterSchema";
 
 type Phase = "password" | "before" | "opened";
 
-// TODO: useParams().letterId → GET /letters/:id API 연동
-const MOCK = {
-  to: "To. 소중한 당신에게",
-  content:
-    "진심으로 생일을 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다. 맛있는 것도 많이 먹고, 주변 사람들에게 축하도 듬뿍 받는 최고의 날이 되길 바랄게.\n\n항상 곁에 있어줘서 고맙고, 오늘 정말 좋은 하루 보내! ✨",
-  from: "From. 마음을 담아",
-  date: "2026년 04월 23일",
-  correctPassword: "1234", // TODO: API로 검증
-  primaryColor: "#e8526a",
-  bgColor: "linear-gradient(160deg, #fff5f7, #ffe0e8)",
-  decoColor: "#f7d4da",
-};
-
 export default function ReceiveLetter() {
   const navigate = useNavigate();
+  const {letterId} = useParams<{letterId: string}>();
+  const { data, isLoading } = useGetApiLettersLetterId(letterId ?? "", {
+    query: { enabled: !!letterId },
+  });
+  const {mutate: verifyPassword} = useVerifyLetterPassword();
+  
+
+  const letter = data?.data;
   const hasPassword = true; // TODO : API 연동 후 교체
   const [phase, setPhase] = useState<Phase>(
     hasPassword ? "password" : "before",
   );
   const [pw, setPw] = useState("");
   const [pwError, setPwError] = useState("");
+  if (!letterId) return null;
 
   const handlePwSubmit = () => {
     if (!pw) return;
-    if (pw !== MOCK.correctPassword) {
-      // TODO: API 비밀번호 대조
-      setPwError("비밀번호가 올바르지 않아요. 다시 확인해주세요.");
-      return;
-    }
-    setPwError("");
-    setPhase("before");
+
+    verifyPassword({letterId:letterId!, data:{password:pw}}, {
+      onSuccess: () => {
+        setPwError("");
+        setPhase('before');
+
+      },
+      onError: () => {
+        setPwError("비밀번호가 올바르지 않아요. 다시 확인해주세요.");}
+    })
   };
 
   const handleOpen = () => {
@@ -255,62 +257,13 @@ export default function ReceiveLetter() {
         <>
           <div className="flex-1 overflow-y-auto px-5 py-6">
             {/* 편지지 */}
-            <div
-              className="rounded-[16px] overflow-hidden border border-black/[0.06] mb-4"
-              style={{ boxShadow: "0 4px 20px rgba(28,23,20,0.06)" }}
-              id="ImageSet"
-            >
-              <div
-                className="h-[3px]"
-                style={{
-                  background: MOCK.primaryColor,
-                }}
-              />
-              <div className="px-6 py-5" style={{ background: MOCK.bgColor }}>
-                <div
-                  className="w-[22px] h-px mb-3"
-                  style={{ background: MOCK.decoColor }}
-                />
-                <p
-                  className="text-[14px] italic mb-3"
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    color: MOCK.primaryColor,
-                  }}
-                >
-                  {MOCK.to}
-                </p>
-                <p
-                  className="text-[16px] leading-[1.85] mb-4 whitespace-pre-line"
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    color: "var(--color-ink-mid)",
-                  }}
-                >
-                  {MOCK.content}
-                </p>
-                <div className="flex justify-between pt-3 border-t border-black/[0.06]">
-                  <span
-                    className="text-[12px] italic"
-                    style={{
-                      fontFamily: "var(--font-serif)",
-                      color: MOCK.primaryColor,
-                    }}
-                  >
-                    {MOCK.from}
-                  </span>
-                  <span
-                    className="text-[11px]"
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      color: "var(--color-ink-soft)",
-                    }}
-                  >
-                    {MOCK.date}
-                  </span>
-                </div>
-              </div>
-            </div>
+            <LetterPaper
+              theme={(letter?.theme as LetterTheme) ?? 1}
+              to={letter?.receiverName}
+              content={letter?.content}
+              from={letter?.senderName}
+              date={letter?.publishedAt}
+            />
 
             <Button
               variant="ghost"
