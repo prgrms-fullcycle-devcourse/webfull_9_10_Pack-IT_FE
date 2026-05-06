@@ -93,28 +93,30 @@ export default function WriteLetter() {
       | "inactive",
   }));
 
-  const { mutate } = usePostApiLettersAiGenerate();
-  const handleGenerateClick = (selectedTone : LetterTone) => {
+  const { mutate: aiGenerateMutate, isPending } = usePostApiLettersAiGenerate();
+  const aiGenerateClick = (selectedTone: LetterTone) => {
+    const setOriginContent = form.tone == null ? form.content! : form.originalContent
     setForm((p) => ({
       ...p,
-      tone: selectedTone,
-      originalContent: p.originalContent || p.content, // 최초 원본 저장
-      content: TONE_PREVIEW[selectedTone],
+      tone: selectedTone!,
+      originalContent: setOriginContent!,
     }));
-    mutate({
-      data: {
-        category: form.keyword!,
-        tone: form.tone!,
-        draft_content: form.originalContent
-      }
-    }, {
-      onSuccess: (data) => {
-        console.log("성공:", data);
-        setForm((p) => ({ ...p, content: data!.data!.ai_content as string }))
+    aiGenerateMutate(
+      {
+        data: {
+          category: form.keyword!,
+          tone: selectedTone,
+          draft_content: setOriginContent!,
+        },
       },
-      onError: (error) => {
-        console.error("실패:", error);
-      }
+      {
+        onSuccess: (data) => {
+          setForm((p) => ({ ...p, content: data!.data!.ai_content as string }));
+        },
+        onError: (error) => {
+          console.error("실패:", error);
+        },
+
     });
   };
 
@@ -240,7 +242,7 @@ export default function WriteLetter() {
               {/* 편지 내용 입력 */}
               <div className="relative mb-1">
                 <Textarea
-                  value={form.content}
+                  value={isPending ? "ai가 글 쓰는 중...." :  form.content}
                   onChange={(e) =>
                     e.target.value.length <= MAX_CONTENT &&
                     setForm((p) => ({ ...p, content: e.target.value }))
@@ -262,7 +264,7 @@ export default function WriteLetter() {
               {/* 글자수 + 원본 복구 버튼 — 피그마: 입력칸 우측 하단 */}
               <div className="flex items-center justify-between mb-6">
                 {/* 원본으로 되돌리기: AI 적용 후에만 표시 */}
-                {form.tone && form.originalContent ? (
+                {form.tone && isPending == false ? (
                   <button
                     onClick={() =>
                       setForm((p) => ({
@@ -361,13 +363,14 @@ export default function WriteLetter() {
                     icon={t.icon}
                     label={t.label}
                     desc={t.desc}
+                    disabled={isPending}
                     active={form.tone === t.label}
                     onClick={() => {
                       const newTone = (
                         form.tone === t.label ? null : t.label
                       ) as LetterTone | null;
                       if (newTone) {
-                        handleGenerateClick(newTone)
+                        aiGenerateClick(newTone)
                       }
                     }}
                   />
@@ -544,7 +547,7 @@ export default function WriteLetter() {
             variant="primary"
             fullWidth
             style={{ height: 54, fontSize: 18, borderRadius: 12 }}
-            disabled={!step2Valid}
+            disabled={!step2Valid || isPending}
             onClick={goNext}
           >
             다음
