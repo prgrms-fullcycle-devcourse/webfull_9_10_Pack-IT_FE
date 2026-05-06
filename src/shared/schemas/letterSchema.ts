@@ -12,7 +12,7 @@ export interface LetterFormData {
   content: string;
   originalContent: string; // AI 적용 직전 원본 내용 (원본 복구용)
   tone: LetterTone | null;
-  password: number | null; // 열람 비밀번호
+letterPassword: string | null; // 열람 비밀번호
   theme: LetterTheme;
 }
 

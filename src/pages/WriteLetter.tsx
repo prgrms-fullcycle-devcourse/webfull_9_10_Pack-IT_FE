@@ -34,15 +34,15 @@ const INITIAL_FORM: LetterFormData = {
   content: "",
   originalContent: "",
   tone: null,
-  password: null,
+letterPassword: null,
   theme: 1,
 };
 
 const STEPS = [
   { label: "기본 정보" },
   { label: "편지 작성" },
-  { label: "보안 설정" },
   { label: "편지지 선택" },
+  { label: "비밀번호" },
 ];
 
 export default function WriteLetter() {
@@ -53,7 +53,6 @@ export default function WriteLetter() {
   // ──────────────────────────────────────────────────────────
 
   const scrollRef = useRef<HTMLDivElement>(null);
-
   const scrollToTop = () => scrollRef.current?.scrollTo({ top: 0 });
 
   const goNext = () => {
@@ -73,7 +72,6 @@ export default function WriteLetter() {
   const step1Valid =
     form.to.trim() !== "" && form.from.trim() !== "" && form.keyword !== null;
   const step2Valid = form.content.trim() !== "";
-  const step3Valid = form.password !== null;
 
   // 스텝 상태
   const stepBarSteps = STEPS.map((s, i) => ({
@@ -121,7 +119,7 @@ export default function WriteLetter() {
           category: form.keyword!,
           content: form.content ? form.content : form.originalContent,
           theme: form.theme,
-          password: form.password,
+          password: Number(form.letterPassword),
         },
       },
       {
@@ -140,7 +138,7 @@ export default function WriteLetter() {
                 day: "2-digit",
               }),
               id: data!.data!.letter_id,
-              // TODO : password는 API 연동 후 서버에서 처리
+              letterPassword: form.letterPassword,
             },
           });
         },
@@ -409,54 +407,8 @@ export default function WriteLetter() {
             </>
           )}
 
-          {/* ── STEP 3: 보안 설정 ── */}
+          {/* ── STEP 3: 편지지 선택 ── */}
           {step === 3 && (
-            <>
-              <h1
-                className="font-bold leading-[1.3] tracking-[-0.02em] mb-5"
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  color: "var(--color-ink)",
-                  fontSize: 24,
-                }}
-              >
-                열람 비밀번호를
-                <br />
-                설정해주세요
-              </h1>
-
-              {/* 비밀번호 입력 — 피그마: 숫자만, 마스킹 안함 */}
-              <div className="flex flex-col gap-4 mb-4">
-                <Input
-                  label="열람 비밀번호"
-                  required
-                  placeholder="숫자를 입력해주세요"
-                  inputMode="numeric"
-                  type="text"
-                  value={form.password ?? ""}
-                  onChange={(e) => {
-                    const val = e.target.value.replace(/[^0-9]/g, "");
-                    setForm((p) => ({ ...p, password: Number(val) }));
-                  }}
-                />
-              </div>
-
-              <p
-                className="text-[14px] leading-[1.7] mb-6"
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  color: "var(--color-ink-soft)",
-                }}
-              >
-                편지를 받는 분이 이 비밀번호를 입력해야 해요.
-                <br />
-                비밀번호와 함께 편지를 전달해 주세요.
-              </p>
-            </>
-          )}
-
-          {/* ── STEP 4: 편지지 선택 ── */}
-          {step === 4 && (
             <>
               <h1
                 className="font-bold leading-[1.3] tracking-[-0.02em] mb-5"
@@ -556,6 +508,53 @@ export default function WriteLetter() {
               />
             </>
           )}
+
+          {/* ── STEP 4: 비밀번호 ── */}
+          {step === 4 && (
+            <>
+              <h1
+                className="font-bold leading-[1.3] tracking-[-0.02em] mb-5"
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  color: "var(--color-ink)",
+                  fontSize: 24,
+                }}
+              >
+                둘만의 편지로 만들고 싶다면
+                <br />
+                비밀번호를 설정해보세요
+              </h1>
+
+              {/* 비밀번호 입력 — 피그마: 숫자만, 마스킹 안함 */}
+              <div className="flex flex-col gap-4 mb-4">
+                <Input
+                  label="열람 비밀번호(선택)"
+                  required
+                  placeholder="숫자를 입력해주세요(선택)"
+                  inputMode="numeric"
+                  type="text"
+                  value={form.letterPassword}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/[^0-9]/g, "");
+                    setForm((p) => ({ ...p, letterPassword: val }));
+                  }}
+                />
+              </div>
+
+              <div
+                className="px-4 py-3 my-3 rounded-[10px] text-[12px] text-center font-medium leading-[1.7]"
+                style={{
+                  background: "var(--color-rose-pale)",
+                  fontFamily: "var(--font-sans)",
+                  color: "var(--color-rose)",
+                }}
+              >
+                🔒 비밀번호는 받는 분에게도 꼭 알려주세요.
+                <br />
+                잊어버리면 복구가 어려워요.
+              </div>
+            </>
+          )}
         </div>
       </div>
 
@@ -584,41 +583,28 @@ export default function WriteLetter() {
           </Button>
         )}
         {step === 3 && (
-          <>
-            <div
-              className="px-4 py-3 my-3 rounded-[10px] text-[12px] text-center font-medium leading-[1.7]"
-              style={{
-                background: "var(--color-rose-pale)",
-                fontFamily: "var(--font-sans)",
-                color: "var(--color-rose)",
-              }}
-            >
-              🔒 비밀번호는 암호화되어 저장되며 패킷팀도 알 수 없어요.
-              <br />
-              비밀번호를 잊으면 복구가 불가능하니 꼭 기억해주세요.
-            </div>
-            <Button
-              variant="primary"
-              fullWidth
-              style={{ height: 54, fontSize: 18, borderRadius: 12 }}
-              disabled={!step3Valid}
-              onClick={goNext}
-            >
-              다음
-            </Button>
-          </>
-        )}
-        {step === 4 && (
           <Button
             variant="primary"
             fullWidth
             style={{ height: 54, fontSize: 18, borderRadius: 12 }}
-            onClick={() => {
-              postLetterClick();
-            }}
+            onClick={goNext}
           >
-            편지 완성하기
+            다음
           </Button>
+        )}
+        {step === 4 && (
+          <>
+            <Button
+              variant="primary"
+              fullWidth
+              style={{ height: 54, fontSize: 18, borderRadius: 12 }}
+              onClick={() => {
+                postLetterClick();
+              }}
+            >
+              편지 완성하기
+            </Button>
+          </>
         )}
       </div>
     </div>
