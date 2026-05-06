@@ -533,7 +533,7 @@ export default function WriteLetter() {
                   placeholder="숫자를 입력해주세요(선택)"
                   inputMode="numeric"
                   type="text"
-                  value={form.letterPassword}
+                  value={form.letterPassword ? form.letterPassword : ""}
                   onChange={(e) => {
                     const val = e.target.value.replace(/[^0-9]/g, "");
                     setForm((p) => ({ ...p, letterPassword: val }));
