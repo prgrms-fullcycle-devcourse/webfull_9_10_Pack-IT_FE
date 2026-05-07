@@ -1,5 +1,3 @@
-// src/pages/ReceiveLetter.tsx
-// 비밀번호 입력 → 봉투 오픈 전 → 편지 열람 한 파일에서 상태 관리
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
@@ -7,9 +5,15 @@ import Button from "../shared/components/ui/Button";
 import { HtmlToImage } from "../shared/utils/HtmlToImage";
 import { useGetApiLettersLetterId, useVerifyLetterPassword } from "../shared/api/generated/letters/letters";
 import LetterPaper from "../shared/components/ui/LetterPaper";
-import type { LetterTheme } from "../shared/schemas/letterSchema";
+import type { LetterKeyword, LetterTheme } from "../shared/schemas/letterSchema";
+import { set } from "zod";
+import { motion } from "framer-motion";
+import { letterOpenEffect } from "../shared/utils/LetterOpenEffect";
+import { HeartMist, PeaceMist } from "../shared/components/ui/LetterEffect";
+
 
 type Phase = "password" | "before" | "opened";
+
 
 export default function ReceiveLetter() {
   const navigate = useNavigate();
@@ -18,8 +22,6 @@ export default function ReceiveLetter() {
     query: { enabled: !!letterId },
   });
   const {mutate: verifyPassword} = useVerifyLetterPassword();
-  
-
   const letter = data?.data;
   const hasPassword = true; // TODO : API 연동 후 교체
   const [phase, setPhase] = useState<Phase>(
@@ -27,6 +29,11 @@ export default function ReceiveLetter() {
   );
   const [pw, setPw] = useState("");
   const [pwError, setPwError] = useState("");
+
+  const [isOpening, setIsOpening] = useState(false);
+  const [showHearts, setShowHearts] = useState(false);
+  const [showPeace, setShowPeace] = useState(false);
+
   if (!letterId) return null;
 
   const handlePwSubmit = () => {
@@ -47,7 +54,20 @@ export default function ReceiveLetter() {
   };
 
   const handleOpen = () => {
-    setPhase("opened");
+    setIsOpening(true);
+
+     const category = (letter?.category as LetterKeyword) ?? "생일";
+    if (category === "사과" || category === "화해") {
+      setTimeout(() => {
+        letterOpenEffect(category, setShowHearts, setShowPeace);
+      }, 0);
+    } else {
+      setTimeout(() => {
+        letterOpenEffect(category, setShowHearts, setShowPeace);
+      }, 300);
+    }
+    setTimeout(() => {setPhase('opened');}, 950);
+    
   };
 
   return (
@@ -55,6 +75,9 @@ export default function ReceiveLetter() {
       className="min-h-screen flex flex-col"
       style={{ background: "var(--color-cream)" }}
     >
+      {/* 이펙트 — 항상 렌더, show로 제어 */}
+      <HeartMist show={showHearts} />
+      <PeaceMist show={showPeace} />
       {/* NAV */}
       <nav
         className="h-[52px] flex items-center justify-between px-5 border-b border-black/[0.08] flex-shrink-0 bg-white"
@@ -175,83 +198,142 @@ export default function ReceiveLetter() {
       {/* ── PHASE: 봉투 오픈 전 ── */}
       {phase === "before" && (
         <div className="flex-1 flex flex-col items-center justify-center px-5 text-center">
-          <p
-            className="text-[16px] mb-6"
+          {/* 힌트 */}
+          <motion.p
+            className="text-[16px] mb-8"
             style={{
               fontFamily: "var(--font-sans)",
               color: "var(--color-ink-soft)",
             }}
+            animate={{ opacity: isOpening ? 0 : 1 }}
+            transition={{ duration: 0.3 }}
           >
             터치해서 마음 열기
-          </p>
+          </motion.p>
 
-          {/* SVG 봉투 */}
-          <div
-            onClick={handleOpen}
-            className="cursor-pointer mb-7 transition-transform hover:scale-[1.04] hover:-translate-y-1 active:scale-[0.97]"
-            style={{ filter: "drop-shadow(0 12px 40px rgba(232,82,106,0.28))" }}
-          >
-            <svg width="200" height="148" viewBox="0 0 220 160" fill="none">
-              <rect
-                x="4"
-                y="40"
-                width="212"
-                height="116"
-                rx="12"
-                fill="#f4627d"
-              />
-              <path d="M4 52L110 120L216 52" fill="#e04060" opacity="0.4" />
-              <path d="M4 40L110 110L4 156" fill="#c43e55" opacity="0.25" />
-              <path d="M216 40L110 110L216 156" fill="#c43e55" opacity="0.25" />
-              <path
-                d="M4 40Q4 38 6 37L110 10L214 37Q216 38 216 40L110 108Z"
-                fill="#f78090"
-              />
-              <path
-                d="M110 62C110 62 100 54 100 48C100 44 104 41 107 43C108.5 44 110 46 110 46C110 46 111.5 44 113 43C116 41 120 44 120 48C120 54 110 62 110 62Z"
-                fill="white"
-                opacity="0.7"
-              />
-              <rect
-                x="88"
-                y="88"
-                width="44"
-                height="32"
-                rx="4"
-                fill="white"
-                opacity="0.15"
-              />
-              <path
-                d="M88 92L110 106L132 92"
-                stroke="white"
-                strokeWidth="1.5"
-                opacity="0.4"
-                fill="none"
-              />
-            </svg>
+          {/* 봉투 스테이지 */}
+          <div style={{ position: "relative", width: 260, height: 180 }}>
+            {/* 봉투 클릭 영역 */}
+            <div
+              onClick={!isOpening ? handleOpen : undefined}
+              style={{
+                position: "absolute",
+                inset: 0,
+                cursor: isOpening ? "default" : "pointer",
+                filter: "drop-shadow(0 14px 36px rgba(232,82,106,0.3))",
+              }}
+            >
+              {/* 봉투 전체 래퍼 — 몸통 + 뚜껑 같이 fade-out + scale */}
+              <motion.div
+                style={{ position: "absolute", inset: 0 }}
+                animate={{
+                  opacity: isOpening ? 0 : 1,
+                  scale: isOpening ? 0.9 : 1,
+                  y: isOpening ? 10 : 0,
+                }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+              >
+                {/* 봉투 몸통 */}
+                <div style={{ position: "absolute", inset: 0 }}>
+                  <svg
+                    viewBox="0 0 260 180"
+                    width="260"
+                    height="180"
+                    fill="none"
+                  >
+                    <rect width="260" height="180" rx="16" fill="#f4627d" />
+                    <path
+                      d="M0 50L130 128L0 180"
+                      fill="#c43e55"
+                      opacity="0.2"
+                    />
+                    <path
+                      d="M260 50L130 128L260 180"
+                      fill="#c43e55"
+                      opacity="0.2"
+                    />
+                    <path
+                      d="M0 50L130 128L260 50"
+                      stroke="#d94460"
+                      strokeWidth="1"
+                      opacity="0.3"
+                      fill="none"
+                    />
+                    <path
+                      d="M130 98C130 98 119 89 119 82C119 77 123 74 126 76C128 77.5 130 81 130 81C130 81 132 77.5 134 76C137 74 141 77 141 82C141 89 130 98 130 98Z"
+                      fill="white"
+                      opacity="0.5"
+                    />
+                  </svg>
+                </div>
+
+                {/* 봉투 뚜껑 — rotateX만 담당 */}
+                <motion.div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: 260,
+                    height: 180,
+                    transformOrigin: "top center",
+                    zIndex: 3,
+                    pointerEvents: "none",
+                  }}
+                  animate={{ rotateX: isOpening ? -170 : 0 }}
+                  transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                >
+                  <svg
+                    viewBox="0 0 260 180"
+                    width="260"
+                    height="180"
+                    fill="none"
+                  >
+                    <path
+                      d="M16 0 Q0 0 0 16 L0 50 L130 128 L260 50 L260 16 Q260 0 244 0 Z"
+                      fill="#f78090"
+                    />
+                    <path
+                      d="M16 0 Q0 0 0 16 L0 32 L130 95 L260 32 L260 16 Q260 0 244 0 Z"
+                      fill="#fba0b0"
+                      opacity="0.3"
+                    />
+                  </svg>
+                </motion.div>
+              </motion.div>
+            </div>
           </div>
 
-          <h1
-            className="font-normal leading-[1.3] mb-2"
-            style={{
-              fontFamily: "var(--font-serif)",
-              color: "var(--color-ink)",
-              fontSize: 28,
+          {/* 타이틀 */}
+          <motion.div
+            className="mt-8 text-center"
+            animate={{
+              opacity: isOpening ? 0 : 1,
+              y: isOpening ? 6 : 0,
             }}
+            transition={{ duration: 0.25 }}
           >
-            편지가 도착했어요
-          </h1>
-          <p
-            className="text-[16px] leading-[1.6]"
-            style={{
-              fontFamily: "var(--font-sans)",
-              color: "var(--color-ink-soft)",
-            }}
-          >
-            누군가 당신에게 마음을 전했어요.
-            <br />
-            봉투를 클릭해 열어보세요.
-          </p>
+            <h1
+              className="font-normal leading-[1.3] mb-2"
+              style={{
+                fontFamily: "var(--font-serif)",
+                color: "var(--color-ink)",
+                fontSize: 28,
+              }}
+            >
+              편지가 도착했어요
+            </h1>
+            <p
+              className="text-[16px] leading-[1.6]"
+              style={{
+                fontFamily: "var(--font-sans)",
+                color: "var(--color-ink-soft)",
+              }}
+            >
+              누군가 당신에게 마음을 전했어요.
+              <br />
+              봉투를 클릭해 열어보세요.
+            </p>
+          </motion.div>
         </div>
       )}
 
@@ -304,7 +386,7 @@ export default function ReceiveLetter() {
                   state: {
                     to: letter?.senderName,
                     from: letter?.receiverName,
-                    returnTo:'/mypage',
+                    returnTo: "/mypage",
                   },
                 })
               }
