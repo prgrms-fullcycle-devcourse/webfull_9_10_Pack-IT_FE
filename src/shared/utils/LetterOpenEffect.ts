@@ -1,7 +1,5 @@
-// src/features/letter/utils/letterOpenEffect.ts
 import confetti from "canvas-confetti";
 import type { LetterKeyword } from "../schemas/letterSchema";
-
 
 export const HEART_PARTICLES = Array.from({ length: 8 }, (_, i) => ({
   id: i,
@@ -23,6 +21,7 @@ export const PEACE_PARTICLES = Array.from({ length: 20 }, (_, i) => ({
   color: ["#c4b5fd", "#93c5fd", "#86efac", "#fde68a", "#fca5a5"][i % 5],
   wiggle: (i % 2 === 0 ? 1 : -1) * (2 + (i % 4)),
 }));
+
 
 
 export const letterOpenEffect = (

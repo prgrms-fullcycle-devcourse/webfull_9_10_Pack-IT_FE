@@ -5,15 +5,26 @@ import Button from "../shared/components/ui/Button";
 import { HtmlToImage } from "../shared/utils/HtmlToImage";
 import { useGetApiLettersLetterId, useVerifyLetterPassword } from "../shared/api/generated/letters/letters";
 import LetterPaper from "../shared/components/ui/LetterPaper";
-import type { LetterKeyword, LetterTheme } from "../shared/schemas/letterSchema";
+import { THEME_MAP, type LetterKeyword, type LetterTheme } from "../shared/schemas/letterSchema";
 import { set } from "zod";
 import { motion } from "framer-motion";
 import { letterOpenEffect } from "../shared/utils/LetterOpenEffect";
 import { HeartMist, PeaceMist } from "../shared/components/ui/LetterEffect";
+import IconConfetti from "../shared/components/Icons/IconConfetti";
+import IconHeart from "../shared/components/Icons/IconHeart";
+import IconFlower from "../shared/components/Icons/IconFlower";
 
 
 type Phase = "password" | "before" | "opened";
 
+const ENVELOPE_ICON: Record<LetterKeyword, React.ReactNode> = {
+  생일: <IconConfetti />,
+  응원: <IconConfetti />,
+  감사: <IconHeart />,
+  고백: <IconHeart />,
+  사과: <IconFlower />,
+  화해: <IconFlower />,
+};
 
 export default function ReceiveLetter() {
   const navigate = useNavigate();
@@ -53,10 +64,12 @@ export default function ReceiveLetter() {
     );
   };
 
+  const theme = THEME_MAP[(letter?.theme as LetterTheme) ?? 1];
+  const category = (letter?.category as LetterKeyword) ?? "생일";
+
   const handleOpen = () => {
     setIsOpening(true);
 
-     const category = (letter?.category as LetterKeyword) ?? "생일";
     if (category === "사과" || category === "화해") {
       setTimeout(() => {
         letterOpenEffect(category, setShowHearts, setShowPeace);
@@ -220,7 +233,6 @@ export default function ReceiveLetter() {
                 position: "absolute",
                 inset: 0,
                 cursor: isOpening ? "default" : "pointer",
-                filter: "drop-shadow(0 14px 36px rgba(232,82,106,0.3))",
               }}
             >
               {/* 봉투 전체 래퍼 — 몸통 + 뚜껑 같이 fade-out + scale */}
@@ -241,29 +253,30 @@ export default function ReceiveLetter() {
                     height="180"
                     fill="none"
                   >
-                    <rect width="260" height="180" rx="16" fill="#f4627d" />
+                    <rect
+                      width="260"
+                      height="180"
+                      rx="16"
+                      fill={theme.primaryColor}
+                    />
                     <path
                       d="M0 50L130 128L0 180"
-                      fill="#c43e55"
+                      fill={theme.primaryColor}
                       opacity="0.2"
                     />
                     <path
                       d="M260 50L130 128L260 180"
-                      fill="#c43e55"
+                      fill={theme.primaryColor}
                       opacity="0.2"
                     />
                     <path
                       d="M0 50L130 128L260 50"
-                      stroke="#d94460"
+                      stroke={theme.decoColor}
                       strokeWidth="1"
                       opacity="0.3"
                       fill="none"
                     />
-                    <path
-                      d="M130 98C130 98 119 89 119 82C119 77 123 74 126 76C128 77.5 130 81 130 81C130 81 132 77.5 134 76C137 74 141 77 141 82C141 89 130 98 130 98Z"
-                      fill="white"
-                      opacity="0.5"
-                    />
+                    
                   </svg>
                 </div>
 
@@ -290,13 +303,20 @@ export default function ReceiveLetter() {
                   >
                     <path
                       d="M16 0 Q0 0 0 16 L0 50 L130 128 L260 50 L260 16 Q260 0 244 0 Z"
-                      fill="#f78090"
+                      fill={theme.primaryColor}
                     />
                     <path
-                      d="M16 0 Q0 0 0 16 L0 32 L130 95 L260 32 L260 16 Q260 0 244 0 Z"
-                      fill="#fba0b0"
-                      opacity="0.3"
+                      d="M16 0 Q0 0 0 16 L0 30 L130 108 L260 30 L260 16 Q260 0 244 0 Z"
+                      fill="white"
+                      opacity="0.12"
                     />
+                    <g transform="translate(0, 20)">
+                      {
+                        ENVELOPE_ICON[
+                          category
+                        ]
+                      }
+                    </g>
                   </svg>
                 </motion.div>
               </motion.div>
