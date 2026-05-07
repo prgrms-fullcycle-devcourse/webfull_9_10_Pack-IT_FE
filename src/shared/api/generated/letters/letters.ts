@@ -25,17 +25,17 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  GetApiLettersLetterId200,
-  GetApiLettersLetterId404,
-  GetApiLettersLetterId500,
-  PostApiLetters201,
-  PostApiLetters400,
-  PostApiLetters500,
-  PostApiLettersAiGenerate200,
-  PostApiLettersAiGenerate400,
-  PostApiLettersAiGenerate500,
-  PostApiLettersAiGenerateBody,
-  PostApiLettersBody,
+  CreateLetter201,
+  CreateLetter400,
+  CreateLetter500,
+  CreateLetterBody,
+  GenerateAiLetterContent200,
+  GenerateAiLetterContent400,
+  GenerateAiLetterContent500,
+  GenerateAiLetterContentBody,
+  GetLetterDetail200,
+  GetLetterDetail404,
+  GetLetterDetail500,
   VerifyLetterPassword200,
   VerifyLetterPassword401,
   VerifyLetterPassword404,
@@ -54,27 +54,27 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
  * 사용자가 입력한 초안을 선택한 카테고리와 톤에 맞춰 AI가 다듬어줍니다.
  * @summary AI 편지 문구 생성
  */
-export const postApiLettersAiGenerate = (
-    postApiLettersAiGenerateBody: BodyType<PostApiLettersAiGenerateBody>,
+export const generateAiLetterContent = (
+    generateAiLetterContentBody: BodyType<GenerateAiLetterContentBody>,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
 
-      return customInstance<PostApiLettersAiGenerate200>(
+      return customInstance<GenerateAiLetterContent200>(
       {url: `/api/letters/ai/generate`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: postApiLettersAiGenerateBody, signal
+      data: generateAiLetterContentBody, signal
     },
       options);
     }
 
 
 
-export const getPostApiLettersAiGenerateMutationOptions = <TError = ErrorType<PostApiLettersAiGenerate400 | PostApiLettersAiGenerate500>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiLettersAiGenerate>>, TError,{data: BodyType<PostApiLettersAiGenerateBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postApiLettersAiGenerate>>, TError,{data: BodyType<PostApiLettersAiGenerateBody>}, TContext> => {
+export const getGenerateAiLetterContentMutationOptions = <TError = ErrorType<GenerateAiLetterContent400 | GenerateAiLetterContent500>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof generateAiLetterContent>>, TError,{data: BodyType<GenerateAiLetterContentBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof generateAiLetterContent>>, TError,{data: BodyType<GenerateAiLetterContentBody>}, TContext> => {
 
-const mutationKey = ['postApiLettersAiGenerate'];
+const mutationKey = ['generateAiLetterContent'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -84,10 +84,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postApiLettersAiGenerate>>, {data: BodyType<PostApiLettersAiGenerateBody>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof generateAiLetterContent>>, {data: BodyType<GenerateAiLetterContentBody>}> = (props) => {
           const {data} = props ?? {};
 
-          return  postApiLettersAiGenerate(data,requestOptions)
+          return  generateAiLetterContent(data,requestOptions)
         }
 
 
@@ -97,48 +97,48 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostApiLettersAiGenerateMutationResult = NonNullable<Awaited<ReturnType<typeof postApiLettersAiGenerate>>>
-    export type PostApiLettersAiGenerateMutationBody = BodyType<PostApiLettersAiGenerateBody>
-    export type PostApiLettersAiGenerateMutationError = ErrorType<PostApiLettersAiGenerate400 | PostApiLettersAiGenerate500>
+    export type GenerateAiLetterContentMutationResult = NonNullable<Awaited<ReturnType<typeof generateAiLetterContent>>>
+    export type GenerateAiLetterContentMutationBody = BodyType<GenerateAiLetterContentBody>
+    export type GenerateAiLetterContentMutationError = ErrorType<GenerateAiLetterContent400 | GenerateAiLetterContent500>
 
     /**
  * @summary AI 편지 문구 생성
  */
-export const usePostApiLettersAiGenerate = <TError = ErrorType<PostApiLettersAiGenerate400 | PostApiLettersAiGenerate500>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiLettersAiGenerate>>, TError,{data: BodyType<PostApiLettersAiGenerateBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useGenerateAiLetterContent = <TError = ErrorType<GenerateAiLetterContent400 | GenerateAiLetterContent500>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof generateAiLetterContent>>, TError,{data: BodyType<GenerateAiLetterContentBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postApiLettersAiGenerate>>,
+        Awaited<ReturnType<typeof generateAiLetterContent>>,
         TError,
-        {data: BodyType<PostApiLettersAiGenerateBody>},
+        {data: BodyType<GenerateAiLetterContentBody>},
         TContext
       > => {
-      return useMutation(getPostApiLettersAiGenerateMutationOptions(options), queryClient);
+      return useMutation(getGenerateAiLetterContentMutationOptions(options), queryClient);
     }
     /**
  * AI로 다듬어진 문구와 선택한 테마를 포함하여 최종 편지 데이터를 DB에 저장하고, 링크 생성할 때 필요한 편지 고유 ID를 반환합니다.
  * @summary 편지 최종 저장 및 링크 생성 api
  */
-export const postApiLetters = (
-    postApiLettersBody: BodyType<PostApiLettersBody>,
+export const createLetter = (
+    createLetterBody: BodyType<CreateLetterBody>,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
 
-      return customInstance<PostApiLetters201>(
+      return customInstance<CreateLetter201>(
       {url: `/api/letters`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: postApiLettersBody, signal
+      data: createLetterBody, signal
     },
       options);
     }
 
 
 
-export const getPostApiLettersMutationOptions = <TError = ErrorType<PostApiLetters400 | PostApiLetters500>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiLetters>>, TError,{data: BodyType<PostApiLettersBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postApiLetters>>, TError,{data: BodyType<PostApiLettersBody>}, TContext> => {
+export const getCreateLetterMutationOptions = <TError = ErrorType<CreateLetter400 | CreateLetter500>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createLetter>>, TError,{data: BodyType<CreateLetterBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof createLetter>>, TError,{data: BodyType<CreateLetterBody>}, TContext> => {
 
-const mutationKey = ['postApiLetters'];
+const mutationKey = ['createLetter'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -148,10 +148,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postApiLetters>>, {data: BodyType<PostApiLettersBody>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createLetter>>, {data: BodyType<CreateLetterBody>}> = (props) => {
           const {data} = props ?? {};
 
-          return  postApiLetters(data,requestOptions)
+          return  createLetter(data,requestOptions)
         }
 
 
@@ -161,34 +161,34 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostApiLettersMutationResult = NonNullable<Awaited<ReturnType<typeof postApiLetters>>>
-    export type PostApiLettersMutationBody = BodyType<PostApiLettersBody>
-    export type PostApiLettersMutationError = ErrorType<PostApiLetters400 | PostApiLetters500>
+    export type CreateLetterMutationResult = NonNullable<Awaited<ReturnType<typeof createLetter>>>
+    export type CreateLetterMutationBody = BodyType<CreateLetterBody>
+    export type CreateLetterMutationError = ErrorType<CreateLetter400 | CreateLetter500>
 
     /**
  * @summary 편지 최종 저장 및 링크 생성 api
  */
-export const usePostApiLetters = <TError = ErrorType<PostApiLetters400 | PostApiLetters500>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiLetters>>, TError,{data: BodyType<PostApiLettersBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useCreateLetter = <TError = ErrorType<CreateLetter400 | CreateLetter500>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createLetter>>, TError,{data: BodyType<CreateLetterBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postApiLetters>>,
+        Awaited<ReturnType<typeof createLetter>>,
         TError,
-        {data: BodyType<PostApiLettersBody>},
+        {data: BodyType<CreateLetterBody>},
         TContext
       > => {
-      return useMutation(getPostApiLettersMutationOptions(options), queryClient);
+      return useMutation(getCreateLetterMutationOptions(options), queryClient);
     }
     /**
  * 수신자가 전달받은 링크(letter_id)를 통해 편지의 상세 내용을 조회합니다.
  * @summary 편지 상세 조회 (수신자용)
  */
-export const getApiLettersLetterId = (
+export const getLetterDetail = (
     letterId: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
 
-      return customInstance<GetApiLettersLetterId200>(
+      return customInstance<GetLetterDetail200>(
       {url: `/api/letters/${letterId}`, method: 'GET', signal
     },
       options);
@@ -197,69 +197,69 @@ export const getApiLettersLetterId = (
 
 
 
-export const getGetApiLettersLetterIdQueryKey = (letterId: string,) => {
+export const getGetLetterDetailQueryKey = (letterId: string,) => {
     return [
     `/api/letters/${letterId}`
     ] as const;
     }
 
 
-export const getGetApiLettersLetterIdQueryOptions = <TData = Awaited<ReturnType<typeof getApiLettersLetterId>>, TError = ErrorType<GetApiLettersLetterId404 | GetApiLettersLetterId500>>(letterId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiLettersLetterId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getGetLetterDetailQueryOptions = <TData = Awaited<ReturnType<typeof getLetterDetail>>, TError = ErrorType<GetLetterDetail404 | GetLetterDetail500>>(letterId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getLetterDetail>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetApiLettersLetterIdQueryKey(letterId);
+  const queryKey =  queryOptions?.queryKey ?? getGetLetterDetailQueryKey(letterId);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getApiLettersLetterId>>> = ({ signal }) => getApiLettersLetterId(letterId, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getLetterDetail>>> = ({ signal }) => getLetterDetail(letterId, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: !!(letterId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getApiLettersLetterId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: !!(letterId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getLetterDetail>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetApiLettersLetterIdQueryResult = NonNullable<Awaited<ReturnType<typeof getApiLettersLetterId>>>
-export type GetApiLettersLetterIdQueryError = ErrorType<GetApiLettersLetterId404 | GetApiLettersLetterId500>
+export type GetLetterDetailQueryResult = NonNullable<Awaited<ReturnType<typeof getLetterDetail>>>
+export type GetLetterDetailQueryError = ErrorType<GetLetterDetail404 | GetLetterDetail500>
 
 
-export function useGetApiLettersLetterId<TData = Awaited<ReturnType<typeof getApiLettersLetterId>>, TError = ErrorType<GetApiLettersLetterId404 | GetApiLettersLetterId500>>(
- letterId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiLettersLetterId>>, TError, TData>> & Pick<
+export function useGetLetterDetail<TData = Awaited<ReturnType<typeof getLetterDetail>>, TError = ErrorType<GetLetterDetail404 | GetLetterDetail500>>(
+ letterId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getLetterDetail>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getApiLettersLetterId>>,
+          Awaited<ReturnType<typeof getLetterDetail>>,
           TError,
-          Awaited<ReturnType<typeof getApiLettersLetterId>>
+          Awaited<ReturnType<typeof getLetterDetail>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetApiLettersLetterId<TData = Awaited<ReturnType<typeof getApiLettersLetterId>>, TError = ErrorType<GetApiLettersLetterId404 | GetApiLettersLetterId500>>(
- letterId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiLettersLetterId>>, TError, TData>> & Pick<
+export function useGetLetterDetail<TData = Awaited<ReturnType<typeof getLetterDetail>>, TError = ErrorType<GetLetterDetail404 | GetLetterDetail500>>(
+ letterId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getLetterDetail>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getApiLettersLetterId>>,
+          Awaited<ReturnType<typeof getLetterDetail>>,
           TError,
-          Awaited<ReturnType<typeof getApiLettersLetterId>>
+          Awaited<ReturnType<typeof getLetterDetail>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetApiLettersLetterId<TData = Awaited<ReturnType<typeof getApiLettersLetterId>>, TError = ErrorType<GetApiLettersLetterId404 | GetApiLettersLetterId500>>(
- letterId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiLettersLetterId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetLetterDetail<TData = Awaited<ReturnType<typeof getLetterDetail>>, TError = ErrorType<GetLetterDetail404 | GetLetterDetail500>>(
+ letterId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getLetterDetail>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary 편지 상세 조회 (수신자용)
  */
 
-export function useGetApiLettersLetterId<TData = Awaited<ReturnType<typeof getApiLettersLetterId>>, TError = ErrorType<GetApiLettersLetterId404 | GetApiLettersLetterId500>>(
- letterId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiLettersLetterId>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetLetterDetail<TData = Awaited<ReturnType<typeof getLetterDetail>>, TError = ErrorType<GetLetterDetail404 | GetLetterDetail500>>(
+ letterId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getLetterDetail>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetApiLettersLetterIdQueryOptions(letterId,options)
+  const queryOptions = getGetLetterDetailQueryOptions(letterId,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
