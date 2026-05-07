@@ -1,10 +1,12 @@
 // src/pages/ReceiveLetter.tsx
 // 비밀번호 입력 → 봉투 오픈 전 → 편지 열람 한 파일에서 상태 관리
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import Button from "../shared/components/ui/Button";
 import { HtmlToImage } from "../shared/utils/HtmlToImage";
+import { useGetLetterData } from "../shared/hooks/getLetter";
+import { THEME_MAP } from "../shared/schemas/letterSchema";
 
 type Phase = "password" | "before" | "opened";
 
@@ -21,14 +23,20 @@ const MOCK = {
   decoColor: "#f7d4da",
 };
 
+
+
 export default function ReceiveLetter() {
   const navigate = useNavigate();
   const hasPassword = true; // TODO : API 연동 후 교체
   const [phase, setPhase] = useState<Phase>(
-    hasPassword ? "password" : "before",
+    hasPassword ? "password" : "before"
   );
   const [pw, setPw] = useState("");
   const [pwError, setPwError] = useState("");
+  const {letterId} = useParams();
+  const letterResult = useGetLetterData(letterId ?? "");
+  const letterData = letterResult.data?.data
+  
 
   const handlePwSubmit = () => {
     if (!pw) return;
@@ -41,8 +49,14 @@ export default function ReceiveLetter() {
     setPhase("before");
   };
 
-  const handleOpen = () => {
-    setPhase("opened");
+  const handleOpen = async () => {
+
+    try {
+      const data = await letterResult.getLetter()
+      setPhase("opened");
+    } catch (error) {
+      alert("데이터를 가져오는데 실패했습니다.") //TODO: 데이터 가져오기 실패 시
+    }
   };
 
   return (
@@ -263,22 +277,22 @@ export default function ReceiveLetter() {
               <div
                 className="h-[3px]"
                 style={{
-                  background: MOCK.primaryColor,
+                  background: THEME_MAP[letterData.theme].primaryColor,
                 }}
               />
-              <div className="px-6 py-5" style={{ background: MOCK.bgColor }}>
+              <div className="px-6 py-5" style={{ background: THEME_MAP[letterData.theme].bgColor }}>
                 <div
                   className="w-[22px] h-px mb-3"
-                  style={{ background: MOCK.decoColor }}
+                  style={{ background: THEME_MAP[letterData.theme].decoColor }}
                 />
                 <p
                   className="text-[14px] italic mb-3"
                   style={{
                     fontFamily: "var(--font-serif)",
-                    color: MOCK.primaryColor,
+                    color: THEME_MAP[letterData.theme].primaryColor,
                   }}
                 >
-                  {MOCK.to}
+                  {letterData.receiverName}
                 </p>
                 <p
                   className="text-[16px] leading-[1.85] mb-4 whitespace-pre-line"
@@ -287,17 +301,17 @@ export default function ReceiveLetter() {
                     color: "var(--color-ink-mid)",
                   }}
                 >
-                  {MOCK.content}
+                  {letterData.content}
                 </p>
                 <div className="flex justify-between pt-3 border-t border-black/[0.06]">
                   <span
                     className="text-[12px] italic"
                     style={{
                       fontFamily: "var(--font-serif)",
-                      color: MOCK.primaryColor,
+                      color: THEME_MAP[letterData.theme].primaryColor,
                     }}
                   >
-                    {MOCK.from}
+                    {letterData.senderName}
                   </span>
                   <span
                     className="text-[11px]"
@@ -306,7 +320,7 @@ export default function ReceiveLetter() {
                       color: "var(--color-ink-soft)",
                     }}
                   >
-                    {MOCK.date}
+                    {letterData.publishedAt}
                   </span>
                 </div>
               </div>

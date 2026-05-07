@@ -1,4 +1,3 @@
-// src/shared/hooks/useIntersectionObserver.ts
 import { useEffect, useRef } from 'react';
 
 interface Props {
