@@ -20,7 +20,7 @@ import {
 } from "../shared/schemas/letterSchema";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
-import { usePostApiLettersAiGenerate } from "../shared/api/generated/letters/letters";
+import { useGenerateAiLetterContent } from "../shared/api/generated/letters/letters";
 
 const MAX_CONTENT = 500;
 
@@ -79,7 +79,7 @@ export default function WriteLetter() {
       | "inactive",
   }));
 
-  const { mutate: aiGenerateMutate, isPending } = usePostApiLettersAiGenerate();
+  const { mutate: aiGenerateMutate, isPending } = useGenerateAiLetterContent();
   const aiGenerateClick = (selectedTone: LetterTone) => {
     const setOriginContent = form.tone == null ? form.content! : form.originalContent
     setForm((p) => ({
