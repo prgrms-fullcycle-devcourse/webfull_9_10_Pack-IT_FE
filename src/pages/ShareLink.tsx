@@ -11,6 +11,7 @@ const MOCK = {
   from: "From. 마음을 담아",
   date: "2026년 04월 23일",
   password: "1234",
+  id: "naver.com",
 };
 
 export default function ShareLink() {
@@ -23,7 +24,11 @@ export default function ShareLink() {
   const from = state?.from ?? MOCK.from;
   const content = state?.content ?? MOCK.content;
   const now = new Date();
-  const date = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(2, "0")}월 ${String(now.getDate()).padStart(2, "0")}일`;
+  const date = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}월 ${String(now.getDate()).padStart(2, "0")}일`;
+  const id = state?.id ?? MOCK.id;
 
   const letterPassword = state?.letterPassword ?? "";
 
@@ -153,6 +158,7 @@ export default function ShareLink() {
         <KakaoShareButton
           fullWidth
           style={{ height: 54, fontSize: 18, borderRadius: 12 }}
+          id={id}
         >
           카카오톡으로 보내기
         </KakaoShareButton>
