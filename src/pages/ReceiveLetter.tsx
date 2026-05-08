@@ -6,7 +6,6 @@ import { HtmlToImage } from "../shared/utils/HtmlToImage";
 import {  useGetLetterDetail, useVerifyLetterPassword } from "../shared/api/generated/letters/letters";
 import LetterPaper from "../shared/components/ui/LetterPaper";
 import { THEME_MAP, type LetterKeyword, type LetterTheme } from "../shared/schemas/letterSchema";
-import { set } from "zod";
 import { motion } from "framer-motion";
 import { letterOpenEffect } from "../shared/utils/LetterOpenEffect";
 import { HeartMist, PeaceMist } from "../shared/components/ui/LetterEffect";
@@ -28,13 +27,16 @@ const ENVELOPE_ICON: Record<LetterKeyword, React.ReactNode> = {
 
 export default function ReceiveLetter() {
   const navigate = useNavigate();
-  const {letterId} = useParams<{letterId: string}>();
+  const { letterId } = useParams<{ letterId: string }>();
   const { data, isLoading } = useGetLetterDetail(letterId ?? "", {
     query: { enabled: !!letterId },
   });
-  const {mutate: verifyPassword} = useVerifyLetterPassword();
+  const { mutate: verifyPassword } = useVerifyLetterPassword();
   const letter = data?.data;
-  const hasPassword = true; // TODO : API 연동 후 교체
+
+  // TODO : API 연동 후 교체
+  const hasPassword = true;
+  
   const [phase, setPhase] = useState<Phase>(
     hasPassword ? "password" : "before",
   );
@@ -79,8 +81,9 @@ export default function ReceiveLetter() {
         letterOpenEffect(category, setShowHearts, setShowPeace);
       }, 300);
     }
-    setTimeout(() => {setPhase('opened');}, 950);
-    
+    setTimeout(() => {
+      setPhase("opened");
+    }, 950);
   };
 
   return (
@@ -276,7 +279,6 @@ export default function ReceiveLetter() {
                       opacity="0.3"
                       fill="none"
                     />
-                    
                   </svg>
                 </div>
 
@@ -311,11 +313,7 @@ export default function ReceiveLetter() {
                       opacity="0.12"
                     />
                     <g transform="translate(0, 20)">
-                      {
-                        ENVELOPE_ICON[
-                          category
-                        ]
-                      }
+                      {ENVELOPE_ICON[category]}
                     </g>
                   </svg>
                 </motion.div>

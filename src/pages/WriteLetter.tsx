@@ -27,16 +27,20 @@ import {
 
 const MAX_CONTENT = 500;
 
-const INITIAL_FORM: LetterFormData = {
-  to: "",
-  from: "",
+const getInitialForm = (state?: {
+  to?: string;
+  from?: string;
+}): LetterFormData => ({
+  to: state?.to ?? "",
+  from: state?.from ?? "",
   keyword: "생일",
   content: "",
   originalContent: "",
   tone: null,
-letterPassword: null,
+  letterPassword: null,
   theme: 1,
-};
+});
+
 
 const STEPS = [
   { label: "기본 정보" },
@@ -51,16 +55,9 @@ export default function WriteLetter() {
 
   // ── 마이그레이션 포인트: Zustand 추가 시 아래 2줄만 교체 ──
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-  const [form, setForm] = useState<LetterFormData>({
-    to: location.state?.to ?? "",
-    from: location.state?.from ?? "",
-    keyword: "생일",
-    content: "",
-    originalContent: "",
-    tone: null,
-    letterPassword: "",
-    theme: 1,
-  });
+  const [form, setForm] = useState<LetterFormData>(
+    getInitialForm(location.state),
+  );
 
   // ──────────────────────────────────────────────────────────
 
