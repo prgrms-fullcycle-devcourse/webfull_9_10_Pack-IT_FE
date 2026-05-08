@@ -21,8 +21,8 @@ import {
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
 import {
-  usePostApiLetters,
-  usePostApiLettersAiGenerate,
+  useCreateLetter,
+  useGenerateAiLetterContent,
 } from "../shared/api/generated/letters/letters";
 
 const MAX_CONTENT = 500;
@@ -82,7 +82,7 @@ export default function WriteLetter() {
       | "inactive",
   }));
 
-  const { mutate: aiGenerateMutate, isPending } = usePostApiLettersAiGenerate();
+  const { mutate: aiGenerateMutate, isPending } = useGenerateAiLetterContent();
   const aiGenerateClick = (selectedTone: LetterTone) => {
     const setOriginContent = form.tone == null ? form.content! : form.originalContent
     setForm((p) => ({
@@ -109,7 +109,7 @@ export default function WriteLetter() {
     );
   };
 
-  const { mutate: completePostLetterMutate } = usePostApiLetters();
+  const { mutate: completePostLetterMutate } = useCreateLetter();
   const postLetterClick = () => {
     completePostLetterMutate(
       {
@@ -120,7 +120,7 @@ export default function WriteLetter() {
           category: form.keyword!,
           content: form.content ? form.content : form.originalContent,
           theme: form.theme,
-          password: form.letterPassword ? Number(form.letterPassword) : null,
+          password: form.letterPassword ? form.letterPassword : null,
         },
       },
       {

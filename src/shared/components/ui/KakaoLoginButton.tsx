@@ -47,6 +47,9 @@ export default function KakaoLoginButton({
         background: '#FEE500',
         color: '#000000',
       }}
+      onClick={() => {
+        return
+      }}
       {...props}
     >
       {/* 카카오 공식 말풍선 심볼 */}
