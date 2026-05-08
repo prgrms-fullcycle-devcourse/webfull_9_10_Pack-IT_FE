@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import Button from "../shared/components/ui/Button";
 import { HtmlToImage } from "../shared/utils/HtmlToImage";
-import { useGetApiLettersLetterId, useVerifyLetterPassword } from "../shared/api/generated/letters/letters";
+import {  useGetLetterDetail, useVerifyLetterPassword } from "../shared/api/generated/letters/letters";
 import LetterPaper from "../shared/components/ui/LetterPaper";
 import { THEME_MAP, type LetterKeyword, type LetterTheme } from "../shared/schemas/letterSchema";
 import { set } from "zod";
@@ -29,7 +29,7 @@ const ENVELOPE_ICON: Record<LetterKeyword, React.ReactNode> = {
 export default function ReceiveLetter() {
   const navigate = useNavigate();
   const {letterId} = useParams<{letterId: string}>();
-  const { data, isLoading } = useGetApiLettersLetterId(letterId ?? "", {
+  const { data, isLoading } = useGetLetterDetail(letterId ?? "", {
     query: { enabled: !!letterId },
   });
   const {mutate: verifyPassword} = useVerifyLetterPassword();
