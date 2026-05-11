@@ -9,4 +9,4 @@
 /**
  * @nullable
  */
-export type GetApiAuthKakaoCallback500Data = { [key: string]: unknown } | null;
+export type GetApiLettersLetterIdCheckPassword404Data = { [key: string]: unknown } | null;
