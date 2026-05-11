@@ -1,9 +1,9 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import Button from "../shared/components/ui/Button";
 import { HtmlToImage } from "../shared/utils/HtmlToImage";
-import {  useGetLetterDetail, useVerifyLetterPassword } from "../shared/api/generated/letters/letters";
+import {  useGetApiLettersLetterIdCheckPassword, useGetLetterDetail, useVerifyLetterPassword } from "../shared/api/generated/letters/letters";
 import LetterPaper from "../shared/components/ui/LetterPaper";
 import { THEME_MAP, type LetterKeyword, type LetterTheme } from "../shared/schemas/letterSchema";
 import { motion } from "framer-motion";
@@ -28,18 +28,36 @@ const ENVELOPE_ICON: Record<LetterKeyword, React.ReactNode> = {
 export default function ReceiveLetter() {
   const navigate = useNavigate();
   const { letterId } = useParams<{ letterId: string }>();
-  const { data, isLoading } = useGetLetterDetail(letterId ?? "", {
-    query: { enabled: !!letterId },
-  });
-  const { mutate: verifyPassword } = useVerifyLetterPassword();
-  const letter = data?.data;
 
-  // TODO : API 연동 후 교체
-  const hasPassword = true;
-  
-  const [phase, setPhase] = useState<Phase>(
-    hasPassword ? "password" : "before",
+  // 비밀번호 유무 확인
+  const { data: checkPasswordData } =
+    useGetApiLettersLetterIdCheckPassword(letterId ?? "", {
+      query: { enabled: !!letterId },
+    });
+
+  const hasPassword = checkPasswordData?.data?.hasPassword ?? true;
+  const [phase, setPhase] = useState<Phase>("password");
+  const currentPhase =
+    checkPasswordData?.data === undefined
+      ? "password"
+      : phase === "password" && !hasPassword
+        ? "before"
+        : phase;
+
+  // 편지 상세 조회
+  const { data, isLoading: isLetterLoading } = useGetLetterDetail(
+    letterId ?? "",
+    {
+      query: { enabled: !!letterId && currentPhase === "before" }, // phase가 before일 때만 호출
+    },
   );
+
+  const letter = data?.data;
+  const isLoading = currentPhase === "before" && isLetterLoading;
+
+  // 비밀번호 확인
+  const { mutate: verifyPassword } = useVerifyLetterPassword();
+
   const [pw, setPw] = useState("");
   const [pwError, setPwError] = useState("");
 
@@ -56,6 +74,7 @@ export default function ReceiveLetter() {
       { letterId: letterId!, data: { password: pw } },
       {
         onSuccess: () => {
+          
           setPwError("");
           setPhase("before");
         },
@@ -129,7 +148,7 @@ export default function ReceiveLetter() {
       </nav>
 
       {/* ── PHASE: 비밀번호 입력 ── */}
-      {phase === "password" && (
+      {currentPhase === "password" && (
         <div className="flex-1 flex flex-col items-center justify-center px-5 text-center">
           <div
             className="w-[64px] h-[64px] rounded-full flex items-center justify-center text-[26px] mb-5"
@@ -212,151 +231,163 @@ export default function ReceiveLetter() {
       )}
 
       {/* ── PHASE: 봉투 오픈 전 ── */}
-      {phase === "before" && (
+      {currentPhase === "before" && (
         <div className="flex-1 flex flex-col items-center justify-center px-5 text-center">
-          {/* 힌트 */}
-          <motion.p
-            className="text-[16px] mb-8"
-            style={{
-              fontFamily: "var(--font-sans)",
-              color: "var(--color-ink-soft)",
-            }}
-            animate={{ opacity: isOpening ? 0 : 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            터치해서 마음 열기
-          </motion.p>
-
-          {/* 봉투 스테이지 */}
-          <div style={{ position: "relative", width: 260, height: 180 }}>
-            {/* 봉투 클릭 영역 */}
-            <div
-              onClick={!isOpening ? handleOpen : undefined}
-              style={{
-                position: "absolute",
-                inset: 0,
-                cursor: isOpening ? "default" : "pointer",
-              }}
-            >
-              {/* 봉투 전체 래퍼 — 몸통 + 뚜껑 같이 fade-out + scale */}
-              <motion.div
-                style={{ position: "absolute", inset: 0 }}
-                animate={{
-                  opacity: isOpening ? 0 : 1,
-                  scale: isOpening ? 0.9 : 1,
-                  y: isOpening ? 10 : 0,
-                }}
-                transition={{ duration: 0.4, delay: 0.4 }}
-              >
-                {/* 봉투 몸통 */}
-                <div style={{ position: "absolute", inset: 0 }}>
-                  <svg
-                    viewBox="0 0 260 180"
-                    width="260"
-                    height="180"
-                    fill="none"
-                  >
-                    <rect
-                      width="260"
-                      height="180"
-                      rx="16"
-                      fill={theme.primaryColor}
-                    />
-                    <path
-                      d="M0 50L130 128L0 180"
-                      fill={theme.primaryColor}
-                      opacity="0.2"
-                    />
-                    <path
-                      d="M260 50L130 128L260 180"
-                      fill={theme.primaryColor}
-                      opacity="0.2"
-                    />
-                    <path
-                      d="M0 50L130 128L260 50"
-                      stroke={theme.decoColor}
-                      strokeWidth="1"
-                      opacity="0.3"
-                      fill="none"
-                    />
-                  </svg>
-                </div>
-
-                {/* 봉투 뚜껑 — rotateX만 담당 */}
-                <motion.div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: 260,
-                    height: 180,
-                    transformOrigin: "top center",
-                    zIndex: 3,
-                    pointerEvents: "none",
-                  }}
-                  animate={{ rotateX: isOpening ? -170 : 0 }}
-                  transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                >
-                  <svg
-                    viewBox="0 0 260 180"
-                    width="260"
-                    height="180"
-                    fill="none"
-                  >
-                    <path
-                      d="M16 0 Q0 0 0 16 L0 50 L130 128 L260 50 L260 16 Q260 0 244 0 Z"
-                      fill={theme.primaryColor}
-                    />
-                    <path
-                      d="M16 0 Q0 0 0 16 L0 30 L130 108 L260 30 L260 16 Q260 0 244 0 Z"
-                      fill="white"
-                      opacity="0.12"
-                    />
-                    <g transform="translate(0, 20)">
-                      {ENVELOPE_ICON[category]}
-                    </g>
-                  </svg>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* 타이틀 */}
-          <motion.div
-            className="mt-8 text-center"
-            animate={{
-              opacity: isOpening ? 0 : 1,
-              y: isOpening ? 6 : 0,
-            }}
-            transition={{ duration: 0.25 }}
-          >
-            <h1
-              className="font-normal leading-[1.3] mb-2"
-              style={{
-                fontFamily: "var(--font-serif)",
-                color: "var(--color-ink)",
-                fontSize: 28,
-              }}
-            >
-              편지가 도착했어요
-            </h1>
+          {isLoading ? (
             <p
-              className="text-[16px] leading-[1.6]"
+              className="text-[16px]"
               style={{
                 fontFamily: "var(--font-sans)",
                 color: "var(--color-ink-soft)",
               }}
             >
-              누군가 당신에게 마음을 전했어요.
-              <br />
-              봉투를 클릭해 열어보세요.
+              편지를 불러오는 중이에요...
             </p>
-          </motion.div>
+          ) : (
+            <>
+              <motion.p
+                className="text-[16px] mb-8"
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  color: "var(--color-ink-soft)",
+                }}
+                animate={{ opacity: isOpening ? 0 : 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                터치해서 마음 열기
+              </motion.p>
+
+              <div style={{ position: "relative", width: 260, height: 180 }}>
+                {/* 봉투 클릭 영역 */}
+                <div
+                  onClick={!isOpening ? handleOpen : undefined}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    cursor: isOpening ? "default" : "pointer",
+                  }}
+                >
+                  {/* 봉투 전체 래퍼 — 몸통 + 뚜껑 같이 fade-out + scale */}
+                  <motion.div
+                    style={{ position: "absolute", inset: 0 }}
+                    animate={{
+                      opacity: isOpening ? 0 : 1,
+                      scale: isOpening ? 0.9 : 1,
+                      y: isOpening ? 10 : 0,
+                    }}
+                    transition={{ duration: 0.4, delay: 0.4 }}
+                  >
+                    {/* 봉투 몸통 */}
+                    <div style={{ position: "absolute", inset: 0 }}>
+                      <svg
+                        viewBox="0 0 260 180"
+                        width="260"
+                        height="180"
+                        fill="none"
+                      >
+                        <rect
+                          width="260"
+                          height="180"
+                          rx="16"
+                          fill={theme.primaryColor}
+                        />
+                        <path
+                          d="M0 50L130 128L0 180"
+                          fill={theme.primaryColor}
+                          opacity="0.2"
+                        />
+                        <path
+                          d="M260 50L130 128L260 180"
+                          fill={theme.primaryColor}
+                          opacity="0.2"
+                        />
+                        <path
+                          d="M0 50L130 128L260 50"
+                          stroke={theme.decoColor}
+                          strokeWidth="1"
+                          opacity="0.3"
+                          fill="none"
+                        />
+                      </svg>
+                    </div>
+
+                    {/* 봉투 뚜껑 — rotateX만 담당 */}
+                    <motion.div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: 260,
+                        height: 180,
+                        transformOrigin: "top center",
+                        zIndex: 3,
+                        pointerEvents: "none",
+                      }}
+                      animate={{ rotateX: isOpening ? -170 : 0 }}
+                      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                    >
+                      <svg
+                        viewBox="0 0 260 180"
+                        width="260"
+                        height="180"
+                        fill="none"
+                      >
+                        <path
+                          d="M16 0 Q0 0 0 16 L0 50 L130 128 L260 50 L260 16 Q260 0 244 0 Z"
+                          fill={theme.primaryColor}
+                        />
+                        <path
+                          d="M16 0 Q0 0 0 16 L0 30 L130 108 L260 30 L260 16 Q260 0 244 0 Z"
+                          fill="white"
+                          opacity="0.12"
+                        />
+                        <g transform="translate(0, 20)">
+                          {ENVELOPE_ICON[category]}
+                        </g>
+                      </svg>
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* 타이틀 */}
+              <motion.div
+                className="mt-8 text-center"
+                animate={{
+                  opacity: isOpening ? 0 : 1,
+                  y: isOpening ? 6 : 0,
+                }}
+                transition={{ duration: 0.25 }}
+              >
+                <h1
+                  className="font-normal leading-[1.3] mb-2"
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    color: "var(--color-ink)",
+                    fontSize: 28,
+                  }}
+                >
+                  편지가 도착했어요
+                </h1>
+                <p
+                  className="text-[16px] leading-[1.6]"
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    color: "var(--color-ink-soft)",
+                  }}
+                >
+                  누군가 당신에게 마음을 전했어요.
+                  <br />
+                  봉투를 클릭해 열어보세요.
+                </p>
+              </motion.div>
+            </>
+          )}
         </div>
       )}
 
       {/* ── PHASE: 편지 열람 ── */}
-      {phase === "opened" && (
+      {currentPhase === "opened" && (
         <>
           <div className="flex-1 overflow-y-auto px-5 py-6">
             {/* 편지지 */}
