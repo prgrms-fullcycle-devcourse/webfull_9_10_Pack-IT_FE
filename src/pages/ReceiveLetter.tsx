@@ -12,6 +12,9 @@ import { HeartMist, PeaceMist } from "../shared/components/ui/LetterEffect";
 import IconConfetti from "../shared/components/Icons/IconConfetti";
 import IconHeart from "../shared/components/Icons/IconHeart";
 import IconFlower from "../shared/components/Icons/IconFlower";
+import { usePostApiUsersMeLettersReceived } from "../shared/api/generated/user-letters/user-letters";
+import { useMe } from "../shared/hooks/useMe";
+import toast from "react-hot-toast";
 
 
 type Phase = "password" | "before" | "opened";
@@ -65,6 +68,11 @@ export default function ReceiveLetter() {
   const [showHearts, setShowHearts] = useState(false);
   const [showPeace, setShowPeace] = useState(false);
 
+  const {isGuest: _isGuest} = useMe(); // 게스트 분기 처리 시 사용
+  const { mutate: bookmarkLetter, isPending: isBookmarking } =
+    usePostApiUsersMeLettersReceived();
+
+
   if (!letterId) return null;
 
   const handlePwSubmit = () => {
@@ -104,6 +112,21 @@ export default function ReceiveLetter() {
       setPhase("opened");
     }, 950);
   };
+
+  const handleBookmark = () => {
+    bookmarkLetter(
+    { data: { letterId } },
+    {
+      onSuccess: () => {
+        toast.success('편지를 보관했어요')
+        navigate("/mypage", { state: { activeTab: "received" } });
+      },
+      onError: () => {
+        toast.error('편지 보관에 실패했어요. 다시 시도해주세요.')
+        // TODO: 네트워크 혹은 서버 오류 처리
+      },
+    }
+  )}
 
   return (
     <div
@@ -257,7 +280,12 @@ export default function ReceiveLetter() {
                 터치해서 마음 열기
               </motion.p>
 
-              <div style={{ position: "relative", width: 260, height: 180 }}>
+              <motion.div style={{ position: "relative", width: 260, height: 180 }} animate={{ y: [0, -10, 0] }}
+  transition={{
+    duration: 2.5,
+    repeat: Infinity,
+    ease: "easeInOut",
+  }}>
                 {/* 봉투 클릭 영역 */}
                 <div
                   onClick={!isOpening ? handleOpen : undefined}
@@ -348,7 +376,7 @@ export default function ReceiveLetter() {
                     </motion.div>
                   </motion.div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* 타이틀 */}
               <motion.div
@@ -415,16 +443,17 @@ export default function ReceiveLetter() {
               variant="secondary"
               size="xlg"
               fullWidth={true}
+              disabled={isBookmarking}
               style={{
                 borderColor: "var(--color-rose-light)",
                 background: "var(--color-rose-pale)",
                 color: "var(--color-rose)",
               }}
               onClick={() => {
-                // TODO: 편지 보관 (게스트 계정 -> 받은 편지 저장)
+                handleBookmark();
               }}
             >
-              편지 보관하기
+              {isBookmarking ? "보관하는 중..." : "편지 보관하기"}
             </Button>
             <Button
               variant="primary"
