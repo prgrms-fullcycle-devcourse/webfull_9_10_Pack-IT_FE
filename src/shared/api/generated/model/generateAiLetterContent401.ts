@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-/**
- * @nullable
- */
-export type GetApiAuthKakaoCallback500Meta = { [key: string]: unknown } | null;
+export type GenerateAiLetterContent401 = {
+  /** 에러 메시지 */
+  message?: string;
+};
