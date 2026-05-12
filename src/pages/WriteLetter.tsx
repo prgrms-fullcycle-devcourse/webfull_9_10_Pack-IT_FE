@@ -103,8 +103,11 @@ export default function WriteLetter() {
           setForm((p) => ({ ...p, content: data!.data!.ai_content as string }));
         },
         onError: (error) => {
-          console.error("실패:", error);
-        },
+          console.error("AI 문구 변환 실패:", error);
+          console.error("status:", error.response?.status);
+          console.error("response:", error.response?.data);
+          console.error("headers:", error.response?.headers);
+        }
       }
     );
   };
@@ -144,7 +147,7 @@ export default function WriteLetter() {
           });
         },
         onError: (error) => {
-          console.error("실패:", error);
+          console.error("편지 생성 실패:", error);
         },
       }
     );
