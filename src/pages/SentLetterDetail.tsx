@@ -8,6 +8,7 @@ import Button from "../shared/components/ui/Button";
 import { type LetterItem } from "../shared/schemas/letterSchema";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
+import { useDeleteLetter } from "../shared/hooks/useDeleteLetter";
 
 // TODO: useParams().id → GET /letters/:id API 연동
 
@@ -16,18 +17,20 @@ export default function SentLetterDetail() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const location = useLocation();
   const activeTab = location.state?.activeTab ?? "sent";
-  const letter = location.state?.letter as LetterItem;
+  const nanoId = location.state?.nanoId as string | undefined;
+  const letter = location.state?.letter as LetterItem | undefined;
+
+  const { deleteLetter, isDeleting } = useDeleteLetter({
+    type: "sent",
+    nanoId: nanoId ?? letter?.nanoId ?? letter?.id ?? "",
+    activeTab,
+    onError: () => setShowDeleteConfirm(false),
+  });
 
   if (!letter) {
-    navigate(-1);
+    navigate("/mypage", { state: { activeTab }, replace: true });
     return null;
   }
-
-  const handleDelete = () => {
-    // TODO: DELETE /letters/:id API 연동
-    // 삭제 성공 시 이전화면 이동 + 토스트 "편지를 삭제했습니다"
-    navigate(-1);
-  };
 
   return (
     <div
@@ -66,9 +69,10 @@ export default function SentLetterDetail() {
           variant="ghost"
           size="md"
           fullWidth={true}
+          disabled={isDeleting}
           onClick={() => setShowDeleteConfirm(true)}
         >
-          편지 삭제
+          {isDeleting ? "삭제 중..." : "편지 삭제"}
         </Button>
       </div>
       <div className="flex-shrink-0 px-5 py-4">
@@ -92,7 +96,7 @@ export default function SentLetterDetail() {
         confirmLabel="삭제"
         cancelLabel="취소"
         confirmVariant="danger"
-        onConfirm={handleDelete}
+        onConfirm={deleteLetter}
         onCancel={() => setShowDeleteConfirm(false)}
       />
     </div>

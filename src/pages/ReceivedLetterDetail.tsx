@@ -6,12 +6,10 @@ import Button from "../shared/components/ui/Button";
 import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
-import type { LetterItem, LetterTheme } from "../shared/schemas/letterSchema";
+import type { LetterTheme } from "../shared/schemas/letterSchema";
 import { HtmlToImage } from "../shared/utils/HtmlToImage";
-import { useQueryClient } from "@tanstack/react-query";
 import { useGetLetterDetail } from "../shared/api/generated/letters/letters";
-import { getGetApiUsersMeLettersReceivedQueryKey, useDeleteApiUsersMeLettersReceivedLetterId } from "../shared/api/generated/user-letters/user-letters";
-import toast from "react-hot-toast";
+import { useDeleteLetter } from "../shared/hooks/useDeleteLetter";
 
 // TODO: useParams().id → GET /letters/:id API 연동
 
@@ -19,7 +17,6 @@ export default function ReceivedLetterDetail() {
   const navigate = useNavigate();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const location = useLocation();
-  const queryClient = useQueryClient();
 
   // 목록에서 전달받은 nanoId — 상세 조회 및 삭제 API용
   const nanoId = location.state?.nanoId as string | undefined;
@@ -32,23 +29,12 @@ export default function ReceivedLetterDetail() {
   const letter = data?.data;
 
   // ── 편지 삭제 ──
-  const { mutate: deleteLetter, isPending: isDeleting } =
-    useDeleteApiUsersMeLettersReceivedLetterId({
-      mutation: {
-        onSuccess: () => {
-          // 받은 편지 목록 캐시 무효화 → 마이페이지 진입 시 자동 리페치
-          queryClient.invalidateQueries({
-            queryKey: getGetApiUsersMeLettersReceivedQueryKey(),
-          });
-          toast("편지를 삭제했습니다");
-          navigate("/mypage", { state: { activeTab } });
-        },
-        onError: () => {
-          toast.error("삭제에 실패했어요. 다시 시도해주세요.");
-          setShowDeleteConfirm(false);
-        },
-      },
-    });
+  const { deleteLetter, isDeleting } = useDeleteLetter({
+    type: "received",
+    nanoId: nanoId ?? "",
+    activeTab,
+    onError: () => setShowDeleteConfirm(false),
+  });
 
   // nanoId 없으면 마이페이지로 복귀
   if (!nanoId) {
@@ -56,16 +42,12 @@ export default function ReceivedLetterDetail() {
     return null;
   }
 
-   const handleDelete = () => {
-     deleteLetter({ letterId: nanoId });
-   };
-
   const handleReply = () => {
     // 수신자 → 발신자, 발신자 → 수신자 swap
     navigate("/write", {
       state: {
-        to: letter.senderName,
-        from: letter.receiverName,
+        to: letter?.senderName ?? "",
+        from: letter?.receiverName ?? "",
         returnTo: "/mypage",
       },
     });
@@ -161,6 +143,7 @@ export default function ReceivedLetterDetail() {
             variant="ghost"
             size="md"
             fullWidth={true}
+            disabled={isDeleting}
             onClick={() => setShowDeleteConfirm(true)}
           >
             {isDeleting ? "삭제 중..." : "편지 삭제"}
@@ -190,7 +173,7 @@ export default function ReceivedLetterDetail() {
         confirmLabel="삭제"
         cancelLabel="취소"
         confirmVariant="danger"
-        onConfirm={handleDelete}
+        onConfirm={deleteLetter}
         onCancel={() => setShowDeleteConfirm(false)}
       />
     </div>

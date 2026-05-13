@@ -78,11 +78,11 @@ export default function MyPage() {
   const handleLetterClick = (item: LetterItem) => {
     if (activeTab === "sent") {
       navigate(`/mypage/sent/${item.id}`, {
-        state: { letter: item, activeTab },
+        state: { nanoId: item.nanoId, activeTab },
       });
     } else {
       navigate(`/mypage/received/${item.id}`, {
-        state: { letter: item, activeTab },
+        state: { nanoId: item.nanoId, activeTab },
       });
     }
   };
@@ -94,7 +94,6 @@ export default function MyPage() {
     toast("로그아웃 되었습니다");
     navigate("/");
   }
-
 
 
   const TABS: { key: MyPageTab; label: string }[] = [
