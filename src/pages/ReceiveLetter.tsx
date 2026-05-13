@@ -1,55 +1,141 @@
-// src/pages/ReceiveLetter.tsx
-// 비밀번호 입력 → 봉투 오픈 전 → 편지 열람 한 파일에서 상태 관리
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {  useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import Button from "../shared/components/ui/Button";
 import { HtmlToImage } from "../shared/utils/HtmlToImage";
+import {  useGetApiLettersLetterIdCheckPassword, useGetLetterDetail, useVerifyLetterPassword } from "../shared/api/generated/letters/letters";
+import LetterPaper from "../shared/components/ui/LetterPaper";
+import { THEME_MAP, type LetterKeyword, type LetterTheme } from "../shared/schemas/letterSchema";
+import { motion } from "framer-motion";
+import { letterOpenEffect } from "../shared/utils/LetterOpenEffect";
+import { HeartMist, PeaceMist } from "../shared/components/ui/LetterEffect";
+import IconConfetti from "../shared/components/Icons/IconConfetti";
+import IconHeart from "../shared/components/Icons/IconHeart";
+import IconFlower from "../shared/components/Icons/IconFlower";
+import { usePostApiUsersMeLettersReceived } from "../shared/api/generated/user-letters/user-letters";
+import { useMe } from "../shared/hooks/useMe";
+import toast from "react-hot-toast";
+
 
 type Phase = "password" | "before" | "opened";
 
-// TODO: useParams().letterId → GET /letters/:id API 연동
-const MOCK = {
-  to: "To. 소중한 당신에게",
-  content:
-    "진심으로 생일을 축하해! 🎂\n\n오늘 하루는 세상에서 네가 가장 행복하고 따뜻한 시간들로만 가득 채웠으면 좋겠다. 맛있는 것도 많이 먹고, 주변 사람들에게 축하도 듬뿍 받는 최고의 날이 되길 바랄게.\n\n항상 곁에 있어줘서 고맙고, 오늘 정말 좋은 하루 보내! ✨",
-  from: "From. 마음을 담아",
-  date: "2026년 04월 23일",
-  correctPassword: "1234", // TODO: API로 검증
-  primaryColor: "#e8526a",
-  bgColor: "linear-gradient(160deg, #fff5f7, #ffe0e8)",
-  decoColor: "#f7d4da",
+const ENVELOPE_ICON: Record<LetterKeyword, React.ReactNode> = {
+  생일: <IconConfetti />,
+  응원: <IconConfetti />,
+  감사: <IconHeart />,
+  고백: <IconHeart />,
+  사과: <IconFlower />,
+  화해: <IconFlower />,
 };
 
 export default function ReceiveLetter() {
   const navigate = useNavigate();
-  const hasPassword = true; // TODO : API 연동 후 교체
-  const [phase, setPhase] = useState<Phase>(
-    hasPassword ? "password" : "before",
+  const { letterId } = useParams<{ letterId: string }>();
+
+  // 비밀번호 유무 확인
+  const { data: checkPasswordData } =
+    useGetApiLettersLetterIdCheckPassword(letterId ?? "", {
+      query: { enabled: !!letterId },
+    });
+
+  const hasPassword = checkPasswordData?.data?.hasPassword ?? true;
+  const [phase, setPhase] = useState<Phase>("password");
+  const currentPhase =
+    checkPasswordData?.data === undefined
+      ? "password"
+      : phase === "password" && !hasPassword
+        ? "before"
+        : phase;
+
+  // 편지 상세 조회
+  const { data, isLoading: isLetterLoading } = useGetLetterDetail(
+    letterId ?? "",
+    {
+      query: { enabled: !!letterId && currentPhase === "before" }, // phase가 before일 때만 호출
+    },
   );
+
+  const letter = data?.data;
+  const isLoading = currentPhase === "before" && isLetterLoading;
+
+  // 비밀번호 확인
+  const { mutate: verifyPassword } = useVerifyLetterPassword();
+
   const [pw, setPw] = useState("");
   const [pwError, setPwError] = useState("");
 
+  const [isOpening, setIsOpening] = useState(false);
+  const [showHearts, setShowHearts] = useState(false);
+  const [showPeace, setShowPeace] = useState(false);
+
+  const {isGuest: _isGuest} = useMe(); // 게스트 분기 처리 시 사용
+  const { mutate: bookmarkLetter, isPending: isBookmarking } =
+    usePostApiUsersMeLettersReceived();
+
+
+  if (!letterId) return null;
+
   const handlePwSubmit = () => {
     if (!pw) return;
-    if (pw !== MOCK.correctPassword) {
-      // TODO: API 비밀번호 대조
-      setPwError("비밀번호가 올바르지 않아요. 다시 확인해주세요.");
-      return;
-    }
-    setPwError("");
-    setPhase("before");
+
+    verifyPassword(
+      { letterId: letterId!, data: { password: pw } },
+      {
+        onSuccess: () => {
+          
+          setPwError("");
+          setPhase("before");
+        },
+        onError: () => {
+          setPwError("비밀번호가 올바르지 않아요. 다시 확인해주세요.");
+        },
+      },
+    );
   };
 
+  const theme = THEME_MAP[(letter?.theme as LetterTheme) ?? 1];
+  const category = (letter?.category as LetterKeyword) ?? "생일";
+
   const handleOpen = () => {
-    setPhase("opened");
+    setIsOpening(true);
+
+    if (category === "사과" || category === "화해") {
+      setTimeout(() => {
+        letterOpenEffect(category, setShowHearts, setShowPeace);
+      }, 0);
+    } else {
+      setTimeout(() => {
+        letterOpenEffect(category, setShowHearts, setShowPeace);
+      }, 300);
+    }
+    setTimeout(() => {
+      setPhase("opened");
+    }, 950);
   };
+
+  const handleBookmark = () => {
+    bookmarkLetter(
+    { data: { letterId } },
+    {
+      onSuccess: () => {
+        toast.success('편지를 보관했어요')
+        navigate("/mypage", { state: { activeTab: "received" } });
+      },
+      onError: () => {
+        toast.error('편지 보관에 실패했어요. 다시 시도해주세요.')
+        // TODO: 네트워크 혹은 서버 오류 처리
+      },
+    }
+  )}
 
   return (
     <div
       className="min-h-screen flex flex-col"
       style={{ background: "var(--color-cream)" }}
     >
+      {/* 이펙트 — 항상 렌더, show로 제어 */}
+      <HeartMist show={showHearts} />
+      <PeaceMist show={showPeace} />
       {/* NAV */}
       <nav
         className="h-[52px] flex items-center justify-between px-5 border-b border-black/[0.08] flex-shrink-0 bg-white"
@@ -85,7 +171,7 @@ export default function ReceiveLetter() {
       </nav>
 
       {/* ── PHASE: 비밀번호 입력 ── */}
-      {phase === "password" && (
+      {currentPhase === "password" && (
         <div className="flex-1 flex flex-col items-center justify-center px-5 text-center">
           <div
             className="w-[64px] h-[64px] rounded-full flex items-center justify-center text-[26px] mb-5"
@@ -168,149 +254,178 @@ export default function ReceiveLetter() {
       )}
 
       {/* ── PHASE: 봉투 오픈 전 ── */}
-      {phase === "before" && (
+      {currentPhase === "before" && (
         <div className="flex-1 flex flex-col items-center justify-center px-5 text-center">
-          <p
-            className="text-[16px] mb-6"
-            style={{
-              fontFamily: "var(--font-sans)",
-              color: "var(--color-ink-soft)",
-            }}
-          >
-            터치해서 마음 열기
-          </p>
+          {isLoading ? (
+            <p
+              className="text-[16px]"
+              style={{
+                fontFamily: "var(--font-sans)",
+                color: "var(--color-ink-soft)",
+              }}
+            >
+              편지를 불러오는 중이에요...
+            </p>
+          ) : (
+            <>
+              <motion.p
+                className="text-[16px] mb-8"
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  color: "var(--color-ink-soft)",
+                }}
+                animate={{ opacity: isOpening ? 0 : 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                터치해서 마음 열기
+              </motion.p>
 
-          {/* SVG 봉투 */}
-          <div
-            onClick={handleOpen}
-            className="cursor-pointer mb-7 transition-transform hover:scale-[1.04] hover:-translate-y-1 active:scale-[0.97]"
-            style={{ filter: "drop-shadow(0 12px 40px rgba(232,82,106,0.28))" }}
-          >
-            <svg width="200" height="148" viewBox="0 0 220 160" fill="none">
-              <rect
-                x="4"
-                y="40"
-                width="212"
-                height="116"
-                rx="12"
-                fill="#f4627d"
-              />
-              <path d="M4 52L110 120L216 52" fill="#e04060" opacity="0.4" />
-              <path d="M4 40L110 110L4 156" fill="#c43e55" opacity="0.25" />
-              <path d="M216 40L110 110L216 156" fill="#c43e55" opacity="0.25" />
-              <path
-                d="M4 40Q4 38 6 37L110 10L214 37Q216 38 216 40L110 108Z"
-                fill="#f78090"
-              />
-              <path
-                d="M110 62C110 62 100 54 100 48C100 44 104 41 107 43C108.5 44 110 46 110 46C110 46 111.5 44 113 43C116 41 120 44 120 48C120 54 110 62 110 62Z"
-                fill="white"
-                opacity="0.7"
-              />
-              <rect
-                x="88"
-                y="88"
-                width="44"
-                height="32"
-                rx="4"
-                fill="white"
-                opacity="0.15"
-              />
-              <path
-                d="M88 92L110 106L132 92"
-                stroke="white"
-                strokeWidth="1.5"
-                opacity="0.4"
-                fill="none"
-              />
-            </svg>
-          </div>
+              <motion.div style={{ position: "relative", width: 260, height: 180 }} animate={{ y: [0, -10, 0] }}
+  transition={{
+    duration: 2.5,
+    repeat: Infinity,
+    ease: "easeInOut",
+  }}>
+                {/* 봉투 클릭 영역 */}
+                <div
+                  onClick={!isOpening ? handleOpen : undefined}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    cursor: isOpening ? "default" : "pointer",
+                  }}
+                >
+                  {/* 봉투 전체 래퍼 — 몸통 + 뚜껑 같이 fade-out + scale */}
+                  <motion.div
+                    style={{ position: "absolute", inset: 0 }}
+                    animate={{
+                      opacity: isOpening ? 0 : 1,
+                      scale: isOpening ? 0.9 : 1,
+                      y: isOpening ? 10 : 0,
+                    }}
+                    transition={{ duration: 0.4, delay: 0.4 }}
+                  >
+                    {/* 봉투 몸통 */}
+                    <div style={{ position: "absolute", inset: 0 }}>
+                      <svg
+                        viewBox="0 0 260 180"
+                        width="260"
+                        height="180"
+                        fill="none"
+                      >
+                        <rect
+                          width="260"
+                          height="180"
+                          rx="16"
+                          fill={theme.primaryColor}
+                        />
+                        <path
+                          d="M0 50L130 128L0 180"
+                          fill={theme.primaryColor}
+                          opacity="0.2"
+                        />
+                        <path
+                          d="M260 50L130 128L260 180"
+                          fill={theme.primaryColor}
+                          opacity="0.2"
+                        />
+                        <path
+                          d="M0 50L130 128L260 50"
+                          stroke={theme.decoColor}
+                          strokeWidth="1"
+                          opacity="0.3"
+                          fill="none"
+                        />
+                      </svg>
+                    </div>
 
-          <h1
-            className="font-normal leading-[1.3] mb-2"
-            style={{
-              fontFamily: "var(--font-serif)",
-              color: "var(--color-ink)",
-              fontSize: 28,
-            }}
-          >
-            편지가 도착했어요
-          </h1>
-          <p
-            className="text-[16px] leading-[1.6]"
-            style={{
-              fontFamily: "var(--font-sans)",
-              color: "var(--color-ink-soft)",
-            }}
-          >
-            누군가 당신에게 마음을 전했어요.
-            <br />
-            봉투를 클릭해 열어보세요.
-          </p>
+                    {/* 봉투 뚜껑 — rotateX만 담당 */}
+                    <motion.div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: 260,
+                        height: 180,
+                        transformOrigin: "top center",
+                        zIndex: 3,
+                        pointerEvents: "none",
+                      }}
+                      animate={{ rotateX: isOpening ? -170 : 0 }}
+                      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                    >
+                      <svg
+                        viewBox="0 0 260 180"
+                        width="260"
+                        height="180"
+                        fill="none"
+                      >
+                        <path
+                          d="M16 0 Q0 0 0 16 L0 50 L130 128 L260 50 L260 16 Q260 0 244 0 Z"
+                          fill={theme.primaryColor}
+                        />
+                        <path
+                          d="M16 0 Q0 0 0 16 L0 30 L130 108 L260 30 L260 16 Q260 0 244 0 Z"
+                          fill="white"
+                          opacity="0.12"
+                        />
+                        <g transform="translate(0, 20)">
+                          {ENVELOPE_ICON[category]}
+                        </g>
+                      </svg>
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              {/* 타이틀 */}
+              <motion.div
+                className="mt-8 text-center"
+                animate={{
+                  opacity: isOpening ? 0 : 1,
+                  y: isOpening ? 6 : 0,
+                }}
+                transition={{ duration: 0.25 }}
+              >
+                <h1
+                  className="font-normal leading-[1.3] mb-2"
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    color: "var(--color-ink)",
+                    fontSize: 28,
+                  }}
+                >
+                  편지가 도착했어요
+                </h1>
+                <p
+                  className="text-[16px] leading-[1.6]"
+                  style={{
+                    fontFamily: "var(--font-sans)",
+                    color: "var(--color-ink-soft)",
+                  }}
+                >
+                  누군가 당신에게 마음을 전했어요.
+                  <br />
+                  봉투를 클릭해 열어보세요.
+                </p>
+              </motion.div>
+            </>
+          )}
         </div>
       )}
 
       {/* ── PHASE: 편지 열람 ── */}
-      {phase === "opened" && (
+      {currentPhase === "opened" && (
         <>
           <div className="flex-1 overflow-y-auto px-5 py-6">
             {/* 편지지 */}
-            <div
-              className="rounded-[16px] overflow-hidden border border-black/[0.06] mb-4"
-              style={{ boxShadow: "0 4px 20px rgba(28,23,20,0.06)" }}
-              id="ImageSet"
-            >
-              <div
-                className="h-[3px]"
-                style={{
-                  background: MOCK.primaryColor,
-                }}
-              />
-              <div className="px-6 py-5" style={{ background: MOCK.bgColor }}>
-                <div
-                  className="w-[22px] h-px mb-3"
-                  style={{ background: MOCK.decoColor }}
-                />
-                <p
-                  className="text-[14px] italic mb-3"
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    color: MOCK.primaryColor,
-                  }}
-                >
-                  {MOCK.to}
-                </p>
-                <p
-                  className="text-[16px] leading-[1.85] mb-4 whitespace-pre-line"
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    color: "var(--color-ink-mid)",
-                  }}
-                >
-                  {MOCK.content}
-                </p>
-                <div className="flex justify-between pt-3 border-t border-black/[0.06]">
-                  <span
-                    className="text-[12px] italic"
-                    style={{
-                      fontFamily: "var(--font-serif)",
-                      color: MOCK.primaryColor,
-                    }}
-                  >
-                    {MOCK.from}
-                  </span>
-                  <span
-                    className="text-[11px]"
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      color: "var(--color-ink-soft)",
-                    }}
-                  >
-                    {MOCK.date}
-                  </span>
-                </div>
-              </div>
-            </div>
+            <LetterPaper
+              theme={(letter?.theme as LetterTheme) ?? 1}
+              to={letter?.receiverName ?? ""}
+              content={letter?.content ?? ""}
+              from={letter?.senderName ?? ""}
+              date={letter?.publishedAt ?? ""}
+            />
 
             <Button
               variant="ghost"
@@ -328,22 +443,31 @@ export default function ReceiveLetter() {
               variant="secondary"
               size="xlg"
               fullWidth={true}
+              disabled={isBookmarking}
               style={{
                 borderColor: "var(--color-rose-light)",
                 background: "var(--color-rose-pale)",
                 color: "var(--color-rose)",
               }}
               onClick={() => {
-                // TODO: 편지 보관 (게스트 계정 -> 받은 편지 저장)
+                handleBookmark();
               }}
             >
-              편지 보관하기
+              {isBookmarking ? "보관하는 중..." : "편지 보관하기"}
             </Button>
             <Button
               variant="primary"
               size="xlg"
               fullWidth={true}
-              onClick={() => navigate("/write")}
+              onClick={() =>
+                navigate("/write", {
+                  state: {
+                    to: letter?.senderName,
+                    from: letter?.receiverName,
+                    returnTo: "/mypage",
+                  },
+                })
+              }
             >
               답장 쓰기
             </Button>

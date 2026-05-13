@@ -1,8 +1,7 @@
 import { defineConfig } from "orval";
 
 const openApiTarget =
-    process.env.ORVAL_OPENAPI_TARGET ??
-    "http://54.180.159.211:8080/api-json";
+  process.env.ORVAL_OPENAPI_TARGET ?? "http://54.180.159.211:8080/api-json";
 
 export default defineConfig({
     sabujak: {

@@ -1,7 +1,7 @@
 // src/pages/WriteLetter.tsx
 // 4단계 인라인 step 관리 — Zustand 추가 시 useState 2줄만 교체
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import StepBar from "../shared/components/layout/StepBar";
 import Button from "../shared/components/ui/Button";
 import Input from "../shared/components/ui/Input";
@@ -27,16 +27,20 @@ import {
 
 const MAX_CONTENT = 500;
 
-const INITIAL_FORM: LetterFormData = {
-  to: "",
-  from: "",
+const getInitialForm = (state?: {
+  to?: string;
+  from?: string;
+}): LetterFormData => ({
+  to: state?.to ?? "",
+  from: state?.from ?? "",
   keyword: "생일",
   content: "",
   originalContent: "",
   tone: null,
-letterPassword: null,
+  letterPassword: null,
   theme: 1,
-};
+});
+
 
 const STEPS = [
   { label: "기본 정보" },
@@ -47,9 +51,14 @@ const STEPS = [
 
 export default function WriteLetter() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   // ── 마이그레이션 포인트: Zustand 추가 시 아래 2줄만 교체 ──
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-  const [form, setForm] = useState<LetterFormData>(INITIAL_FORM);
+  const [form, setForm] = useState<LetterFormData>(
+    getInitialForm(location.state),
+  );
+
   // ──────────────────────────────────────────────────────────
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -61,7 +70,7 @@ export default function WriteLetter() {
   };
   const goPrev = () => {
     if (step === 1) {
-      navigate(-1);
+      navigate(location.state?.returnTo ?? "/");
       return;
     }
     setStep((s) => (s - 1) as 1 | 2 | 3 | 4);

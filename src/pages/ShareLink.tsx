@@ -23,11 +23,8 @@ export default function ShareLink() {
   const to = state?.to ?? MOCK.to;
   const from = state?.from ?? MOCK.from;
   const content = state?.content ?? MOCK.content;
-  const now = new Date();
-  const date = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(
-    2,
-    "0"
-  )}월 ${String(now.getDate()).padStart(2, "0")}일`;
+  const date = new Date().toISOString();
+  
   const id = state?.id ?? MOCK.id;
 
   const letterPassword = state?.letterPassword ?? "";
