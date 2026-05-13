@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { useAutuStore } from "../../store/useAuthStore";
 import { useGetApiUsersMe } from "../../api/generated/users/users";
@@ -17,19 +17,7 @@ export const GetNanoId = ({
     }
   });
 
-  useEffect(() => {
-    const savedToken = sessionStorage.getItem("nanoId");
-
-    if (isLoggedin && nanoId && savedToken ) return;
-
-    if (savedToken) {
-      setLogin(savedToken);
-    } else {
-      handleFetchGuestInfo();
-    }
-  }, [location.pathname]);
-
-  const handleFetchGuestInfo = async () => {
+  const handleFetchGuestInfo = useCallback(async () => {
     try {
       const result = await refetch();
       
@@ -43,7 +31,19 @@ export const GetNanoId = ({
     } catch (err) {
       console.error("게스트 정보 가져오기 실패:", err);
     }
-  };
+  }, [refetch, setLogin]); // 의존성 배열 추가
+
+  useEffect(() => {
+    const savedToken = sessionStorage.getItem("nanoId");
+
+    if (isLoggedin && nanoId && savedToken ) return;
+
+    if (savedToken) {
+      setLogin(savedToken);
+    } else {
+      handleFetchGuestInfo();
+    }
+  }, [location.pathname, isLoggedin, nanoId, setLogin, handleFetchGuestInfo]);
 
   return <>{children}</>;
 };
