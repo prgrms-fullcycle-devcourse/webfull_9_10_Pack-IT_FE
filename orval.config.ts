@@ -5,7 +5,7 @@ const openApiTarget =
     "http://54.180.159.211:8080/api-json";
 
 export default defineConfig({
-    sabujak: {
+    PackIt: {
         input: {
             target: openApiTarget,
         },
