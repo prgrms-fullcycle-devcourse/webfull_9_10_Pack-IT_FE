@@ -6,8 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiUsersMeLettersReceived200Meta = {
-  /** @nullable */
-  nextCursor?: number | null;
-  hasNextPage?: boolean;
-};
+/**
+ * @nullable
+ */
+export type DeleteSavedLetter200Meta = { [key: string]: unknown } | null;

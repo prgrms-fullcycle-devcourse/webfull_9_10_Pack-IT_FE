@@ -25,13 +25,13 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  DeleteApiUsersMeLettersReceivedLetterId200,
-  GetApiUsersMeLettersReceived200,
-  GetApiUsersMeLettersReceivedParams,
-  GetApiUsersMeLettersSent200,
-  GetApiUsersMeLettersSentParams,
-  PostApiUsersMeLettersReceived200,
-  PostApiUsersMeLettersReceivedBody
+  DeleteSavedLetter200,
+  GetReceivedLetters200,
+  GetReceivedLettersParams,
+  GetSentLetters200,
+  GetSentLettersParams,
+  SaveLetter200,
+  SaveLetterBody
 } from '../model';
 
 import { customInstance } from '../../orval/mutator';
@@ -45,13 +45,13 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 /**
  * @summary 내가 쓴 편지 목록 조회 (무한 스크롤)
  */
-export const getApiUsersMeLettersSent = (
-    params?: GetApiUsersMeLettersSentParams,
+export const getSentLetters = (
+    params?: GetSentLettersParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
 
-      return customInstance<GetApiUsersMeLettersSent200>(
+      return customInstance<GetSentLetters200>(
       {url: `/api/users/me/letters/sent`, method: 'GET',
         params, signal
     },
@@ -61,69 +61,69 @@ export const getApiUsersMeLettersSent = (
 
 
 
-export const getGetApiUsersMeLettersSentQueryKey = (params?: GetApiUsersMeLettersSentParams,) => {
+export const getGetSentLettersQueryKey = (params?: GetSentLettersParams,) => {
     return [
     `/api/users/me/letters/sent`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getGetApiUsersMeLettersSentQueryOptions = <TData = Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError = ErrorType<unknown>>(params?: GetApiUsersMeLettersSentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getGetSentLettersQueryOptions = <TData = Awaited<ReturnType<typeof getSentLetters>>, TError = ErrorType<unknown>>(params?: GetSentLettersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSentLetters>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetApiUsersMeLettersSentQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getGetSentLettersQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getApiUsersMeLettersSent>>> = ({ signal }) => getApiUsersMeLettersSent(params, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getSentLetters>>> = ({ signal }) => getSentLetters(params, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getSentLetters>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetApiUsersMeLettersSentQueryResult = NonNullable<Awaited<ReturnType<typeof getApiUsersMeLettersSent>>>
-export type GetApiUsersMeLettersSentQueryError = ErrorType<unknown>
+export type GetSentLettersQueryResult = NonNullable<Awaited<ReturnType<typeof getSentLetters>>>
+export type GetSentLettersQueryError = ErrorType<unknown>
 
 
-export function useGetApiUsersMeLettersSent<TData = Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError = ErrorType<unknown>>(
- params: undefined |  GetApiUsersMeLettersSentParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError, TData>> & Pick<
+export function useGetSentLetters<TData = Awaited<ReturnType<typeof getSentLetters>>, TError = ErrorType<unknown>>(
+ params: undefined |  GetSentLettersParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSentLetters>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getApiUsersMeLettersSent>>,
+          Awaited<ReturnType<typeof getSentLetters>>,
           TError,
-          Awaited<ReturnType<typeof getApiUsersMeLettersSent>>
+          Awaited<ReturnType<typeof getSentLetters>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetApiUsersMeLettersSent<TData = Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError = ErrorType<unknown>>(
- params?: GetApiUsersMeLettersSentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError, TData>> & Pick<
+export function useGetSentLetters<TData = Awaited<ReturnType<typeof getSentLetters>>, TError = ErrorType<unknown>>(
+ params?: GetSentLettersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSentLetters>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getApiUsersMeLettersSent>>,
+          Awaited<ReturnType<typeof getSentLetters>>,
           TError,
-          Awaited<ReturnType<typeof getApiUsersMeLettersSent>>
+          Awaited<ReturnType<typeof getSentLetters>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetApiUsersMeLettersSent<TData = Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError = ErrorType<unknown>>(
- params?: GetApiUsersMeLettersSentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetSentLetters<TData = Awaited<ReturnType<typeof getSentLetters>>, TError = ErrorType<unknown>>(
+ params?: GetSentLettersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSentLetters>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary 내가 쓴 편지 목록 조회 (무한 스크롤)
  */
 
-export function useGetApiUsersMeLettersSent<TData = Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError = ErrorType<unknown>>(
- params?: GetApiUsersMeLettersSentParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersSent>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetSentLetters<TData = Awaited<ReturnType<typeof getSentLetters>>, TError = ErrorType<unknown>>(
+ params?: GetSentLettersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getSentLetters>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetApiUsersMeLettersSentQueryOptions(params,options)
+  const queryOptions = getGetSentLettersQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -138,13 +138,13 @@ export function useGetApiUsersMeLettersSent<TData = Awaited<ReturnType<typeof ge
 /**
  * @summary 받은 편지 목록 조회 (무한 스크롤)
  */
-export const getApiUsersMeLettersReceived = (
-    params?: GetApiUsersMeLettersReceivedParams,
+export const getReceivedLetters = (
+    params?: GetReceivedLettersParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
 
-      return customInstance<GetApiUsersMeLettersReceived200>(
+      return customInstance<GetReceivedLetters200>(
       {url: `/api/users/me/letters/received`, method: 'GET',
         params, signal
     },
@@ -154,69 +154,69 @@ export const getApiUsersMeLettersReceived = (
 
 
 
-export const getGetApiUsersMeLettersReceivedQueryKey = (params?: GetApiUsersMeLettersReceivedParams,) => {
+export const getGetReceivedLettersQueryKey = (params?: GetReceivedLettersParams,) => {
     return [
     `/api/users/me/letters/received`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getGetApiUsersMeLettersReceivedQueryOptions = <TData = Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError = ErrorType<unknown>>(params?: GetApiUsersMeLettersReceivedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getGetReceivedLettersQueryOptions = <TData = Awaited<ReturnType<typeof getReceivedLetters>>, TError = ErrorType<unknown>>(params?: GetReceivedLettersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getReceivedLetters>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetApiUsersMeLettersReceivedQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getGetReceivedLettersQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>> = ({ signal }) => getApiUsersMeLettersReceived(params, requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getReceivedLetters>>> = ({ signal }) => getReceivedLetters(params, requestOptions, signal);
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getReceivedLetters>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetApiUsersMeLettersReceivedQueryResult = NonNullable<Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>>
-export type GetApiUsersMeLettersReceivedQueryError = ErrorType<unknown>
+export type GetReceivedLettersQueryResult = NonNullable<Awaited<ReturnType<typeof getReceivedLetters>>>
+export type GetReceivedLettersQueryError = ErrorType<unknown>
 
 
-export function useGetApiUsersMeLettersReceived<TData = Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError = ErrorType<unknown>>(
- params: undefined |  GetApiUsersMeLettersReceivedParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError, TData>> & Pick<
+export function useGetReceivedLetters<TData = Awaited<ReturnType<typeof getReceivedLetters>>, TError = ErrorType<unknown>>(
+ params: undefined |  GetReceivedLettersParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getReceivedLetters>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>,
+          Awaited<ReturnType<typeof getReceivedLetters>>,
           TError,
-          Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>
+          Awaited<ReturnType<typeof getReceivedLetters>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetApiUsersMeLettersReceived<TData = Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError = ErrorType<unknown>>(
- params?: GetApiUsersMeLettersReceivedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError, TData>> & Pick<
+export function useGetReceivedLetters<TData = Awaited<ReturnType<typeof getReceivedLetters>>, TError = ErrorType<unknown>>(
+ params?: GetReceivedLettersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getReceivedLetters>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>,
+          Awaited<ReturnType<typeof getReceivedLetters>>,
           TError,
-          Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>
+          Awaited<ReturnType<typeof getReceivedLetters>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetApiUsersMeLettersReceived<TData = Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError = ErrorType<unknown>>(
- params?: GetApiUsersMeLettersReceivedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetReceivedLetters<TData = Awaited<ReturnType<typeof getReceivedLetters>>, TError = ErrorType<unknown>>(
+ params?: GetReceivedLettersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getReceivedLetters>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary 받은 편지 목록 조회 (무한 스크롤)
  */
 
-export function useGetApiUsersMeLettersReceived<TData = Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError = ErrorType<unknown>>(
- params?: GetApiUsersMeLettersReceivedParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiUsersMeLettersReceived>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export function useGetReceivedLetters<TData = Awaited<ReturnType<typeof getReceivedLetters>>, TError = ErrorType<unknown>>(
+ params?: GetReceivedLettersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getReceivedLetters>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetApiUsersMeLettersReceivedQueryOptions(params,options)
+  const queryOptions = getGetReceivedLettersQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -229,30 +229,30 @@ export function useGetApiUsersMeLettersReceived<TData = Awaited<ReturnType<typeo
 
 
 /**
- * 수신한 편지를 내 계정의 보관함에 저장합니다.
+ * 수신한 편지를 내 계정의 보관함(saved_letter)에 저장합니다.
  * @summary 받은 편지 보관하기
  */
-export const postApiUsersMeLettersReceived = (
-    postApiUsersMeLettersReceivedBody: BodyType<PostApiUsersMeLettersReceivedBody>,
+export const saveLetter = (
+    saveLetterBody: BodyType<SaveLetterBody>,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
 
-      return customInstance<PostApiUsersMeLettersReceived200>(
+      return customInstance<SaveLetter200>(
       {url: `/api/users/me/letters/received`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
-      data: postApiUsersMeLettersReceivedBody, signal
+      data: saveLetterBody, signal
     },
       options);
     }
 
 
 
-export const getPostApiUsersMeLettersReceivedMutationOptions = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiUsersMeLettersReceived>>, TError,{data: BodyType<PostApiUsersMeLettersReceivedBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof postApiUsersMeLettersReceived>>, TError,{data: BodyType<PostApiUsersMeLettersReceivedBody>}, TContext> => {
+export const getSaveLetterMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveLetter>>, TError,{data: BodyType<SaveLetterBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof saveLetter>>, TError,{data: BodyType<SaveLetterBody>}, TContext> => {
 
-const mutationKey = ['postApiUsersMeLettersReceived'];
+const mutationKey = ['saveLetter'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -262,10 +262,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postApiUsersMeLettersReceived>>, {data: BodyType<PostApiUsersMeLettersReceivedBody>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof saveLetter>>, {data: BodyType<SaveLetterBody>}> = (props) => {
           const {data} = props ?? {};
 
-          return  postApiUsersMeLettersReceived(data,requestOptions)
+          return  saveLetter(data,requestOptions)
         }
 
 
@@ -275,33 +275,33 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostApiUsersMeLettersReceivedMutationResult = NonNullable<Awaited<ReturnType<typeof postApiUsersMeLettersReceived>>>
-    export type PostApiUsersMeLettersReceivedMutationBody = BodyType<PostApiUsersMeLettersReceivedBody>
-    export type PostApiUsersMeLettersReceivedMutationError = ErrorType<unknown>
+    export type SaveLetterMutationResult = NonNullable<Awaited<ReturnType<typeof saveLetter>>>
+    export type SaveLetterMutationBody = BodyType<SaveLetterBody>
+    export type SaveLetterMutationError = ErrorType<unknown>
 
     /**
  * @summary 받은 편지 보관하기
  */
-export const usePostApiUsersMeLettersReceived = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postApiUsersMeLettersReceived>>, TError,{data: BodyType<PostApiUsersMeLettersReceivedBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useSaveLetter = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof saveLetter>>, TError,{data: BodyType<SaveLetterBody>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postApiUsersMeLettersReceived>>,
+        Awaited<ReturnType<typeof saveLetter>>,
         TError,
-        {data: BodyType<PostApiUsersMeLettersReceivedBody>},
+        {data: BodyType<SaveLetterBody>},
         TContext
       > => {
-      return useMutation(getPostApiUsersMeLettersReceivedMutationOptions(options), queryClient);
+      return useMutation(getSaveLetterMutationOptions(options), queryClient);
     }
     /**
  * @summary 보관한 편지 삭제
  */
-export const deleteApiUsersMeLettersReceivedLetterId = (
+export const deleteSavedLetter = (
     letterId: string,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
 
-      return customInstance<DeleteApiUsersMeLettersReceivedLetterId200>(
+      return customInstance<DeleteSavedLetter200>(
       {url: `/api/users/me/letters/received/${letterId}`, method: 'DELETE', signal
     },
       options);
@@ -309,11 +309,11 @@ export const deleteApiUsersMeLettersReceivedLetterId = (
 
 
 
-export const getDeleteApiUsersMeLettersReceivedLetterIdMutationOptions = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteApiUsersMeLettersReceivedLetterId>>, TError,{letterId: string}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteApiUsersMeLettersReceivedLetterId>>, TError,{letterId: string}, TContext> => {
+export const getDeleteSavedLetterMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSavedLetter>>, TError,{letterId: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteSavedLetter>>, TError,{letterId: string}, TContext> => {
 
-const mutationKey = ['deleteApiUsersMeLettersReceivedLetterId'];
+const mutationKey = ['deleteSavedLetter'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -323,10 +323,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteApiUsersMeLettersReceivedLetterId>>, {letterId: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteSavedLetter>>, {letterId: string}> = (props) => {
           const {letterId} = props ?? {};
 
-          return  deleteApiUsersMeLettersReceivedLetterId(letterId,requestOptions)
+          return  deleteSavedLetter(letterId,requestOptions)
         }
 
 
@@ -336,20 +336,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type DeleteApiUsersMeLettersReceivedLetterIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteApiUsersMeLettersReceivedLetterId>>>
+    export type DeleteSavedLetterMutationResult = NonNullable<Awaited<ReturnType<typeof deleteSavedLetter>>>
 
-    export type DeleteApiUsersMeLettersReceivedLetterIdMutationError = ErrorType<unknown>
+    export type DeleteSavedLetterMutationError = ErrorType<unknown>
 
     /**
  * @summary 보관한 편지 삭제
  */
-export const useDeleteApiUsersMeLettersReceivedLetterId = <TError = ErrorType<unknown>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteApiUsersMeLettersReceivedLetterId>>, TError,{letterId: string}, TContext>, request?: SecondParameter<typeof customInstance>}
+export const useDeleteSavedLetter = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSavedLetter>>, TError,{letterId: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deleteApiUsersMeLettersReceivedLetterId>>,
+        Awaited<ReturnType<typeof deleteSavedLetter>>,
         TError,
         {letterId: string},
         TContext
       > => {
-      return useMutation(getDeleteApiUsersMeLettersReceivedLetterIdMutationOptions(options), queryClient);
+      return useMutation(getDeleteSavedLetterMutationOptions(options), queryClient);
     }

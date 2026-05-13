@@ -6,8 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostApiUsersMeLettersReceived200Data = {
-  id?: number;
-  userId?: number;
-  letterId?: number;
-};
+/**
+ * @nullable
+ */
+export type DeleteSavedLetter200Error = { [key: string]: unknown } | null;

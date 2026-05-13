@@ -6,9 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiUsersMeLettersReceived200DataItem = {
-  id?: number;
-  title?: string;
-  content?: string;
-  createdAt?: string;
+export type GetApiLettersLetterIdCheckPassword401 = {
+  /** 에러 메시지 */
+  message?: string;
 };

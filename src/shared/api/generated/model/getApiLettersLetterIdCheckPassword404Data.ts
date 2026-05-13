@@ -6,6 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostApiUsersMeLettersReceivedBody = {
-  letterId?: string;
-};
+/**
+ * @nullable
+ */
+export type GetApiLettersLetterIdCheckPassword404Data = { [key: string]: unknown } | null;

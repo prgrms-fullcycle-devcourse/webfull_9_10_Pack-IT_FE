@@ -6,13 +6,9 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiAuthKakaoCallbackParams = {
+export type GetSentLettersParams = {
 /**
- * 카카오 인가 코드
+ * 마지막으로 조회된 편지의 ID (Letter.id가 TEXT이므로 string)
  */
-code: string;
-/**
- * 임시 유저의 nanoId
- */
-state: string;
+cursor?: string;
 };

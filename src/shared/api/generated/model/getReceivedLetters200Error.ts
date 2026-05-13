@@ -6,6 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiAuthKakaoCallback400ErrorItem = {
-  message?: string;
-};
+/**
+ * @nullable
+ */
+export type GetReceivedLetters200Error = { [key: string]: unknown } | null;

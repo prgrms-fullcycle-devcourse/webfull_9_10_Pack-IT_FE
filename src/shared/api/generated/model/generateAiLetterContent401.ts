@@ -6,8 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiUsersMeLettersSent200Meta = {
-  /** @nullable */
-  nextCursor?: number | null;
-  hasNextPage?: boolean;
+export type GenerateAiLetterContent401 = {
+  /** 에러 메시지 */
+  message?: string;
 };

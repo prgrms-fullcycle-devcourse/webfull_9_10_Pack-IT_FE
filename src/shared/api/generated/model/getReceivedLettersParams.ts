@@ -6,7 +6,9 @@
  * OpenAPI spec version: 1.0.0
  */
 
+export type GetReceivedLettersParams = {
 /**
- * @nullable
+ * 마지막으로 조회된 보관함 아이템의 ID (saved_letter.id가 SERIAL이므로 integer)
  */
-export type GetApiAuthKakaoCallback400Data = { [key: string]: unknown } | null;
+cursor?: number;
+};

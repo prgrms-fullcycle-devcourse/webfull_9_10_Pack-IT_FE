@@ -9,4 +9,4 @@
 /**
  * @nullable
  */
-export type GetApiAuthKakaoCallback400Meta = { [key: string]: unknown } | null;
+export type SaveLetter200Error = { [key: string]: unknown } | null;

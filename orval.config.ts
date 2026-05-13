@@ -5,23 +5,34 @@ const openApiTarget =
     "http://54.180.159.211:8080/api-json";
 
 export default defineConfig({
-    PackIt: {
-        input: {
-            target: openApiTarget,
-        },
-        output: {
-            target: "./src/shared/api/generated/index.ts",
-            schemas: "./src/shared/api/generated/model",
-            client: "react-query",
-            httpClient: "axios",
-            mode: "tags-split",
-            clean: true,
-            override: {
-                mutator: {
-                    path: "./src/shared/api/orval/mutator.ts",
-                    name: "customInstance",
-                },
-            },
-        },
+  PackIt: {
+    input: {
+      target: openApiTarget,
     },
+    output: {
+      target: "./src/shared/api/generated/index.ts",
+      schemas: "./src/shared/api/generated/model",
+      client: "react-query",
+      httpClient: "axios",
+      mode: "tags-split",
+      clean: true,
+      override: {
+        mutator: {
+          path: "./src/shared/api/orval/mutator.ts",
+          name: "customInstance",
+        },
+      },
+    },
+  },
+  PackItZod: {
+    input: {
+      target: openApiTarget,
+    },
+    output: {
+      target: "./src/shared/api/generated/zod/index.ts",
+      client: "zod",
+      mode: "tags-split",
+      clean: true,
+    },
+  },
 });

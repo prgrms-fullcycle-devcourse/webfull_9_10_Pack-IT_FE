@@ -6,13 +6,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiAuthKakaoCallbackParams = {
-/**
- * 카카오 인가 코드
- */
-code: string;
-/**
- * 임시 유저의 nanoId
- */
-state: string;
+export type GetApiLettersLetterIdCheckPassword200Data = {
+  hasPassword?: boolean;
 };

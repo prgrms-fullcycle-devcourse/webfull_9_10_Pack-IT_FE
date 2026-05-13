@@ -9,4 +9,4 @@
 /**
  * @nullable
  */
-export type DeleteApiUsersMeLettersReceivedLetterId200Data = { [key: string]: unknown } | null;
+export type GetApiLettersLetterIdCheckPassword200Meta = { [key: string]: unknown } | null;

@@ -6,14 +6,16 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetLetterDetail200Data = {
-  id?: string;
+export type GetSentLetters200DataItem = {
+  /** 보관함 레코드 고유 ID */
+  id?: number;
   /** @nullable */
-  senderId?: string | null;
+  senderId?: number | null;
   senderName?: string;
   receiverName?: string;
   category?: string;
   content?: string;
   theme?: number;
-  publishedAt?: string;
+  /** 편지 발행 시간 (publishedAt) */
+  createdAt?: string;
 };
