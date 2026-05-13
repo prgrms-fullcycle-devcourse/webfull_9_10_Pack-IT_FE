@@ -1,7 +1,7 @@
 // src/pages/ReceivedLetterDetail.tsx
 // 받은 편지 상세 — 피그마: 편지지 + 답장 쓰기 + 이미지 저장 + 편지 삭제
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import Button from "../shared/components/ui/Button";
 import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import BackButton from "../shared/components/ui/BackButton";
@@ -11,15 +11,12 @@ import { HtmlToImage } from "../shared/utils/HtmlToImage";
 import { useGetLetterDetail } from "../shared/api/generated/letters/letters";
 import { useDeleteLetter } from "../shared/hooks/useDeleteLetter";
 
-// TODO: useParams().id → GET /letters/:id API 연동
-
 export default function ReceivedLetterDetail() {
   const navigate = useNavigate();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const location = useLocation();
+  const { id: nanoId } = useParams<{ id: string }>();
 
-  // 목록에서 전달받은 nanoId — 상세 조회 및 삭제 API용
-  const nanoId = location.state?.nanoId as string | undefined;
   const activeTab = location.state?.activeTab ?? "received";
 
   // ── 편지 상세 조회 ──

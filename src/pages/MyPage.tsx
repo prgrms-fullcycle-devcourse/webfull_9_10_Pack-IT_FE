@@ -15,6 +15,9 @@ import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import toast from "react-hot-toast";
 
 
+// TODO: 목록 API nanoId 응답 추가 후 TEST_NANO_ID fallback 제거
+const TEST_NANO_ID = "gDPRvUNasR7ekTxemG8KB"; // cspell:disable-line
+
 interface EmptyStateProps {
   text: string;
   subText: string;
@@ -77,12 +80,12 @@ export default function MyPage() {
 
   const handleLetterClick = (item: LetterItem) => {
     if (activeTab === "sent") {
-      navigate(`/mypage/sent/${item.id}`, {
-        state: { nanoId: item.nanoId, activeTab },
+      navigate(`/mypage/sent/${item.nanoId ?? TEST_NANO_ID}`, {
+        state: { activeTab },
       });
     } else {
-      navigate(`/mypage/received/${item.id}`, {
-        state: { nanoId: item.nanoId, activeTab },
+      navigate(`/mypage/received/${item.nanoId ?? TEST_NANO_ID}`, {
+        state: { activeTab },
       });
     }
   };
