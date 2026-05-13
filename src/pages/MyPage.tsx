@@ -9,7 +9,11 @@ import { MOCK_USER } from "../mockData/MockUser";
 
 // 타입 전용 임포트 (verbatimModuleSyntax 대응)
 import type { MyPageTab, LetterItem } from "../shared/schemas/letterSchema";
-import { useGetApiUsersMeLettersReceived } from "../shared/api/generated/user-letters/user-letters";
+import { useAutuStore } from "../shared/store/useAuthStore";
+import { useMe } from "../shared/hooks/useMe";
+import ConfirmModal from "../shared/components/ui/ConfirmModal";
+import toast from "react-hot-toast";
+
 
 interface EmptyStateProps {
   text: string;
@@ -61,7 +65,13 @@ export default function MyPage() {
   const [activeTab, setActiveTab] = useState<MyPageTab>(
     location.state?.activeTab ?? "sent",
   );
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
+  // 내 정보 조회
+  const {me, isGuest} = useMe();
+  const {setLogout} = useAutuStore();
+
+  // 편지 목록 조회
   const [sentList] = useState<LetterItem[]>(MOCK_SENT);
   const [receivedList] = useState<LetterItem[]>(MOCK_RECEIVED);
 
@@ -77,16 +87,15 @@ export default function MyPage() {
     }
   };
 
- const { data: receivedData, isError: isReceivedError } =
-   useGetApiUsersMeLettersReceived(undefined, {
-     query: {
-       onError: (error) => {
-         console.error("받은 편지 목록 에러:", error);
-         console.error("상태코드:", error?.response?.status);
-         console.error("에러 메시지:", error?.response?.data);
-       },
-     },
-   });
+  const handleLogout = () => {
+    setLogout();
+    sessionStorage.removeItem("nanoId");
+    setShowLogoutConfirm(false);
+    toast("로그아웃 되었습니다");
+    navigate("/");
+  }
+
+
 
   const TABS: { key: MyPageTab; label: string }[] = [
     { key: "sent", label: "내가 쓴 편지" },
@@ -121,7 +130,7 @@ export default function MyPage() {
                 color: "var(--color-ink)",
               }}
             >
-              {MOCK_USER.name}
+              {me?.nickname ?? "게스트 사용자"}
             </span>
             <Button
               variant="primary"
@@ -131,6 +140,7 @@ export default function MyPage() {
                 color: "var(--color-rose)",
                 boxShadow: "none",
               }}
+              onClick={()=>setShowLogoutConfirm(true)}
             >
               로그아웃
             </Button>
@@ -236,6 +246,22 @@ export default function MyPage() {
           )}
         </div>
       </div>
+
+      {/* 로그아웃 확인 모달 */}
+      <ConfirmModal
+        isOpen={showLogoutConfirm}
+        title="로그아웃 할까요?"
+        description={
+          isGuest
+            ? "로그아웃 시 모든 데이터가 삭제돼요."
+            : "로그아웃 후 다시 로그인할 수 있어요."
+        }
+        confirmLabel="로그아웃"
+        cancelLabel="취소"
+        confirmVariant="danger"
+        onConfirm={handleLogout}
+        onCancel={() => setShowLogoutConfirm(false)}
+      />
     </div>
   );
 }
