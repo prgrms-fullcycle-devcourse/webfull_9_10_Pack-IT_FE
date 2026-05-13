@@ -3,6 +3,10 @@
     {
       "source": "/api/proxy/:path*",
       "destination": "http://54.180.159.211:8080/:path*"
+    },
+    {
+      "source": "/((?!api/proxy/).*)",
+      "destination": "/index.html"
     }
   ]
 }
