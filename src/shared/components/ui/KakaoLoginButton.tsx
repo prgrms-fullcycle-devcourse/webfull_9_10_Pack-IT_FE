@@ -1,15 +1,15 @@
 // src/shared/components/ui/KakaoLoginButton.tsx
-import type { ButtonHTMLAttributes } from 'react';
+import type { ButtonHTMLAttributes } from "react";
 
 interface KakaoLoginButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
 }
 
 const SIZE_CLASS = {
-  sm: 'px-4 py-2 text-[13px] gap-[6px] rounded-xl',
-  md: 'px-5 py-[14px] text-[14px] gap-[10px] rounded-xl',
-  lg: 'px-7 py-4 text-[15px] gap-3 rounded-xl',
+  sm: "px-4 py-2 text-[13px] gap-[6px] rounded-xl",
+  md: "px-5 py-[14px] text-[14px] gap-[10px] rounded-xl",
+  lg: "px-7 py-4 text-[15px] gap-3 rounded-xl",
 };
 
 const SYMBOL_SIZE = {
@@ -18,17 +18,11 @@ const SYMBOL_SIZE = {
   lg: 22,
 };
 
-/** 카카오 공식 디자인 가이드 준수
- * - 배경: #FEE500
- * - 텍스트/심볼: #000000
- * - 심볼: 말풍선 모양 필수
- * - border-radius: 12px (rounded-xl)
- */
 export default function KakaoLoginButton({
-  size = 'md',
+  size = "md",
   fullWidth = false,
-  children = '카카오 로그인',
-  className = '',
+  children = "카카오 로그인",
+  className = "",
   ...props
 }: KakaoLoginButtonProps) {
   const symbolSize = SYMBOL_SIZE[size];
@@ -39,21 +33,23 @@ export default function KakaoLoginButton({
         inline-flex items-center justify-center font-medium
         border-none cursor-pointer transition-all hover:opacity-90
         ${SIZE_CLASS[size]}
-        ${fullWidth ? 'w-full' : ''}
+        ${fullWidth ? "w-full" : ""}
         ${className}
       `}
       style={{
-        fontFamily: 'var(--font-sans)',
-        background: '#FEE500',
-        color: '#000000',
-      }}
-      onClick={() => {
-        return
+        fontFamily: "var(--font-sans)",
+        background: "#FEE500",
+        color: "#000000",
+        ...props.style,
       }}
       {...props}
     >
-      {/* 카카오 공식 말풍선 심볼 */}
-      <svg width={symbolSize} height={symbolSize} viewBox="0 0 24 24" fill="none">
+      <svg
+        width={symbolSize}
+        height={symbolSize}
+        viewBox="0 0 24 24"
+        fill="none"
+      >
         <path
           fillRule="evenodd"
           clipRule="evenodd"
