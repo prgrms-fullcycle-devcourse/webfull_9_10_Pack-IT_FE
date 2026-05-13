@@ -21,6 +21,8 @@ import {
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
 import { useGenerateAiLetterContent } from "../shared/api/generated/letters/letters";
+import { GenerateAiLetterContentBody } from "../shared/api/generated/zod/letters/letters";
+import toast from "react-hot-toast";
 
 const MAX_CONTENT = 500;
 
@@ -81,7 +83,21 @@ export default function WriteLetter() {
 
   const { mutate: aiGenerateMutate, isPending } = useGenerateAiLetterContent();
   const aiGenerateClick = (selectedTone: LetterTone) => {
-    const setOriginContent = form.tone == null ? form.content! : form.originalContent
+    const setOriginContent =
+      form.tone == null ? form.content! : form.originalContent;
+    const payload = {
+      category: form.keyword!,
+      tone: selectedTone,
+      draft_content: setOriginContent!,
+    };
+    const validatedPayload = GenerateAiLetterContentBody.safeParse(payload);
+
+    if (!validatedPayload.success) {
+      toast.error("AI 편지 생성 요청값을 확인해주세요.");
+      console.error("AI 편지 생성 요청값 검증 실패:", validatedPayload.error);
+      return;
+    }
+
     setForm((p) => ({
       ...p,
       tone: selectedTone!,
@@ -89,11 +105,7 @@ export default function WriteLetter() {
     }));
     aiGenerateMutate(
       {
-        data: {
-          category: form.keyword!,
-          tone: selectedTone,
-          draft_content: setOriginContent!,
-        },
+        data: validatedPayload.data,
       },
       {
         onSuccess: (data) => {
