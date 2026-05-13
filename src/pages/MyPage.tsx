@@ -9,6 +9,7 @@ import { MOCK_USER } from "../mockData/MockUser";
 
 // 타입 전용 임포트 (verbatimModuleSyntax 대응)
 import type { MyPageTab, LetterItem } from "../shared/schemas/letterSchema";
+import { useGetApiUsersMeLettersReceived } from "../shared/api/generated/user-letters/user-letters";
 
 interface EmptyStateProps {
   text: string;
@@ -75,6 +76,17 @@ export default function MyPage() {
       });
     }
   };
+
+ const { data: receivedData, isError: isReceivedError } =
+   useGetApiUsersMeLettersReceived(undefined, {
+     query: {
+       onError: (error) => {
+         console.error("받은 편지 목록 에러:", error);
+         console.error("상태코드:", error?.response?.status);
+         console.error("에러 메시지:", error?.response?.data);
+       },
+     },
+   });
 
   const TABS: { key: MyPageTab; label: string }[] = [
     { key: "sent", label: "내가 쓴 편지" },
