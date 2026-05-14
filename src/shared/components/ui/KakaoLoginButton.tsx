@@ -1,4 +1,3 @@
-// src/shared/components/ui/KakaoLoginButton.tsx
 import { useEffect, type ButtonHTMLAttributes } from "react";
 import { useGetApiUsersMe } from "../../api/generated/users/users";
 import { useAutuStore } from "../../store/useAuthStore";
@@ -37,7 +36,8 @@ export default function KakaoLoginButton({
 
   useEffect(() => {
     const handleMessage = async (event: MessageEvent) => {
-      if (event.origin !== window.location.origin) return;
+      const allowedOrigins = [window.location.origin, import.meta.env.VITE_API_URL];
+      if (!allowedOrigins.includes(event.origin)) return;
       if (event.data?.type !== "KAKAO_LOGIN_SUCCESS") return;
 
       const result = await refetch();
@@ -58,14 +58,16 @@ export default function KakaoLoginButton({
   }, [refetch, setLogin]);
 
   const kakaoLogin = () => {
-    if (!nanoId) return;
-
+    
     const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+    
+    const redirectUri = `${window.location.origin}/api/proxy/api/auth/kakao/callback`;
+
     const config = {
       client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
-      redirect_uri: `${import.meta.env.VITE_API_URL}/api/auth/kakao/callback`,
+      redirect_uri: redirectUri,
       response_type: "code",
-      state: nanoId,
+      state: nanoId
     };
 
     const queryString = new URLSearchParams(config).toString();
@@ -99,15 +101,10 @@ export default function KakaoLoginButton({
         ...props.style,
       }}
       onClick={kakaoLogin}
-      disabled={!nanoId || props.disabled}
+      disabled={props.disabled}
       {...props}
     >
-      <svg
-        width={symbolSize}
-        height={symbolSize}
-        viewBox="0 0 24 24"
-        fill="none"
-      >
+      <svg width={symbolSize} height={symbolSize} viewBox="0 0 24 24" fill="none">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
