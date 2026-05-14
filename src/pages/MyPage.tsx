@@ -3,12 +3,34 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../shared/components/ui/Button";
 import BackButton from "../shared/components/ui/BackButton";
 import PaginatedLetterList from "../shared/components/layout/PaginatedLetterList";
-import { MOCK_SENT } from "../mockData/MockSent";
-import { MOCK_RECEIVED } from "../mockData/MockReceived";
-import { MOCK_USER } from "../mockData/MockUser";
 
 // 타입 전용 임포트 (verbatimModuleSyntax 대응)
-import type { MyPageTab, LetterItem } from "../shared/schemas/letterSchema";
+import type { MyPageTab, LetterItem, LetterTheme, LetterKeyword } from "../shared/schemas/letterSchema";
+import { useMe } from "../shared/hooks/useMe";
+import ConfirmModal from "../shared/components/ui/ConfirmModal";
+import {
+  useGetSentLetters,
+  useGetReceivedLetters,
+} from "../shared/api/generated/user-letters/user-letters";
+import type {
+  GetSentLetters200DataItem,
+} from "../shared/api/generated/model/getSentLetters200DataItem";
+import type { SavedLetter } from "../shared/api/generated/model/savedLetter";
+
+// TODO: 백엔드 sentCount/receivedCount 필드 추가 후 useMe로 교체
+function toLetterItem(item: GetSentLetters200DataItem | SavedLetter): LetterItem {
+  return {
+    id: String(item.id ?? ""),
+    nanoId: String(item.id ?? ""),
+    to: item.receiverName ?? "",
+    from: item.senderName ?? "",
+    preview: item.content?.slice(0, 50) ?? "",
+    content: item.content ?? "",
+    keyword: (item.category as LetterKeyword) ?? "감사",
+    theme: (item.theme as LetterTheme) ?? 1,
+    createdAt: item.createdAt ?? "",
+  };
+}
 
 interface EmptyStateProps {
   text: string;
@@ -60,26 +82,50 @@ export default function MyPage() {
   const [activeTab, setActiveTab] = useState<MyPageTab>(
     location.state?.activeTab ?? "sent",
   );
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
-  const [sentList] = useState<LetterItem[]>(MOCK_SENT);
-  const [receivedList] = useState<LetterItem[]>(MOCK_RECEIVED);
+  // 내 정보 조회
+  const { me, isGuest } = useMe();
+
+  // 편지 목록 조회
+  const { data: sentData } = useGetSentLetters();
+  const { data: receivedData } = useGetReceivedLetters();
+
+  const rawSent = sentData?.data;
+  const sentList: LetterItem[] = (
+    Array.isArray(rawSent)
+      ? rawSent
+      : (rawSent as unknown as { letters?: GetSentLetters200DataItem[] })?.letters ?? []
+  ).map(toLetterItem);
+  const receivedList: LetterItem[] = (receivedData?.data?.letters ?? []).map(toLetterItem);
+
+  //TODO : 스웨거 업데이트되면 orval 실행하여 데이터 교체 필요. 
+  // 현재는 Count 데이터를 직접 캐스팅함
+  type MetaWithTotal = { totalCount?: number };
+  const sentCount = (sentData?.meta as unknown as MetaWithTotal)?.totalCount ?? sentList.length;
+  const receivedCount = (receivedData as unknown as { meta?: MetaWithTotal })?.meta?.totalCount ?? receivedList.length;
 
   const handleLetterClick = (item: LetterItem) => {
     if (activeTab === "sent") {
       navigate(`/mypage/sent/${item.id}`, {
-        state: { letter: item, activeTab },
+        state: { activeTab, item },
       });
     } else {
-      navigate(`/mypage/received/${item.id}`, {
-        state: { letter: item, activeTab },
+      navigate(`/mypage/received/${item.nanoId ?? item.id}`, {
+        state: { activeTab, item },
       });
     }
+  };
+
+  const handleLogout = () => {
+    // TODO : 로그아웃 API 미구현으로 인해 구현예정 얼럿만 표시하고 마이페이지 유지
+    window.alert("로그아웃 기능은 추후 구현될 예정입니다.");
   };
 
   const TABS: { key: MyPageTab; label: string }[] = [
     { key: "sent", label: "내가 쓴 편지" },
     { key: "received", label: "받은 편지" },
-    { key: "feedback", label: "건의하기" },
+    
   ];
 
   return (
@@ -109,7 +155,7 @@ export default function MyPage() {
                 color: "var(--color-ink)",
               }}
             >
-              {MOCK_USER.name}
+              {me?.nickname ?? "게스트 사용자"}
             </span>
             <Button
               variant="primary"
@@ -119,6 +165,7 @@ export default function MyPage() {
                 color: "var(--color-rose)",
                 boxShadow: "none",
               }}
+              onClick={() => handleLogout()}
             >
               로그아웃
             </Button>
@@ -126,8 +173,8 @@ export default function MyPage() {
 
           <div className="grid grid-cols-2 gap-3">
             {[
-              { n: MOCK_USER.sentCount, l: "쓴 편지" },
-              { n: MOCK_USER.receivedCount, l: "받은 편지" },
+              { n: sentCount, l: "쓴 편지" },
+              { n: receivedCount, l: "받은 편지" },
             ].map((s) => (
               <div
                 key={s.l}
@@ -219,11 +266,25 @@ export default function MyPage() {
               />
             ))}
 
-          {activeTab === "feedback" && (
-            <div>{/* 생략: 건의하기 폼 구현부 유지 */}</div>
-          )}
+          
         </div>
       </div>
+
+      {/* 로그아웃 확인 모달 */}
+      <ConfirmModal
+        isOpen={showLogoutConfirm}
+        title="로그아웃 할까요?"
+        description={
+          isGuest
+            ? "로그아웃 시 모든 데이터가 삭제돼요."
+            : "로그아웃 후 다시 로그인할 수 있어요."
+        }
+        confirmLabel="로그아웃"
+        cancelLabel="취소"
+        confirmVariant="danger"
+        onConfirm={handleLogout}
+        onCancel={() => setShowLogoutConfirm(false)}
+      />
     </div>
   );
 }

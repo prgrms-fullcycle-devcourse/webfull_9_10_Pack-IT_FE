@@ -39,7 +39,7 @@ export default function PaginatedLetterList({ items, type, onItemClick }: Props)
           onClick={() => onItemClick(item)}
         />
       ))}
-      
+
       {/* 로딩 트리거 */}
       {visibleItems.length < items.length && (
         <div

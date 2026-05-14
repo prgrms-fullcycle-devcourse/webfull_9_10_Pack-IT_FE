@@ -19,11 +19,14 @@ const SYMBOL_SIZE = {
   lg: 22,
 };
 
+const KAKAO_AUTH_URL = "https://kauth.kakao.com/oauth/authorize";
+
 export default function KakaoLoginButton({
   size = "md",
   fullWidth = false,
   children = "카카오 로그인",
   className = "",
+  disabled,
   ...props
 }: KakaoLoginButtonProps) {
   const symbolSize = SYMBOL_SIZE[size];
@@ -58,20 +61,16 @@ export default function KakaoLoginButton({
   }, [refetch, setLogin]);
 
   const kakaoLogin = () => {
-    
-    const baseUrl = "https://kauth.kakao.com/oauth/authorize";
-    
-    const redirectUri = `${window.location.origin}/api/proxy/api/auth/kakao/callback`;
+    if (!nanoId) return;
 
-    const config = {
+    const originUrl = window.location.origin;
+
+    const queryString = new URLSearchParams({
       client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
-      redirect_uri: redirectUri,
+      redirect_uri: `${originUrl}${import.meta.env.VITE_KAKAO_BASE_URL}/api/auth/kakao/callback`,
       response_type: "code",
-      state: nanoId
-    };
-
-    const queryString = new URLSearchParams(config).toString();
-    const url = `${baseUrl}?${queryString}`;
+      state: nanoId,
+    }).toString();
 
     const width = 500;
     const height = 600;
@@ -79,7 +78,7 @@ export default function KakaoLoginButton({
     const top = window.screenY + (window.outerHeight - height) / 2;
 
     window.open(
-      url,
+      `${KAKAO_AUTH_URL}?${queryString}`,
       "KakaoLoginPopup",
       `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`,
     );
@@ -87,6 +86,7 @@ export default function KakaoLoginButton({
 
   return (
     <button
+      {...props}
       className={`
         inline-flex items-center justify-center font-medium
         border-none cursor-pointer transition-all hover:opacity-90
@@ -101,8 +101,7 @@ export default function KakaoLoginButton({
         ...props.style,
       }}
       onClick={kakaoLogin}
-      disabled={props.disabled}
-      {...props}
+      disabled={!nanoId || disabled}
     >
       <svg width={symbolSize} height={symbolSize} viewBox="0 0 24 24" fill="none">
         <path
