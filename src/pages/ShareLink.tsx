@@ -1,5 +1,5 @@
 // src/pages/ShareLink.tsx
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import Logo from "../shared/components/layout/Logo";
 import KakaoShareButton from "../shared/components/ui/KakaoShareButton";
 import type { LetterTheme } from "../shared/schemas/letterSchema";
@@ -15,7 +15,8 @@ export default function ShareLink() {
   const from = state?.from;
   const content = state?.content;
   const date = new Date().toLocaleDateString();
-  const id = state?.id;
+
+  const {id} = useParams<{ id: string }>();
 
   const letterPassword = state?.letterPassword ?? "";
 
