@@ -169,8 +169,6 @@ export default function WriteLetter() {
       },
       {
         onSuccess: (data) => {
-          console.log("성공:", data);
-          console.log("편지쓴사람id:", me?.id);
           queryClient.invalidateQueries({
             queryKey: getGetSentLettersQueryKey(),
           });
