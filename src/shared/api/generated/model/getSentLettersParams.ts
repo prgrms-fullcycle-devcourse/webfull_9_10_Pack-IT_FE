@@ -6,7 +6,9 @@
  * OpenAPI spec version: 1.0.0
  */
 
+export type GetSentLettersParams = {
 /**
- * @nullable
+ * 마지막으로 조회된 편지의 ID (Letter.id가 TEXT이므로 string)
  */
-export type DeleteApiUsersMeLettersReceivedLetterId200Data = { [key: string]: unknown } | null;
+cursor?: string;
+};

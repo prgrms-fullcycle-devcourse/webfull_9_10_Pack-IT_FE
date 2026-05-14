@@ -6,9 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiUsersMeLettersSentParams = {
 /**
- * 마지막으로 조회된 편지의 ID (다음 페이지 조회를 위한 커서)
+ * @nullable
  */
-cursor?: number;
-};
+export type GetReceivedLetters200Error = { [key: string]: unknown } | null;

@@ -6,6 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiUsersMeLettersSent200Data = {
-  nano_id?: string;
-};
+/**
+ * @nullable
+ */
+export type DeleteSavedLetter200Error = { [key: string]: unknown } | null;

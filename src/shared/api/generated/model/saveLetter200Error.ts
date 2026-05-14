@@ -6,9 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiUsersMeLettersReceived200DataItem = {
-  id?: number;
-  title?: string;
-  content?: string;
-  createdAt?: string;
-};
+/**
+ * @nullable
+ */
+export type SaveLetter200Error = { [key: string]: unknown } | null;

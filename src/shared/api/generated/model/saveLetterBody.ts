@@ -6,7 +6,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-/**
- * @nullable
- */
-export type GetApiUsersMeLettersSent200Error = { [key: string]: unknown } | null;
+export type SaveLetterBody = {
+  letterId?: string;
+};
