@@ -4,31 +4,20 @@ import Logo from "../shared/components/layout/Logo";
 import BrandFooter from "../shared/components/layout/BrandFooter";
 import Button from "../shared/components/ui/Button";
 import KakaoLoginButton from "../shared/components/ui/KakaoLoginButton";
-import { useEffect } from "react";
 import { useAutuStore } from "../shared/store/useAuthStore";
 
 interface HomeProps {
   isLoggedIn?: boolean; // TODO: auth 훅으로 교체
 }
 
-export default function Home({ isLoggedIn = false }: HomeProps) {
+export default function Home({ isLoggedIn: propsLoggedIn = false }: HomeProps) {
   const navigate = useNavigate();
-
   const { checkedLoggedin } = useAutuStore();
-  useEffect(() => {
-    if (checkedLoggedin == true) {
-      isLoggedIn = true;
-    } else {
-      isLoggedIn = false;
-    }
-  }, [checkedLoggedin]);
+
+  const isLoggedIn = checkedLoggedin ?? propsLoggedIn;
 
   return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ background: "var(--color-cream)" }}
-    >
-      {/* NAV: 52px — 피그마 기준 */}
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-cream)" }}>
       <nav
         className="sticky top-0 z-[100] h-[52px] flex items-center justify-between px-5 border-b border-black/[0.08] flex-shrink-0"
         style={{
@@ -37,6 +26,7 @@ export default function Home({ isLoggedIn = false }: HomeProps) {
         }}
       >
         <Logo />
+        {/* 이제 계산된 isLoggedIn 값에 따라 UI가 정상적으로 분기됩니다. */}
         {isLoggedIn ? (
           <Button
             variant="primary"
