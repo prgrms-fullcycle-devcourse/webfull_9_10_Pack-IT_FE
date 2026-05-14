@@ -21,7 +21,6 @@ const SYMBOL_SIZE = {
 };
 
 const KAKAO_AUTH_URL = "https://kauth.kakao.com/oauth/authorize";
-// const KAKAO_CALLBACK_PATH = "/api/proxy/api/auth/kakao/callback";
 
 export default function KakaoLoginButton({
   size = "md",
@@ -64,10 +63,11 @@ export default function KakaoLoginButton({
   const kakaoLogin = () => {
     if (!nanoId) return;
 
-    // const redirectUri = `${window.location.origin}${KAKAO_CALLBACK_PATH}`;
+    const originUrl = window.location.origin;
+
     const queryString = new URLSearchParams({
       client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
-      redirect_uri: `${import.meta.env.VITE_KAKAO_BASE_URL}/api/auth/kakao/callback`,
+      redirect_uri: `${originUrl}${import.meta.env.VITE_KAKAO_BASE_URL}/api/auth/kakao/callback`,
       response_type: "code",
       state: nanoId,
     }).toString();
