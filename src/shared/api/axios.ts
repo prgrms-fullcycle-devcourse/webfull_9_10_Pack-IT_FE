@@ -3,8 +3,7 @@ import axios from "axios";
 import { zodRequestSchemaMap } from "./orval/zodRequestSchemaMap";
 import { zodResponseSchemaMap } from "./orval/zodResponseSchemaMap";
 
-
-const baseURL = import.meta.env.VITE_API_URL;
+const baseURL = "/api/proxy";
 
 if (!baseURL) {
   console.warn("VITE_API_URL is not set.");

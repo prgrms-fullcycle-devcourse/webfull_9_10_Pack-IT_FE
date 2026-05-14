@@ -20,11 +20,15 @@ const SYMBOL_SIZE = {
   lg: 22,
 };
 
+const KAKAO_AUTH_URL = "https://kauth.kakao.com/oauth/authorize";
+const KAKAO_CALLBACK_PATH = "/api/proxy/api/auth/kakao/callback";
+
 export default function KakaoLoginButton({
   size = "md",
   fullWidth = false,
   children = "카카오 로그인",
   className = "",
+  disabled,
   ...props
 }: KakaoLoginButtonProps) {
   const symbolSize = SYMBOL_SIZE[size];
@@ -60,16 +64,13 @@ export default function KakaoLoginButton({
   const kakaoLogin = () => {
     if (!nanoId) return;
 
-    const baseUrl = "https://kauth.kakao.com/oauth/authorize";
-    const config = {
+    // const redirectUri = `${window.location.origin}${KAKAO_CALLBACK_PATH}`;
+    const queryString = new URLSearchParams({
       client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
       redirect_uri: `${import.meta.env.VITE_KAKAO_BASE_URL}/api/auth/kakao/callback`,
       response_type: "code",
       state: nanoId,
-    };
-
-    const queryString = new URLSearchParams(config).toString();
-    const url = `${baseUrl}?${queryString}`;
+    }).toString();
 
     const width = 500;
     const height = 600;
@@ -77,7 +78,7 @@ export default function KakaoLoginButton({
     const top = window.screenY + (window.outerHeight - height) / 2;
 
     window.open(
-      url,
+      `${KAKAO_AUTH_URL}?${queryString}`,
       "KakaoLoginPopup",
       `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`,
     );
@@ -85,6 +86,7 @@ export default function KakaoLoginButton({
 
   return (
     <button
+      {...props}
       className={`
         inline-flex items-center justify-center font-medium
         border-none cursor-pointer transition-all hover:opacity-90
@@ -99,8 +101,7 @@ export default function KakaoLoginButton({
         ...props.style,
       }}
       onClick={kakaoLogin}
-      disabled={!nanoId || props.disabled}
-      {...props}
+      disabled={!nanoId || disabled}
     >
       <svg
         width={symbolSize}
