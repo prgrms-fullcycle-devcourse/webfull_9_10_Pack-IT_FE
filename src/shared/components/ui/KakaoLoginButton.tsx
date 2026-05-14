@@ -96,6 +96,7 @@ export default function KakaoLoginButton({
         fontFamily: "var(--font-sans)",
         background: "#FEE500",
         color: "#000000",
+        ...props.style,
       }}
       onClick={kakaoLogin}
       disabled={!nanoId || props.disabled}
