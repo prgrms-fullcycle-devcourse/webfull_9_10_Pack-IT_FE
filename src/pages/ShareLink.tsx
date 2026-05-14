@@ -5,27 +5,21 @@ import KakaoShareButton from "../shared/components/ui/KakaoShareButton";
 import type { LetterTheme } from "../shared/schemas/letterSchema";
 import LetterPaper from "../shared/components/ui/LetterPaper";
 
-const MOCK = {
-  to: "To. 소중한 당신에게",
-  content: "진심으로 생일을 축하해! 🎂\n오늘 하루도 행복하길 바랄게.",
-  from: "From. 마음을 담아",
-  date: "2026년 04월 23일",
-  password: "1234",
-  id: "naver.com",
-};
-
 export default function ShareLink() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state ?? {};
   // state가 빈값인 경우 기본값 제공
   const theme = (state?.theme ?? 1) as LetterTheme;
-  const to = state?.to ?? MOCK.to;
-  const from = state?.from ?? MOCK.from;
-  const content = state?.content ?? MOCK.content;
-  const date = new Date().toISOString();
-  
-  const id = state?.id ?? MOCK.id;
+  const to = state?.to;
+  const from = state?.from;
+  const content = state?.content;
+  const now = new Date();
+  const date = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}월 ${String(now.getDate()).padStart(2, "0")}일`;
+  const id = state?.id;
 
   const letterPassword = state?.letterPassword ?? "";
 
@@ -134,7 +128,7 @@ export default function ShareLink() {
                   color: "var(--color-ink)",
                 }}
               >
-                {MOCK.password}
+                {letterPassword}
               </span>
             </div>
             <p

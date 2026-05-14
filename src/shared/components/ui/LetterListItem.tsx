@@ -1,10 +1,10 @@
-// src/features/mypage/components/LetterListItem.tsx
 import type { LetterItem } from "../../schemas/letterSchema";
 import {
   KEYWORD_TAG_COLOR,
   KEYWORD_LIST,
   THEME_MAP,
 } from "../../schemas/letterSchema";
+import { formatDate } from "../../utils/FormatDate";
 
 interface LetterListItemProps {
   item: LetterItem;
@@ -63,7 +63,7 @@ export default function LetterListItem({
       </div>
 
       {/* meta */}
-      <div className="text-right flex-shrink-0">
+      <div className="text-right flex-shrink-0 flex flex-col items-end justify-start self-start">
         <p
           className="text-[12px] mb-1"
           style={{
@@ -71,18 +71,20 @@ export default function LetterListItem({
             color: "var(--color-ink-soft)",
           }}
         >
-          {item.createdAt}
+          {formatDate(item.createdAt, "short")}
         </p>
-        <span
-          className="text-[12px] font-medium px-2 py-[3px] rounded-[5px]"
-          style={{
-            fontFamily: "var(--font-sans)",
-            background: tagStyle.bg,
-            color: tagStyle.color,
-          }}
-        >
-          {emoji} {item.keyword}
-        </span>
+        {type === "sent" && (
+          <span
+            className="text-[12px] font-medium px-2 py-[3px] rounded-[5px]"
+            style={{
+              fontFamily: "var(--font-sans)",
+              background: tagStyle.bg,
+              color: tagStyle.color,
+            }}
+          >
+            {emoji} {item.keyword}
+          </span>
+        )}
       </div>
     </div>
   );

@@ -14,7 +14,6 @@ import IconHeart from "../shared/components/Icons/IconHeart";
 import IconFlower from "../shared/components/Icons/IconFlower";
 import { useSaveLetter } from "../shared/api/generated/user-letters/user-letters";
 import { SaveLetterBody } from "../shared/api/generated/zod/user-letters/user-letters";
-import { useMe } from "../shared/hooks/useMe";
 import toast from "react-hot-toast";
 
 
@@ -69,7 +68,6 @@ export default function ReceiveLetter() {
   const [showHearts, setShowHearts] = useState(false);
   const [showPeace, setShowPeace] = useState(false);
 
-  const {isGuest: _isGuest} = useMe(); // 게스트 분기 처리 시 사용
   const { mutate: bookmarkLetter, isPending: isBookmarking } =
     useSaveLetter();
 
@@ -96,6 +94,9 @@ export default function ReceiveLetter() {
 
   const theme = THEME_MAP[(letter?.theme as LetterTheme) ?? 1];
   const category = (letter?.category as LetterKeyword) ?? "생일";
+
+  // const theme = THEME_MAP[2];
+  // const category = "고백"
 
   const handleOpen = () => {
     setIsOpening(true);
