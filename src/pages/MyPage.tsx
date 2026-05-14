@@ -99,6 +99,12 @@ export default function MyPage() {
   ).map(toLetterItem);
   const receivedList: LetterItem[] = (receivedData?.data?.letters ?? []).map(toLetterItem);
 
+  //TODO : 스웨거 업데이트되면 orval 실행하여 데이터 교체 필요. 
+  // 현재는 Count 데이터를 직접 캐스팅함
+  type MetaWithTotal = { totalCount?: number };
+  const sentCount = (sentData?.meta as unknown as MetaWithTotal)?.totalCount ?? sentList.length;
+  const receivedCount = (receivedData as unknown as { meta?: MetaWithTotal })?.meta?.totalCount ?? receivedList.length;
+
   const handleLetterClick = (item: LetterItem) => {
     if (activeTab === "sent") {
       navigate(`/mypage/sent/${item.id}`, {
@@ -119,7 +125,7 @@ export default function MyPage() {
   const TABS: { key: MyPageTab; label: string }[] = [
     { key: "sent", label: "내가 쓴 편지" },
     { key: "received", label: "받은 편지" },
-    { key: "feedback", label: "건의하기" },
+    
   ];
 
   return (
@@ -167,8 +173,8 @@ export default function MyPage() {
 
           <div className="grid grid-cols-2 gap-3">
             {[
-              { n: sentList.length, l: "쓴 편지" },
-              { n: receivedList.length, l: "받은 편지" },
+              { n: sentCount, l: "쓴 편지" },
+              { n: receivedCount, l: "받은 편지" },
             ].map((s) => (
               <div
                 key={s.l}
@@ -260,9 +266,7 @@ export default function MyPage() {
               />
             ))}
 
-          {activeTab === "feedback" && (
-            <div>{/* 생략: 건의하기 폼 구현부 유지 */}</div>
-          )}
+          
         </div>
       </div>
 

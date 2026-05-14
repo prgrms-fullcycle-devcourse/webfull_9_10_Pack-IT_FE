@@ -165,7 +165,7 @@ export default function WriteLetter() {
 
     completePostLetterMutate(
       {
-        data: validatedPayload.data,
+        data: payload,
       },
       {
         onSuccess: (data) => {
