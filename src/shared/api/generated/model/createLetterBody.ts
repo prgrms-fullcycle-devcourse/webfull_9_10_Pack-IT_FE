@@ -26,5 +26,5 @@ export type CreateLetterBody = {
      * 발신자가 설정한 비밀번호
      * @nullable
      */
-  password: string | null;
+  password?: string | null;
 };

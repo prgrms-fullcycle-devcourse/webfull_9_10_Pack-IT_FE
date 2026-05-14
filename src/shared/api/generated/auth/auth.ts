@@ -21,8 +21,6 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  GetApiAuthKakaoCallback400,
-  GetApiAuthKakaoCallback500,
   GetApiAuthKakaoCallbackParams
 } from '../model';
 
@@ -35,7 +33,7 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 /**
- * 카카오 서버로부터 발급받은 인가 코드(code)를 전달받아 유저를 MEMBER로 승격시키고, 새로운 JWT 쿠키를 구운 뒤 프론트엔드 메인 페이지로 리다이렉트합니다.
+ * 카카오 서버로부터 발급받은 인가 코드를 전달받아 유저를 MEMBER로 승격시키고 리다이렉트합니다.
  * @summary 카카오 연동 로그인 콜백
  */
 export const getApiAuthKakaoCallback = (
@@ -61,7 +59,7 @@ export const getGetApiAuthKakaoCallbackQueryKey = (params?: GetApiAuthKakaoCallb
     }
 
 
-export const getGetApiAuthKakaoCallbackQueryOptions = <TData = Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError = ErrorType<void | GetApiAuthKakaoCallback400 | GetApiAuthKakaoCallback500>>(params: GetApiAuthKakaoCallbackParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getGetApiAuthKakaoCallbackQueryOptions = <TData = Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError = ErrorType<void>>(params: GetApiAuthKakaoCallbackParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -80,10 +78,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type GetApiAuthKakaoCallbackQueryResult = NonNullable<Awaited<ReturnType<typeof getApiAuthKakaoCallback>>>
-export type GetApiAuthKakaoCallbackQueryError = ErrorType<void | GetApiAuthKakaoCallback400 | GetApiAuthKakaoCallback500>
+export type GetApiAuthKakaoCallbackQueryError = ErrorType<void>
 
 
-export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError = ErrorType<void | GetApiAuthKakaoCallback400 | GetApiAuthKakaoCallback500>>(
+export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError = ErrorType<void>>(
  params: GetApiAuthKakaoCallbackParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof getApiAuthKakaoCallback>>,
@@ -93,7 +91,7 @@ export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof get
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError = ErrorType<void | GetApiAuthKakaoCallback400 | GetApiAuthKakaoCallback500>>(
+export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError = ErrorType<void>>(
  params: GetApiAuthKakaoCallbackParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof getApiAuthKakaoCallback>>,
@@ -103,7 +101,7 @@ export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof get
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError = ErrorType<void | GetApiAuthKakaoCallback400 | GetApiAuthKakaoCallback500>>(
+export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError = ErrorType<void>>(
  params: GetApiAuthKakaoCallbackParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -111,7 +109,7 @@ export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof get
  * @summary 카카오 연동 로그인 콜백
  */
 
-export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError = ErrorType<void | GetApiAuthKakaoCallback400 | GetApiAuthKakaoCallback500>>(
+export function useGetApiAuthKakaoCallback<TData = Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError = ErrorType<void>>(
  params: GetApiAuthKakaoCallbackParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getApiAuthKakaoCallback>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {

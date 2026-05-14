@@ -1,15 +1,17 @@
 // src/shared/components/ui/KakaoLoginButton.tsx
-import type { ButtonHTMLAttributes } from 'react';
+import { useEffect, type ButtonHTMLAttributes } from "react";
+import { useGetApiUsersMe } from "../../api/generated/users/users";
+import { useAutuStore } from "../../store/useAuthStore";
 
 interface KakaoLoginButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
 }
 
 const SIZE_CLASS = {
-  sm: 'px-4 py-2 text-[13px] gap-[6px] rounded-xl',
-  md: 'px-5 py-[14px] text-[14px] gap-[10px] rounded-xl',
-  lg: 'px-7 py-4 text-[15px] gap-3 rounded-xl',
+  sm: "px-4 py-2 text-[13px] gap-[6px] rounded-xl",
+  md: "px-5 py-[14px] text-[14px] gap-[10px] rounded-xl",
+  lg: "px-7 py-4 text-[15px] gap-3 rounded-xl",
 };
 
 const SYMBOL_SIZE = {
@@ -18,20 +20,68 @@ const SYMBOL_SIZE = {
   lg: 22,
 };
 
-/** 카카오 공식 디자인 가이드 준수
- * - 배경: #FEE500
- * - 텍스트/심볼: #000000
- * - 심볼: 말풍선 모양 필수
- * - border-radius: 12px (rounded-xl)
- */
 export default function KakaoLoginButton({
-  size = 'md',
+  size = "md",
   fullWidth = false,
-  children = '카카오 로그인',
-  className = '',
+  children = "카카오 로그인",
+  className = "",
   ...props
 }: KakaoLoginButtonProps) {
   const symbolSize = SYMBOL_SIZE[size];
+  const { nanoId, setLogin } = useAutuStore();
+  const { refetch } = useGetApiUsersMe({
+    query: {
+      enabled: false,
+    },
+  });
+
+  useEffect(() => {
+    const handleMessage = async (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+      if (event.data?.type !== "KAKAO_LOGIN_SUCCESS") return;
+
+      const result = await refetch();
+      const newNanoId = result.data?.data?.nanoId;
+
+      if (newNanoId) {
+        setLogin(newNanoId);
+        sessionStorage.setItem("nanoId", newNanoId);
+        console.log("카카오 로그인 성공:", newNanoId);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [refetch, setLogin]);
+
+  const kakaoLogin = () => {
+    if (!nanoId) return;
+
+    const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+    const config = {
+      client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
+      redirect_uri: `${import.meta.env.VITE_API_URL}/api/auth/kakao/callback`,
+      response_type: "code",
+      state: nanoId,
+    };
+
+    const queryString = new URLSearchParams(config).toString();
+    const url = `${baseUrl}?${queryString}`;
+
+    const width = 500;
+    const height = 600;
+    const left = window.screenX + (window.outerWidth - width) / 2;
+    const top = window.screenY + (window.outerHeight - height) / 2;
+
+    window.open(
+      url,
+      "KakaoLoginPopup",
+      `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`,
+    );
+  };
 
   return (
     <button
@@ -39,21 +89,25 @@ export default function KakaoLoginButton({
         inline-flex items-center justify-center font-medium
         border-none cursor-pointer transition-all hover:opacity-90
         ${SIZE_CLASS[size]}
-        ${fullWidth ? 'w-full' : ''}
+        ${fullWidth ? "w-full" : ""}
         ${className}
       `}
       style={{
-        fontFamily: 'var(--font-sans)',
-        background: '#FEE500',
-        color: '#000000',
+        fontFamily: "var(--font-sans)",
+        background: "#FEE500",
+        color: "#000000",
+        ...props.style,
       }}
-      onClick={() => {
-        return
-      }}
+      onClick={kakaoLogin}
+      disabled={!nanoId || props.disabled}
       {...props}
     >
-      {/* 카카오 공식 말풍선 심볼 */}
-      <svg width={symbolSize} height={symbolSize} viewBox="0 0 24 24" fill="none">
+      <svg
+        width={symbolSize}
+        height={symbolSize}
+        viewBox="0 0 24 24"
+        fill="none"
+      >
         <path
           fillRule="evenodd"
           clipRule="evenodd"

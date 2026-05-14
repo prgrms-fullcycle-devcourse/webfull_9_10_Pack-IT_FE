@@ -15,7 +15,5 @@ export type GetLetterDetail200Data = {
   category?: string;
   content?: string;
   theme?: number;
-  /** 비밀번호 설정 여부 */
-  hasPassword?: boolean;
   publishedAt?: string;
 };

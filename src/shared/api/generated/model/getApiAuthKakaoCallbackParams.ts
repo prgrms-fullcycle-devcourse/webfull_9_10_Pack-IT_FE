@@ -8,7 +8,11 @@
 
 export type GetApiAuthKakaoCallbackParams = {
 /**
- * 카카오 서버에서 넘겨준 인가 코드
+ * 카카오 인가 코드
  */
 code: string;
+/**
+ * 임시 유저의 nanoId
+ */
+state: string;
 };

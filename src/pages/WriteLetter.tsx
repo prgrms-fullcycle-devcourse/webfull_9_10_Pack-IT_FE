@@ -1,7 +1,7 @@
 // src/pages/WriteLetter.tsx
 // 4단계 인라인 step 관리 — Zustand 추가 시 useState 2줄만 교체
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import StepBar from "../shared/components/layout/StepBar";
 import Button from "../shared/components/ui/Button";
 import Input from "../shared/components/ui/Input";
@@ -24,19 +24,28 @@ import {
   useCreateLetter,
   useGenerateAiLetterContent,
 } from "../shared/api/generated/letters/letters";
+import {
+  CreateLetterBody,
+  GenerateAiLetterContentBody,
+} from "../shared/api/generated/zod/letters/letters";
+import toast from "react-hot-toast";
 
 const MAX_CONTENT = 500;
 
-const INITIAL_FORM: LetterFormData = {
-  to: "",
-  from: "",
+const getInitialForm = (state?: {
+  to?: string;
+  from?: string;
+}): LetterFormData => ({
+  to: state?.to ?? "",
+  from: state?.from ?? "",
   keyword: "생일",
   content: "",
   originalContent: "",
   tone: null,
-letterPassword: null,
+  letterPassword: null,
   theme: 1,
-};
+});
+
 
 const STEPS = [
   { label: "기본 정보" },
@@ -47,9 +56,14 @@ const STEPS = [
 
 export default function WriteLetter() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   // ── 마이그레이션 포인트: Zustand 추가 시 아래 2줄만 교체 ──
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
-  const [form, setForm] = useState<LetterFormData>(INITIAL_FORM);
+  const [form, setForm] = useState<LetterFormData>(
+    getInitialForm(location.state),
+  );
+
   // ──────────────────────────────────────────────────────────
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -61,7 +75,7 @@ export default function WriteLetter() {
   };
   const goPrev = () => {
     if (step === 1) {
-      navigate(-1);
+      navigate(location.state?.returnTo ?? "/");
       return;
     }
     setStep((s) => (s - 1) as 1 | 2 | 3 | 4);
@@ -84,7 +98,21 @@ export default function WriteLetter() {
 
   const { mutate: aiGenerateMutate, isPending } = useGenerateAiLetterContent();
   const aiGenerateClick = (selectedTone: LetterTone) => {
-    const setOriginContent = form.tone == null ? form.content! : form.originalContent
+    const setOriginContent =
+      form.tone == null ? form.content! : form.originalContent;
+    const payload = {
+      category: form.keyword!,
+      tone: selectedTone,
+      draft_content: setOriginContent!,
+    };
+    const validatedPayload = GenerateAiLetterContentBody.safeParse(payload);
+
+    if (!validatedPayload.success) {
+      toast.error("AI 편지 생성 요청값을 확인해주세요.");
+      console.error("AI 편지 생성 요청값 검증 실패:", validatedPayload.error);
+      return;
+    }
+
     setForm((p) => ({
       ...p,
       tone: selectedTone!,
@@ -92,36 +120,43 @@ export default function WriteLetter() {
     }));
     aiGenerateMutate(
       {
-        data: {
-          category: form.keyword!,
-          tone: selectedTone,
-          draft_content: setOriginContent!,
-        },
+        data: validatedPayload.data,
       },
       {
         onSuccess: (data) => {
           setForm((p) => ({ ...p, content: data!.data!.ai_content as string }));
         },
         onError: (error) => {
-          console.error("실패:", error);
-        },
+          console.error("AI 문구 변환 실패:", error);
+          console.error("status:", error.response?.status);
+          console.error("response:", error.response?.data);
+          console.error("headers:", error.response?.headers);
+        }
       }
     );
   };
 
   const { mutate: completePostLetterMutate } = useCreateLetter();
   const postLetterClick = () => {
+    const payload = {
+      sender_name: form.from,
+      receiver_name: form.to,
+      category: form.keyword!,
+      content: form.content ? form.content : form.originalContent,
+      theme: form.theme,
+      password: form.letterPassword ? form.letterPassword : null,
+    };
+    const validatedPayload = CreateLetterBody.safeParse(payload);
+
+    if (!validatedPayload.success) {
+      toast.error("편지 생성 요청값을 확인해주세요.");
+      console.error("편지 생성 요청값 검증 실패:", validatedPayload.error);
+      return;
+    }
+
     completePostLetterMutate(
       {
-        data: {
-          // sender_id : , //TODO: 센더 아이디
-          sender_name: form.from,
-          receiver_name: form.to,
-          category: form.keyword!,
-          content: form.content ? form.content : form.originalContent,
-          theme: form.theme,
-          password: form.letterPassword ? form.letterPassword : null,
-        },
+        data: validatedPayload.data,
       },
       {
         onSuccess: (data) => {
@@ -144,7 +179,7 @@ export default function WriteLetter() {
           });
         },
         onError: (error) => {
-          console.error("실패:", error);
+          console.error("편지 생성 실패:", error);
         },
       }
     );
