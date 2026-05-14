@@ -7,11 +7,8 @@
  */
 
 export type CreateLetterBody = {
-  /**
-     * 로그인한 사용자의 경우 유저 고유 ID (비회원은 null)
-     * @nullable
-     */
-  sender_id?: number | null;
+  /** 로그인한 사용자의 경우 유저 고유 ID */
+  sender_id: number;
   /** 보내는 사람 이름 */
   sender_name: string;
   /** 받는 사람 이름 */

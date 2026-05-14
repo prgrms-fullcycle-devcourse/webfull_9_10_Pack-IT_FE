@@ -31,6 +31,7 @@ export const KEYWORD_TAG_COLOR: Record<
 
 export interface LetterItem {
   id: string;
+  nanoId?:string;
   to: string;
   from: string;
   preview: string;

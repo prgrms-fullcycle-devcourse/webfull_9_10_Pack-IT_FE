@@ -54,17 +54,7 @@ export default function Home({ isLoggedIn: propsLoggedIn = false }: HomeProps) {
             className="inline-flex items-center gap-[6px] rounded-full px-[14px] py-[5px] border border-[var(--color-rose-light)] mb-5"
             style={{ background: "var(--color-rose-pale)" }}
           >
-            <div
-              className="w-[4px] h-[4px] rounded-full"
-              style={{ background: "var(--color-rose)" }}
-            />
-            <span
-              className="text-[12px] font-medium"
-              style={{
-                fontFamily: "var(--font-sans)",
-                color: "var(--color-rose)",
-              }}
-            >
+            <span className="text-[12px] font-medium" style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-rose)' }}>
               AI 기술로 빚어낸 마음의 조각
             </span>
           </div>

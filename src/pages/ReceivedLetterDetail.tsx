@@ -1,38 +1,45 @@
 // src/pages/ReceivedLetterDetail.tsx
 // 받은 편지 상세 — 피그마: 편지지 + 답장 쓰기 + 이미지 저장 + 편지 삭제
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import Button from "../shared/components/ui/Button";
 import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
-import type { LetterItem } from "../shared/schemas/letterSchema";
+import type { LetterItem, LetterTheme } from "../shared/schemas/letterSchema";
 import { HtmlToImage } from "../shared/utils/HtmlToImage";
-
-// TODO: useParams().id → GET /letters/:id API 연동
+import { useDeleteLetter } from "../shared/hooks/useDeleteLetter";
 
 export default function ReceivedLetterDetail() {
   const navigate = useNavigate();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const location = useLocation();
-  const letter = location.state?.letter as LetterItem;
-  const activeTab = location.state?.activeTab ?? "sent";
+  const { id: nanoId } = useParams<{ id: string }>();
 
-  if (!letter) {
-    navigate(-1);
+  const activeTab = location.state?.activeTab ?? "received";
+  const item: LetterItem | undefined = location.state?.item;
+
+  // ── 편지 삭제 ──
+  const { deleteLetter, isDeleting } = useDeleteLetter({
+    type: "received",
+    nanoId: nanoId ?? "",
+    activeTab,
+    onError: () => setShowDeleteConfirm(false),
+  });
+
+  if (!nanoId || !item) {
+    navigate("/mypage", { state: { activeTab }, replace: true });
     return null;
   }
 
-  const handleDelete = () => {
-    // TODO: DELETE /letters/:id API 연동
-    // 삭제 성공 시 이전화면 이동 + 토스트 "편지를 삭제했습니다"
-    navigate(-1);
-  };
-
   const handleReply = () => {
-    // 피그마: 수신자를 발신자로, 발신자를 수신자로 swap하여 편지쓰기 이동
-    // TODO: navigate state로 to/from 전달
-    navigate("/write");
+    navigate("/write", {
+      state: {
+        to: item.from,
+        from: item.to,
+        returnTo: "/mypage",
+      },
+    });
   };
 
   return (
@@ -57,13 +64,13 @@ export default function ReceivedLetterDetail() {
       </nav>
 
       <div className="flex-1 overflow-y-auto px-5 py-6" id="ImageSet">
-        {/* 편지지 — 피그마: 내용 전체, 초과 시 스크롤 */}
+        {/* 편지지 */}
         <LetterPaper
-          theme={letter.theme}
-          to={letter.to}
-          content={letter.content}
-          from={letter.from}
-          date={letter.createdAt}
+          theme={item.theme as LetterTheme}
+          to={item.to}
+          content={item.content}
+          from={item.from}
+          date={item.createdAt}
           className="mb-4"
           scrollable
         />
@@ -82,9 +89,10 @@ export default function ReceivedLetterDetail() {
             variant="ghost"
             size="md"
             fullWidth={true}
+            disabled={isDeleting}
             onClick={() => setShowDeleteConfirm(true)}
           >
-            편지 삭제
+            {isDeleting ? "삭제 중..." : "편지 삭제"}
           </Button>
         </div>
       </div>
@@ -111,7 +119,7 @@ export default function ReceivedLetterDetail() {
         confirmLabel="삭제"
         cancelLabel="취소"
         confirmVariant="danger"
-        onConfirm={handleDelete}
+        onConfirm={deleteLetter}
         onCancel={() => setShowDeleteConfirm(false)}
       />
     </div>
