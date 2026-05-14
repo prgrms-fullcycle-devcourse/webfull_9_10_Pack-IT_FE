@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiUsersMeLettersSent200Meta = {
+export type GetSentLetters200Meta = {
   /** @nullable */
   nextCursor?: number | null;
   hasNextPage?: boolean;

@@ -6,9 +6,8 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetApiUsersMeLettersReceivedParams = {
-/**
- * 마지막으로 조회된 편지의 ID
- */
-cursor?: number;
+export type GetReceivedLetters200DataMeta = {
+  /** @nullable */
+  nextCursor?: number | null;
+  hasNextPage?: boolean;
 };

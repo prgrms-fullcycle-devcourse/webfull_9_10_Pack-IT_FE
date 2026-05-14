@@ -12,7 +12,8 @@ import { HeartMist, PeaceMist } from "../shared/components/ui/LetterEffect";
 import IconConfetti from "../shared/components/Icons/IconConfetti";
 import IconHeart from "../shared/components/Icons/IconHeart";
 import IconFlower from "../shared/components/Icons/IconFlower";
-import { usePostApiUsersMeLettersReceived } from "../shared/api/generated/user-letters/user-letters";
+import { useSaveLetter } from "../shared/api/generated/user-letters/user-letters";
+import { SaveLetterBody } from "../shared/api/generated/zod/user-letters/user-letters";
 import { useMe } from "../shared/hooks/useMe";
 import toast from "react-hot-toast";
 
@@ -70,7 +71,7 @@ export default function ReceiveLetter() {
 
   const {isGuest: _isGuest} = useMe(); // 게스트 분기 처리 시 사용
   const { mutate: bookmarkLetter, isPending: isBookmarking } =
-    usePostApiUsersMeLettersReceived();
+    useSaveLetter();
 
 
   if (!letterId) return null;
@@ -114,8 +115,16 @@ export default function ReceiveLetter() {
   };
 
   const handleBookmark = () => {
+    const validatedPayload = SaveLetterBody.safeParse({ letterId });
+
+    if (!validatedPayload.success) {
+      toast.error("편지 저장 요청값을 확인해주세요.");
+      console.error("편지 저장 요청값 검증 실패:", validatedPayload.error);
+      return;
+    }
+
     bookmarkLetter(
-    { data: { letterId } },
+    { data: validatedPayload.data },
     {
       onSuccess: () => {
         toast.success('편지를 보관했어요')
