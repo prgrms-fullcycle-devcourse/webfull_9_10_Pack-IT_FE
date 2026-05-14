@@ -143,8 +143,11 @@ export default function WriteLetter() {
 
   const { mutate: completePostLetterMutate } = useCreateLetter();
   const postLetterClick = () => {
+    if (me?.id == null) {
+      return;
+    }
     const payload = {
-      sender_id: me!.id,
+      sender_id: me.id,
       sender_name: form.from,
       receiver_name: form.to,
       category: form.keyword!,

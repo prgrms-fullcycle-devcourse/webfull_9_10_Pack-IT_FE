@@ -4,6 +4,7 @@ import {
   KEYWORD_LIST,
   THEME_MAP,
 } from "../../schemas/letterSchema";
+import { formatDate } from "../../utils/FormatDate";
 
 interface LetterListItemProps {
   item: LetterItem;
@@ -70,7 +71,7 @@ export default function LetterListItem({
             color: "var(--color-ink-soft)",
           }}
         >
-          {item.createdAt}
+          {formatDate(item.createdAt, "short")}
         </p>
         {type === "sent" && (
           <span

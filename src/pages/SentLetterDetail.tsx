@@ -1,31 +1,18 @@
 // src/pages/SentLetterDetail.tsx
 // 내가 쓴 편지 상세 — 피그마: 편지지 + 편지삭제 + 카카오톡으로 보내기
-import { useState } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
-import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import KakaoShareButton from "../shared/components/ui/KakaoShareButton";
-import Button from "../shared/components/ui/Button";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
-import { useDeleteLetter } from "../shared/hooks/useDeleteLetter";
 import type { LetterItem, LetterTheme } from "../shared/schemas/letterSchema";
 
 export default function SentLetterDetail() {
   const navigate = useNavigate();
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const location = useLocation();
   const { id: nanoId } = useParams<{ id: string }>();
 
   const activeTab = location.state?.activeTab ?? "sent";
   const item: LetterItem | undefined = location.state?.item;
-
-  // ── 편지 삭제 ──
-  const { deleteLetter, isDeleting } = useDeleteLetter({
-    type: "sent",
-    nanoId: nanoId ?? "",
-    activeTab,
-    onError: () => setShowDeleteConfirm(false),
-  });
 
   if (!nanoId || !item) {
     navigate("/mypage", { state: { activeTab }, replace: true });
@@ -65,15 +52,7 @@ export default function SentLetterDetail() {
           scrollable
         />
 
-        <Button
-          variant="ghost"
-          size="md"
-          fullWidth={true}
-          disabled={isDeleting}
-          onClick={() => setShowDeleteConfirm(true)}
-        >
-          {isDeleting ? "삭제 중..." : "편지 삭제"}
-        </Button>
+        
       </div>
       <div className="flex-shrink-0 px-5 py-4">
         <KakaoShareButton
@@ -89,16 +68,7 @@ export default function SentLetterDetail() {
         </KakaoShareButton>
       </div>
 
-      <ConfirmModal
-        isOpen={showDeleteConfirm}
-        title="편지를 삭제할까요?"
-        description="삭제된 편지는 복구할 수 없어요."
-        confirmLabel="삭제"
-        cancelLabel="취소"
-        confirmVariant="danger"
-        onConfirm={deleteLetter}
-        onCancel={() => setShowDeleteConfirm(false)}
-      />
+      
     </div>
   );
 }

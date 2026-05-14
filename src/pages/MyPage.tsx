@@ -8,7 +8,6 @@ import PaginatedLetterList from "../shared/components/layout/PaginatedLetterList
 import type { MyPageTab, LetterItem, LetterTheme, LetterKeyword } from "../shared/schemas/letterSchema";
 import { useMe } from "../shared/hooks/useMe";
 import ConfirmModal from "../shared/components/ui/ConfirmModal";
-import toast from "react-hot-toast";
 import {
   useGetSentLetters,
   useGetReceivedLetters,
@@ -18,13 +17,11 @@ import type {
 } from "../shared/api/generated/model/getSentLetters200DataItem";
 import type { SavedLetter } from "../shared/api/generated/model/savedLetter";
 
-// TODO: 목록 API nanoId 응답 추가 후 TEST_NANO_ID fallback 제거
-const TEST_NANO_ID = "gDPRvUNasR7ekTxemG8KB"; // cspell:disable-line
-
 // TODO: 백엔드 sentCount/receivedCount 필드 추가 후 useMe로 교체
 function toLetterItem(item: GetSentLetters200DataItem | SavedLetter): LetterItem {
   return {
     id: String(item.id ?? ""),
+    nanoId: String(item.id ?? ""),
     to: item.receiverName ?? "",
     from: item.senderName ?? "",
     preview: item.content?.slice(0, 50) ?? "",
@@ -89,14 +86,10 @@ export default function MyPage() {
 
   // 내 정보 조회
   const { me, isGuest } = useMe();
-  console.log(me?.id)
 
   // 편지 목록 조회
   const { data: sentData } = useGetSentLetters();
   const { data: receivedData } = useGetReceivedLetters();
-
-  console.log("내가 쓴 편지 목록:", sentData);
-  console.log("받은 편지 목록:", receivedData);
 
   const rawSent = sentData?.data;
   const sentList: LetterItem[] = (
@@ -108,13 +101,11 @@ export default function MyPage() {
 
   const handleLetterClick = (item: LetterItem) => {
     if (activeTab === "sent") {
-      // 쓴편지: LETTER.id = nanoId (TEXT) → item.id 그대로 사용
       navigate(`/mypage/sent/${item.id}`, {
         state: { activeTab, item },
       });
     } else {
-      // TODO: 받은편지 목록 API에 letterId(nanoId) 필드 추가 후 item.id → letterId로 교체
-      navigate(`/mypage/received/${item.nanoId ?? TEST_NANO_ID}`, {
+      navigate(`/mypage/received/${item.nanoId ?? item.id}`, {
         state: { activeTab, item },
       });
     }
@@ -122,12 +113,9 @@ export default function MyPage() {
 
   const handleLogout = () => {
     // TODO : 로그아웃 API 미구현으로 인해 구현예정 얼럿만 표시하고 마이페이지 유지
-    // setShowLogoutConfirm(false);
-    // toast("로그아웃 되었습니다");
-
-    window.alert("로그아웃 기능은 추후 구현될 예정입니다.")
-
+    window.alert("로그아웃 기능은 추후 구현될 예정입니다.");
   };
+
   const TABS: { key: MyPageTab; label: string }[] = [
     { key: "sent", label: "내가 쓴 편지" },
     { key: "received", label: "받은 편지" },
