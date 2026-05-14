@@ -1,4 +1,3 @@
-// src/shared/components/ui/KakaoLoginButton.tsx
 import { useEffect, type ButtonHTMLAttributes } from "react";
 import { useGetApiUsersMe } from "../../api/generated/users/users";
 import { useAutuStore } from "../../store/useAuthStore";
@@ -40,7 +39,8 @@ export default function KakaoLoginButton({
 
   useEffect(() => {
     const handleMessage = async (event: MessageEvent) => {
-      if (event.origin !== window.location.origin) return;
+      const allowedOrigins = [window.location.origin, import.meta.env.VITE_API_URL];
+      if (!allowedOrigins.includes(event.origin)) return;
       if (event.data?.type !== "KAKAO_LOGIN_SUCCESS") return;
 
       const result = await refetch();
@@ -103,12 +103,7 @@ export default function KakaoLoginButton({
       onClick={kakaoLogin}
       disabled={!nanoId || disabled}
     >
-      <svg
-        width={symbolSize}
-        height={symbolSize}
-        viewBox="0 0 24 24"
-        fill="none"
-      >
+      <svg width={symbolSize} height={symbolSize} viewBox="0 0 24 24" fill="none">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
