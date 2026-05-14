@@ -13,6 +13,7 @@ export default function SentLetterDetail() {
 
   const activeTab = location.state?.activeTab ?? "sent";
   const item: LetterItem | undefined = location.state?.item;
+  const { id } = useParams<{ id: string }>();
 
   if (!nanoId || !item) {
     navigate("/mypage", { state: { activeTab }, replace: true });
@@ -57,6 +58,7 @@ export default function SentLetterDetail() {
       <div className="flex-shrink-0 px-5 py-4">
         <KakaoShareButton
           fullWidth
+          id = {id}
           style={{
             height: 54,
             fontSize: 18,
