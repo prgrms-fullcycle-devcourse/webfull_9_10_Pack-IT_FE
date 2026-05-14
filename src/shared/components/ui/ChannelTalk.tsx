@@ -4,6 +4,8 @@ import * as ChannelService from "@channel.io/channel-web-sdk-loader";
 
 const pluginKey = import.meta.env.VITE_CHANNEL_PLUGIN_KEY;
 
+const VISIBLE_PATHS = ["/", "/mypage"];
+
 export default function ChannelTalk() {
   const location = useLocation();
 
@@ -28,6 +30,12 @@ export default function ChannelTalk() {
     if (!pluginKey) return;
 
     ChannelService.setPage(`${location.pathname}${location.search}`);
+
+    if (VISIBLE_PATHS.includes(location.pathname)) {
+      ChannelService.showChannelButton();
+    } else {
+      ChannelService.hideChannelButton();
+    }
   }, [location.pathname, location.search]);
 
   return null;
