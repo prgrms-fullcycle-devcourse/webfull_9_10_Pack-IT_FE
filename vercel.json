@@ -5,7 +5,7 @@
       "destination": "http://54.180.159.211:8080/:path*"
     },
     {
-      "source": "/((?!api/proxy/).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
