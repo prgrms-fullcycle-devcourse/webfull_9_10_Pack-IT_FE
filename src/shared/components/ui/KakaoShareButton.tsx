@@ -19,12 +19,16 @@ export default function KakaoShareButton({
   fullWidth = false,
   children = "카카오톡으로 보내기",
   className = "",
+  style: externalStyle,
   ...props
 }: KakaoShareButtonProps) {
   return (
     <button
+      type="button" 
       onClick={() => {
-        kakaoShare({ id }); //추후 설정 필요
+        setTimeout(() => {
+          kakaoShare({ id });
+        }, 0);
       }}
       className={`
         inline-flex items-center justify-center gap-[10px]
@@ -36,9 +40,11 @@ export default function KakaoShareButton({
       `}
       {...props}
       style={{
+        ...externalStyle,
         fontFamily: "var(--font-sans)",
         backgroundColor: "#FEE500",
         color: "#000000",
+        display: "flex",
       }}
     >
       {/* 카카오 공식 말풍선 심볼 */}

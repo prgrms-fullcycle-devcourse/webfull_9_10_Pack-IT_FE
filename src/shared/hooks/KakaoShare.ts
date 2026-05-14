@@ -4,7 +4,7 @@
 //test.png 변경 및 삭제
 
 interface kakaoShareProps {
-  id?: string;
+  id: string;
   title?: string;
   sender?: string;
 }
