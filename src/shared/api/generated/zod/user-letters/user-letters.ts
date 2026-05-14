@@ -17,17 +17,21 @@ export const GetSentLettersQueryParams = zod.object({
 
 export const GetSentLettersResponse = zod.object({
   "success": zod.boolean().optional(),
-  "data": zod.array(zod.object({
-  "id": zod.number().optional().describe('보관함 레코드 고유 ID'),
-  "senderId": zod.number().nullish(),
-  "senderName": zod.string().optional(),
-  "receiverName": zod.string().optional(),
-  "category": zod.string().optional(),
-  "content": zod.string().optional(),
-  "theme": zod.number().optional(),
-  "createdAt": zod.iso.datetime({"offset":true}).optional().describe('편지 발행 시간 (publishedAt)')
-})).optional(),
+  "data": zod.object({
+  "letters": zod.array(zod.object({
+  "id": zod.number().optional().describe('보관함 레코드의 고유 ID (SavedLetter 테이블의 PK)'),
+  "senderId": zod.number().nullish().describe('편지를 보낸 사용자의 ID'),
+  "senderName": zod.string().optional().describe('발신인 이름'),
+  "receiverName": zod.string().optional().describe('수신인 이름'),
+  "category": zod.string().optional().describe('편지 카테고리'),
+  "content": zod.string().optional().describe('편지 본문 내용'),
+  "theme": zod.number().optional().describe('적용된 테마 번호'),
+  "createdAt": zod.iso.datetime({"offset":true}).optional().describe('편지가 발행된 시간 (DB의 published_at 필드)')
+})).optional()
+}).optional(),
   "meta": zod.object({
+  "userId": zod.string().optional(),
+  "totalCount": zod.number().optional().describe('조건에 맞는 전체 편지 개수'),
   "nextCursor": zod.number().nullish(),
   "hasNextPage": zod.boolean().optional()
 }).optional(),
@@ -55,11 +59,13 @@ export const GetReceivedLettersResponse = zod.object({
   "content": zod.string().optional().describe('편지 본문 내용'),
   "theme": zod.number().optional().describe('적용된 테마 번호'),
   "createdAt": zod.iso.datetime({"offset":true}).optional().describe('편지가 발행된 시간 (DB의 published_at 필드)')
-})).optional(),
+})).optional()
+}).optional(),
   "meta": zod.object({
+  "userId": zod.string().optional(),
+  "totalCount": zod.number().optional().describe('조건에 맞는 전체 편지 개수'),
   "nextCursor": zod.number().nullish(),
   "hasNextPage": zod.boolean().optional()
-}).optional()
 }).optional(),
   "error": zod.looseObject({
 

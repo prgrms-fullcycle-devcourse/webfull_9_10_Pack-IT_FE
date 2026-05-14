@@ -37,8 +37,11 @@ export const GenerateAiLetterContentResponse = zod.object({
 
  * @summary 편지 최종 저장 및 링크 생성 api
  */
+
+
+
 export const CreateLetterBody = zod.object({
-  "sender_id": zod.number().nullish().describe('로그인한 사용자의 경우 유저 고유 ID (비회원은 null)'),
+  "sender_id": zod.number().min(1).describe('로그인한 사용자의 경우 유저 고유 ID'),
   "sender_name": zod.string().describe('보내는 사람 이름'),
   "receiver_name": zod.string().describe('받는 사람 이름'),
   "category": zod.string().describe('편지 카테고리'),

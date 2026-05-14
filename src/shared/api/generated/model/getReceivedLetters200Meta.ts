@@ -6,7 +6,10 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetReceivedLetters200DataMeta = {
+export type GetReceivedLetters200Meta = {
+  userId?: string;
+  /** 조건에 맞는 전체 편지 개수 */
+  totalCount?: number;
   /** @nullable */
   nextCursor?: number | null;
   hasNextPage?: boolean;
