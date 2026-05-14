@@ -29,6 +29,9 @@ import {
   GenerateAiLetterContentBody,
 } from "../shared/api/generated/zod/letters/letters";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
+import { getGetSentLettersQueryKey } from "../shared/api/generated/user-letters/user-letters";
+import { useMe } from "../shared/hooks/useMe";
 
 const MAX_CONTENT = 500;
 
@@ -57,7 +60,7 @@ const STEPS = [
 export default function WriteLetter() {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const queryClient = useQueryClient();
   // ── 마이그레이션 포인트: Zustand 추가 시 아래 2줄만 교체 ──
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [form, setForm] = useState<LetterFormData>(
@@ -136,9 +139,12 @@ export default function WriteLetter() {
     );
   };
 
+  const { me } = useMe();
+
   const { mutate: completePostLetterMutate } = useCreateLetter();
   const postLetterClick = () => {
     const payload = {
+      sender_id: me!.id,
       sender_name: form.from,
       receiver_name: form.to,
       category: form.keyword!,
@@ -161,7 +167,10 @@ export default function WriteLetter() {
       {
         onSuccess: (data) => {
           console.log("성공:", data);
-
+          console.log("편지쓴사람id:", me?.id);
+          queryClient.invalidateQueries({
+            queryKey: getGetSentLettersQueryKey(),
+          });
           navigate("/share", {
             state: {
               theme: form.theme,
@@ -181,7 +190,7 @@ export default function WriteLetter() {
         onError: (error) => {
           console.error("편지 생성 실패:", error);
         },
-      }
+      },
     );
   };
 

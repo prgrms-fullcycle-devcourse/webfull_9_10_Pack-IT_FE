@@ -3,20 +3,39 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../shared/components/ui/Button";
 import BackButton from "../shared/components/ui/BackButton";
 import PaginatedLetterList from "../shared/components/layout/PaginatedLetterList";
-import { MOCK_SENT } from "../mockData/MockSent";
-import { MOCK_RECEIVED } from "../mockData/MockReceived";
-import { MOCK_USER } from "../mockData/MockUser";
 
 // 타입 전용 임포트 (verbatimModuleSyntax 대응)
-import type { MyPageTab, LetterItem } from "../shared/schemas/letterSchema";
+import type { MyPageTab, LetterItem, LetterTheme, LetterKeyword } from "../shared/schemas/letterSchema";
 import { useAutuStore } from "../shared/store/useAuthStore";
 import { useMe } from "../shared/hooks/useMe";
+import { useQueryClient } from "@tanstack/react-query";
 import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import toast from "react-hot-toast";
-
+import {
+  useGetSentLetters,
+  useGetReceivedLetters,
+} from "../shared/api/generated/user-letters/user-letters";
+import type {
+  GetSentLetters200DataItem,
+} from "../shared/api/generated/model/getSentLetters200DataItem";
+import type { SavedLetter } from "../shared/api/generated/model/savedLetter";
 
 // TODO: 목록 API nanoId 응답 추가 후 TEST_NANO_ID fallback 제거
 const TEST_NANO_ID = "gDPRvUNasR7ekTxemG8KB"; // cspell:disable-line
+
+// TODO: 백엔드 sentCount/receivedCount 필드 추가 후 useMe로 교체
+function toLetterItem(item: GetSentLetters200DataItem | SavedLetter): LetterItem {
+  return {
+    id: String(item.id ?? ""),
+    to: item.receiverName ?? "",
+    from: item.senderName ?? "",
+    preview: item.content?.slice(0, 50) ?? "",
+    content: item.content ?? "",
+    keyword: (item.category as LetterKeyword) ?? "감사",
+    theme: (item.theme as LetterTheme) ?? 1,
+    createdAt: item.createdAt ?? "",
+  };
+}
 
 interface EmptyStateProps {
   text: string;
@@ -71,21 +90,36 @@ export default function MyPage() {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   // 내 정보 조회
-  const {me, isGuest} = useMe();
-  const {setLogout} = useAutuStore();
+  const { me, isGuest } = useMe();
+  const { setLogout } = useAutuStore();
+  const queryClient = useQueryClient();
+  console.log(me?.id)
 
   // 편지 목록 조회
-  const [sentList] = useState<LetterItem[]>(MOCK_SENT);
-  const [receivedList] = useState<LetterItem[]>(MOCK_RECEIVED);
+  const { data: sentData } = useGetSentLetters();
+  const { data: receivedData } = useGetReceivedLetters();
+
+  console.log("내가 쓴 편지 목록:", sentData);
+  console.log("받은 편지 목록:", receivedData);
+
+  const rawSent = sentData?.data;
+  const sentList: LetterItem[] = (
+    Array.isArray(rawSent)
+      ? rawSent
+      : (rawSent as unknown as { letters?: GetSentLetters200DataItem[] })?.letters ?? []
+  ).map(toLetterItem);
+  const receivedList: LetterItem[] = (receivedData?.data?.letters ?? []).map(toLetterItem);
 
   const handleLetterClick = (item: LetterItem) => {
     if (activeTab === "sent") {
-      navigate(`/mypage/sent/${item.nanoId ?? TEST_NANO_ID}`, {
-        state: { activeTab },
+      // 쓴편지: LETTER.id = nanoId (TEXT) → item.id 그대로 사용
+      navigate(`/mypage/sent/${item.id}`, {
+        state: { activeTab, item },
       });
     } else {
+      // TODO: 받은편지 목록 API에 letterId(nanoId) 필드 추가 후 item.id → letterId로 교체
       navigate(`/mypage/received/${item.nanoId ?? TEST_NANO_ID}`, {
-        state: { activeTab },
+        state: { activeTab, item },
       });
     }
   };
@@ -93,12 +127,18 @@ export default function MyPage() {
   const handleLogout = () => {
     setLogout();
     sessionStorage.removeItem("nanoId");
+
+    // 만약 쿠키 이름이 'sid'라면 아래처럼 삭제 시도
+    // (서버가 HttpOnly로 설정했다면 자바스크립트 삭제가 안 될 수 있습니다)
+    document.cookie = "sid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    queryClient.clear(); // React Query 캐시 초기화 (중요!)
     setShowLogoutConfirm(false);
     toast("로그아웃 되었습니다");
-    navigate("/");
-  }
 
-
+    // 세션을 확실히 끊기 위해 새로고침하며 이동
+    window.location.href = "/";
+  };
   const TABS: { key: MyPageTab; label: string }[] = [
     { key: "sent", label: "내가 쓴 편지" },
     { key: "received", label: "받은 편지" },
@@ -142,7 +182,7 @@ export default function MyPage() {
                 color: "var(--color-rose)",
                 boxShadow: "none",
               }}
-              onClick={()=>setShowLogoutConfirm(true)}
+              onClick={() => setShowLogoutConfirm(true)}
             >
               로그아웃
             </Button>
@@ -150,8 +190,8 @@ export default function MyPage() {
 
           <div className="grid grid-cols-2 gap-3">
             {[
-              { n: MOCK_USER.sentCount, l: "쓴 편지" },
-              { n: MOCK_USER.receivedCount, l: "받은 편지" },
+              { n: sentList.length, l: "쓴 편지" },
+              { n: receivedList.length, l: "받은 편지" },
             ].map((s) => (
               <div
                 key={s.l}

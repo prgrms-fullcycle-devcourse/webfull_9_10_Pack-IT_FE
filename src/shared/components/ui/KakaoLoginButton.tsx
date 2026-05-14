@@ -63,7 +63,7 @@ export default function KakaoLoginButton({
     const baseUrl = "https://kauth.kakao.com/oauth/authorize";
     const config = {
       client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
-      redirect_uri: `${import.meta.env.VITE_API_URL}/api/auth/kakao/callback`,
+      redirect_uri: `${import.meta.env.VITE_KAKAO_BASE_URL}/api/auth/kakao/callback`,
       response_type: "code",
       state: nanoId,
     };

@@ -6,9 +6,8 @@ import Button from "../shared/components/ui/Button";
 import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
-import type { LetterTheme } from "../shared/schemas/letterSchema";
+import type { LetterItem, LetterTheme } from "../shared/schemas/letterSchema";
 import { HtmlToImage } from "../shared/utils/HtmlToImage";
-import { useGetLetterDetail } from "../shared/api/generated/letters/letters";
 import { useDeleteLetter } from "../shared/hooks/useDeleteLetter";
 
 export default function ReceivedLetterDetail() {
@@ -18,12 +17,7 @@ export default function ReceivedLetterDetail() {
   const { id: nanoId } = useParams<{ id: string }>();
 
   const activeTab = location.state?.activeTab ?? "received";
-
-  // ── 편지 상세 조회 ──
-  const { data, isLoading, isError } = useGetLetterDetail(nanoId ?? "", {
-    query: { enabled: !!nanoId },
-  });
-  const letter = data?.data;
+  const item: LetterItem | undefined = location.state?.item;
 
   // ── 편지 삭제 ──
   const { deleteLetter, isDeleting } = useDeleteLetter({
@@ -33,65 +27,20 @@ export default function ReceivedLetterDetail() {
     onError: () => setShowDeleteConfirm(false),
   });
 
-  // nanoId 없으면 마이페이지로 복귀
-  if (!nanoId) {
+  if (!nanoId || !item) {
     navigate("/mypage", { state: { activeTab }, replace: true });
     return null;
   }
 
   const handleReply = () => {
-    // 수신자 → 발신자, 발신자 → 수신자 swap
     navigate("/write", {
       state: {
-        to: letter?.senderName ?? "",
-        from: letter?.receiverName ?? "",
+        to: item.from,
+        from: item.to,
         returnTo: "/mypage",
       },
     });
   };
-
-  // 로딩 상태
-  if (isLoading) {
-    return (
-      <div
-        className="min-h-screen flex items-center justify-center"
-        style={{ background: "var(--color-cream)" }}
-      >
-        <p
-          className="text-[16px]"
-          style={{
-            fontFamily: "var(--font-sans)",
-            color: "var(--color-ink-soft)",
-          }}
-        >
-          편지를 불러오는 중이에요...
-        </p>
-      </div>
-    );
-  }
-
-  // 에러 상태
-  if (isError || !letter) {
-    return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center gap-4"
-        style={{ background: "var(--color-cream)" }}
-      >
-        <p
-          className="text-[16px]"
-          style={{ fontFamily: "var(--font-sans)", color: "var(--color-rose)" }}
-        >
-          편지를 불러오지 못했어요.
-        </p>
-        <Button
-          variant="primary"
-          onClick={() => navigate("/mypage", { state: { activeTab } })}
-        >
-          마이페이지로 돌아가기
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <div
@@ -115,13 +64,13 @@ export default function ReceivedLetterDetail() {
       </nav>
 
       <div className="flex-1 overflow-y-auto px-5 py-6" id="ImageSet">
-        {/* 편지지 — 피그마: 내용 전체, 초과 시 스크롤 */}
+        {/* 편지지 */}
         <LetterPaper
-          theme={letter.theme as LetterTheme}
-          to={letter.receiverName ?? ""}
-          content={letter.content ?? ""}
-          from={letter.senderName ?? ""}
-          date={letter.publishedAt ?? ""}
+          theme={item.theme as LetterTheme}
+          to={item.to}
+          content={item.content}
+          from={item.from}
+          date={item.createdAt}
           className="mb-4"
           scrollable
         />

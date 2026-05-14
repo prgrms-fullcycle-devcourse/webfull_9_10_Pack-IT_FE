@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {
-  useDeleteApiUsersMeLettersReceivedLetterId,
-  getGetApiUsersMeLettersReceivedQueryKey,
+  useDeleteSavedLetter,
+  getGetSentLettersQueryKey,
+  getGetReceivedLettersQueryKey,
 } from "../api/generated/user-letters/user-letters";
 import type { MyPageTab } from "../schemas/letterSchema";
 
@@ -23,12 +24,15 @@ export function useDeleteLetter({
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { mutate: deleteReceived, isPending: isDeleting } =
-    useDeleteApiUsersMeLettersReceivedLetterId({
+  const { mutate: deleteSaved, isPending: isDeleting } =
+    useDeleteSavedLetter({
       mutation: {
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: getGetApiUsersMeLettersReceivedQueryKey(),
+            queryKey:
+              type === "sent"
+                ? getGetSentLettersQueryKey()
+                : getGetReceivedLettersQueryKey(),
           });
           toast("편지를 삭제했습니다");
           navigate("/mypage", { state: { activeTab } });
@@ -41,12 +45,7 @@ export function useDeleteLetter({
     });
 
   const deleteLetter = () => {
-    if (type === "received") {
-      deleteReceived({ letterId: nanoId });
-    } else {
-      // TODO: DELETE /api/users/me/letters/sent/:id API 연동 대기
-      navigate("/mypage", { state: { activeTab }, replace: true });
-    }
+    deleteSaved({ letterId: nanoId });
   };
 
   return { deleteLetter, isDeleting };
