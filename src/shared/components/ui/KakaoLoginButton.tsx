@@ -1,5 +1,7 @@
 // src/shared/components/ui/KakaoLoginButton.tsx
-import type { ButtonHTMLAttributes } from "react";
+import { useEffect, type ButtonHTMLAttributes } from "react";
+import { useGetApiUsersMe } from "../../api/generated/users/users";
+import { useAutuStore } from "../../store/useAuthStore";
 
 interface KakaoLoginButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "sm" | "md" | "lg";
@@ -26,6 +28,60 @@ export default function KakaoLoginButton({
   ...props
 }: KakaoLoginButtonProps) {
   const symbolSize = SYMBOL_SIZE[size];
+  const { nanoId, setLogin } = useAutuStore();
+  const { refetch } = useGetApiUsersMe({
+    query: {
+      enabled: false,
+    },
+  });
+
+  useEffect(() => {
+    const handleMessage = async (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+      if (event.data?.type !== "KAKAO_LOGIN_SUCCESS") return;
+
+      const result = await refetch();
+      const newNanoId = result.data?.data?.nanoId;
+
+      if (newNanoId) {
+        setLogin(newNanoId);
+        sessionStorage.setItem("nanoId", newNanoId);
+        console.log("카카오 로그인 성공:", newNanoId);
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [refetch, setLogin]);
+
+  const kakaoLogin = () => {
+    if (!nanoId) return;
+
+    const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+    const config = {
+      client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
+      redirect_uri: `${import.meta.env.VITE_API_URL}/api/auth/kakao/callback`,
+      response_type: "code",
+      state: nanoId,
+    };
+
+    const queryString = new URLSearchParams(config).toString();
+    const url = `${baseUrl}?${queryString}`;
+
+    const width = 500;
+    const height = 600;
+    const left = window.screenX + (window.outerWidth - width) / 2;
+    const top = window.screenY + (window.outerHeight - height) / 2;
+
+    window.open(
+      url,
+      "KakaoLoginPopup",
+      `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`,
+    );
+  };
 
   return (
     <button
@@ -42,6 +98,8 @@ export default function KakaoLoginButton({
         color: "#000000",
         ...props.style,
       }}
+      onClick={kakaoLogin}
+      disabled={!nanoId || props.disabled}
       {...props}
     >
       <svg
