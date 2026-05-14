@@ -3,47 +3,48 @@ import { useLocation } from "react-router-dom";
 import { useAutuStore } from "../../store/useAuthStore";
 import { useGetApiUsersMe } from "../../api/generated/users/users";
 
-export const GetNanoId = ({
-  children,
-}: {
+interface GetNanoIdProps {
   children: React.ReactNode;
-}) => {
+}
+
+export const GetNanoId = ({ children }: GetNanoIdProps) => {
   const location = useLocation();
-  const { checkedLoggedin: isLoggedin, setLogin, nanoId } = useAutuStore();
+  const { setLogin, setToken } = useAutuStore();
 
   const { refetch } = useGetApiUsersMe({
     query: {
       enabled: false,
-    }
+    },
   });
 
   const handleFetchGuestInfo = useCallback(async () => {
     try {
       const result = await refetch();
-      
-      const nanoId = result.data?.data?.nanoId;
 
-      if (nanoId) {
-        setLogin(nanoId);
-        sessionStorage.setItem("nanoId", nanoId);
-        console.log("게스트 토큰 발급 및 저장 완료");
+      const serverNanoId = result.data?.data?.nanoId;
+      const isKakaoAuth = !!result.data?.data?.kakaoUid;
+
+      const savedToken = sessionStorage.getItem("nanoId");
+
+      if (serverNanoId) {
+        if (serverNanoId !== savedToken) {
+          sessionStorage.setItem("nanoId", serverNanoId);
+        }
+
+        if (isKakaoAuth) {
+          setLogin(serverNanoId);
+        } else {
+          setToken(serverNanoId);
+        }
       }
     } catch (err) {
-      console.error("게스트 정보 가져오기 실패:", err);
+      console.error("사용자 정보를 가져오는 중 오류가 발생했습니다 : ", err);
     }
-  }, [refetch, setLogin]); // 의존성 배열 추가
+  }, [refetch, setLogin, setToken]);
 
   useEffect(() => {
-    const savedToken = sessionStorage.getItem("nanoId");
-
-    if (isLoggedin && nanoId && savedToken ) return;
-
-    if (savedToken) {
-      setLogin(savedToken);
-    } else {
-      handleFetchGuestInfo();
-    }
-  }, [location.pathname, isLoggedin, nanoId, setLogin, handleFetchGuestInfo]);
+    handleFetchGuestInfo();
+  }, [location.pathname, handleFetchGuestInfo]);
 
   return <>{children}</>;
 };

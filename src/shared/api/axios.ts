@@ -27,21 +27,19 @@ api.interceptors.request.use((config) => {
   const method = (config.method ?? "get").toUpperCase();
 
   const match = zodRequestSchemaMap.find(
-    (entry) => entry.urlPattern.test(url) && entry.method === method,
+    (entry) => entry.urlPattern.test(url) && entry.method === method
   );
 
   if (match) {
     // Body 검증 (POST/PUT 등)
     if (match.bodySchema && config.data !== undefined) {
       const body =
-        typeof config.data === "string"
-          ? JSON.parse(config.data)
-          : config.data;
+        typeof config.data === "string" ? JSON.parse(config.data) : config.data;
       const result = match.bodySchema.safeParse(body);
       if (!result.success) {
         console.warn(
           `[Zod Request Body] ${method} ${url}`,
-          result.error.flatten(),
+          result.error.flatten()
         );
       }
     }
@@ -52,7 +50,7 @@ api.interceptors.request.use((config) => {
       if (!result.success) {
         console.warn(
           `[Zod Request Params] ${method} ${url}`,
-          result.error.flatten(),
+          result.error.flatten()
         );
       }
     }
@@ -69,19 +67,15 @@ api.interceptors.response.use((response) => {
   const method = (response.config.method ?? "get").toUpperCase();
 
   const match = zodResponseSchemaMap.find(
-    (entry) => entry.urlPattern.test(url) && entry.method === method,
+    (entry) => entry.urlPattern.test(url) && entry.method === method
   );
 
   if (match) {
     const result = match.schema.safeParse(response.data);
     if (!result.success) {
-      console.warn(
-        `[Zod Validation] ${method} ${url}`,
-        result.error.flatten(),
-      );
+      console.warn(`[Zod Validation] ${method} ${url}`, result.error.flatten());
     }
   }
 
   return response;
 });
-
