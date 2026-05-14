@@ -27,7 +27,7 @@ export default function KakaoShareButton({
       type="button" 
       onClick={() => {
         setTimeout(() => {
-          kakaoShare({ id });
+          kakaoShare({ id : id!});
         }, 0);
       }}
       className={`
