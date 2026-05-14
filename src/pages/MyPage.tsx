@@ -6,9 +6,7 @@ import PaginatedLetterList from "../shared/components/layout/PaginatedLetterList
 
 // 타입 전용 임포트 (verbatimModuleSyntax 대응)
 import type { MyPageTab, LetterItem, LetterTheme, LetterKeyword } from "../shared/schemas/letterSchema";
-import { useAutuStore } from "../shared/store/useAuthStore";
 import { useMe } from "../shared/hooks/useMe";
-import { useQueryClient } from "@tanstack/react-query";
 import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import toast from "react-hot-toast";
 import {
@@ -91,8 +89,6 @@ export default function MyPage() {
 
   // 내 정보 조회
   const { me, isGuest } = useMe();
-  const { setLogout } = useAutuStore();
-  const queryClient = useQueryClient();
   console.log(me?.id)
 
   // 편지 목록 조회
@@ -125,19 +121,12 @@ export default function MyPage() {
   };
 
   const handleLogout = () => {
-    setLogout();
-    sessionStorage.removeItem("nanoId");
+    // TODO : 로그아웃 API 미구현으로 인해 구현예정 얼럿만 표시하고 마이페이지 유지
+    // setShowLogoutConfirm(false);
+    // toast("로그아웃 되었습니다");
 
-    // 만약 쿠키 이름이 'sid'라면 아래처럼 삭제 시도
-    // (서버가 HttpOnly로 설정했다면 자바스크립트 삭제가 안 될 수 있습니다)
-    document.cookie = "sid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.alert("로그아웃 기능은 추후 구현될 예정입니다.")
 
-    queryClient.clear(); // React Query 캐시 초기화 (중요!)
-    setShowLogoutConfirm(false);
-    toast("로그아웃 되었습니다");
-
-    // 세션을 확실히 끊기 위해 새로고침하며 이동
-    window.location.href = "/";
   };
   const TABS: { key: MyPageTab; label: string }[] = [
     { key: "sent", label: "내가 쓴 편지" },
@@ -182,7 +171,7 @@ export default function MyPage() {
                 color: "var(--color-rose)",
                 boxShadow: "none",
               }}
-              onClick={() => setShowLogoutConfirm(true)}
+              onClick={() => handleLogout()}
             >
               로그아웃
             </Button>
