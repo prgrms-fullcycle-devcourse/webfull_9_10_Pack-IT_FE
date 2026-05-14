@@ -21,7 +21,7 @@ const SYMBOL_SIZE = {
 };
 
 const KAKAO_AUTH_URL = "https://kauth.kakao.com/oauth/authorize";
-const KAKAO_CALLBACK_PATH = "/api/proxy/api/auth/kakao/callback";
+// const KAKAO_CALLBACK_PATH = "/api/proxy/api/auth/kakao/callback";
 
 export default function KakaoLoginButton({
   size = "md",
