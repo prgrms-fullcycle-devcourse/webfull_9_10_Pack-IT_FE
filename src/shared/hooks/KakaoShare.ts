@@ -26,9 +26,6 @@ export const kakaoShare = ({
 
   const shareUrl = id ? `${originUrl}/letter/${id}` : originUrl;
 
-  console.log("[KakaoShare] id:", id);
-  console.log("[KakaoShare] shareUrl:", shareUrl);
-
   Kakao.Share.sendDefault({
     objectType: "feed",
     content: {
