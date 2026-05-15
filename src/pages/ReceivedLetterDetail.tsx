@@ -19,7 +19,7 @@ export default function ReceivedLetterDetail() {
   const activeTab = location.state?.activeTab ?? "received";
   const item: LetterItem | undefined = location.state?.item;
 
-  // ── 편지 삭제 ──
+  // ── 편지 삭제 ──//
   const { deleteLetter, isDeleting } = useDeleteLetter({
     type: "received",
     nanoId: nanoId ?? "",
