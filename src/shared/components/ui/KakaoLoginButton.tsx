@@ -31,6 +31,7 @@ export default function KakaoLoginButton({
 }: KakaoLoginButtonProps) {
   const symbolSize = SYMBOL_SIZE[size];
   const { nanoId, setLogin } = useAutuStore();
+  
   const { refetch } = useGetApiUsersMe({
     query: {
       enabled: false,
@@ -39,7 +40,10 @@ export default function KakaoLoginButton({
 
   useEffect(() => {
     const handleMessage = async (event: MessageEvent) => {
-      const allowedOrigins = [window.location.origin, import.meta.env.VITE_API_URL];
+      const allowedOrigins = [
+        window.location.origin, 
+        "https://webfull-9-10-pack-it-fe.vercel.app"
+      ];
       if (!allowedOrigins.includes(event.origin)) return;
       if (event.data?.type !== "KAKAO_LOGIN_SUCCESS") return;
 
@@ -62,13 +66,10 @@ export default function KakaoLoginButton({
 
   const kakaoLogin = () => {
     if (!nanoId) return;
-
-    const originUrl = window.location.origin;
-
-    const redirectUri = `${originUrl}/api/proxy/api/auth/kakao/callback`;
+    const redirectUri = "https://webfull-9-10-pack-it-fe.vercel.app/api/proxy/api/auth/kakao/callback";
 
     const queryString = new URLSearchParams({
-      client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
+      client_id: "eefc8309749fa7d834f73c1f467d5dd7",
       redirect_uri: redirectUri,
       response_type: "code",
       state: nanoId,
