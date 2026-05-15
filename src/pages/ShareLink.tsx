@@ -147,6 +147,7 @@ export default function ShareLink() {
           fullWidth
           style={{ height: 54, fontSize: 18, borderRadius: 12 }}
           id={id}
+          sender={from}
         >
           카카오톡으로 보내기
         </KakaoShareButton>
