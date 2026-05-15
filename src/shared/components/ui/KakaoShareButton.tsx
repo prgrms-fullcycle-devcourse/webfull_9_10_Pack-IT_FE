@@ -5,7 +5,8 @@ import { kakaoShare } from "../../hooks/KakaoShare";
 interface KakaoShareButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
-  id? : string
+  id? : string;
+  sender?: string;
 }
 
 /** 카카오 공식 디자인 가이드 준수
