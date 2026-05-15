@@ -67,7 +67,7 @@ export default function KakaoLoginButton({
 
     const queryString = new URLSearchParams({
       client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
-      redirect_uri: `${originUrl}/api/auth/kakao/callback`,
+      redirect_uri: `${originUrl}${import.meta.env.VITE_KAKAO_BASE_URL}/api/auth/kakao/callback`,
       response_type: "code",
       state: nanoId,
     }).toString();

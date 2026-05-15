@@ -1,15 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/api/auth/:path*",
-      "destination": "http://54.180.159.211:8080/api/auth/:path*"
-    },
-    {
       "source": "/api/proxy/:path*",
       "destination": "http://54.180.159.211:8080/:path*"
     },
     {
-      "source": "/((?!api/).*)",
+      "source": "/((?!api/proxy/).*)",
       "destination": "/index.html"
     }
   ]
