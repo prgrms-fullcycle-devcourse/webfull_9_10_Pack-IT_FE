@@ -7,6 +7,6 @@
  */
 import type { SavedLetter } from './savedLetter';
 
-export type GetReceivedLetters200Data = {
+export type GetSentLetters200Data = {
   letters?: SavedLetter[];
 };

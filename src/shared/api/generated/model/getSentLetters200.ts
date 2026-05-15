@@ -5,13 +5,13 @@
  * Pack-IT 백엔드 API 문서입니다.
  * OpenAPI spec version: 1.0.0
  */
-import type { GetSentLetters200DataItem } from './getSentLetters200DataItem';
+import type { GetSentLetters200Data } from './getSentLetters200Data';
 import type { GetSentLetters200Error } from './getSentLetters200Error';
 import type { GetSentLetters200Meta } from './getSentLetters200Meta';
 
 export type GetSentLetters200 = {
   success?: boolean;
-  data?: GetSentLetters200DataItem[];
+  data?: GetSentLetters200Data;
   meta?: GetSentLetters200Meta;
   /** @nullable */
   error?: GetSentLetters200Error;

@@ -12,13 +12,9 @@ import {
   useGetSentLetters,
   useGetReceivedLetters,
 } from "../shared/api/generated/user-letters/user-letters";
-import type {
-  GetSentLetters200DataItem,
-} from "../shared/api/generated/model/getSentLetters200DataItem";
 import type { SavedLetter } from "../shared/api/generated/model/savedLetter";
 
-// TODO: 백엔드 sentCount/receivedCount 필드 추가 후 useMe로 교체
-function toLetterItem(item: GetSentLetters200DataItem | SavedLetter): LetterItem {
+function toLetterItem(item: SavedLetter): LetterItem {
   return {
     id: String(item.id ?? ""),
     nanoId: String(item.id ?? ""),
@@ -91,19 +87,11 @@ export default function MyPage() {
   const { data: sentData } = useGetSentLetters();
   const { data: receivedData } = useGetReceivedLetters();
 
-  const rawSent = sentData?.data;
-  const sentList: LetterItem[] = (
-    Array.isArray(rawSent)
-      ? rawSent
-      : (rawSent as unknown as { letters?: GetSentLetters200DataItem[] })?.letters ?? []
-  ).map(toLetterItem);
+  const sentList: LetterItem[] = (sentData?.data?.letters ?? []).map(toLetterItem);
   const receivedList: LetterItem[] = (receivedData?.data?.letters ?? []).map(toLetterItem);
 
-  //TODO : 스웨거 업데이트되면 orval 실행하여 데이터 교체 필요. 
-  // 현재는 Count 데이터를 직접 캐스팅함
-  type MetaWithTotal = { totalCount?: number };
-  const sentCount = (sentData?.meta as unknown as MetaWithTotal)?.totalCount ?? sentList.length;
-  const receivedCount = (receivedData as unknown as { meta?: MetaWithTotal })?.meta?.totalCount ?? receivedList.length;
+  const sentCount = sentData?.meta?.totalCount ?? sentList.length;
+  const receivedCount = receivedData?.meta?.totalCount ?? receivedList.length;
 
   const handleLetterClick = (item: LetterItem) => {
     if (activeTab === "sent") {

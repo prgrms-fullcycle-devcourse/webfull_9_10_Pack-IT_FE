@@ -7,10 +7,12 @@
  */
 import type { GetReceivedLetters200Data } from './getReceivedLetters200Data';
 import type { GetReceivedLetters200Error } from './getReceivedLetters200Error';
+import type { GetReceivedLetters200Meta } from './getReceivedLetters200Meta';
 
 export type GetReceivedLetters200 = {
   success?: boolean;
   data?: GetReceivedLetters200Data;
+  meta?: GetReceivedLetters200Meta;
   /** @nullable */
   error?: GetReceivedLetters200Error;
 };
