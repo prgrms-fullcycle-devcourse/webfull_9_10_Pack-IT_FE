@@ -69,7 +69,6 @@ export default function KakaoLoginButton({
 
     const redirectUri = "https://webfull-9-10-pack-it-fe.vercel.app/api/proxy/api/auth/kakao/callback";
 
-    const redirectUri = `${originUrl}/api/proxy/api/auth/kakao/callback`;
 
     const queryString = new URLSearchParams({
       client_id: "eefc8309749fa7d834f73c1f467d5dd7",
