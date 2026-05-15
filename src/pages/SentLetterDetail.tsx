@@ -5,6 +5,7 @@ import KakaoShareButton from "../shared/components/ui/KakaoShareButton";
 import BackButton from "../shared/components/ui/BackButton";
 import LetterPaper from "../shared/components/ui/LetterPaper";
 import type { LetterItem, LetterTheme } from "../shared/schemas/letterSchema";
+import { useGetApiUsersMe } from "../shared/api/generated/users/users";
 
 export default function SentLetterDetail() {
   const navigate = useNavigate();
@@ -14,6 +15,10 @@ export default function SentLetterDetail() {
   const activeTab = location.state?.activeTab ?? "sent";
   const item: LetterItem | undefined = location.state?.item;
   const { id } = useParams<{ id: string }>();
+
+  // 창욱님 휴가 중 요구 반영을 위해 senderName을 API에서 가져오도록 수정
+  const { data: userData } = useGetApiUsersMe();
+  const senderName = userData?.data?.nickname || "누군가";
 
   if (!nanoId || !item) {
     navigate("/mypage", { state: { activeTab }, replace: true });
@@ -59,6 +64,7 @@ export default function SentLetterDetail() {
         <KakaoShareButton
           fullWidth
           id = {id}
+          sender = {senderName}
           style={{
             height: 54,
             fontSize: 18,

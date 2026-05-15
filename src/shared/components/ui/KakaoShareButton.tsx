@@ -5,7 +5,8 @@ import { kakaoShare } from "../../hooks/KakaoShare";
 interface KakaoShareButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
-  id? : string
+  id? : string;
+  sender?: string;
 }
 
 /** 카카오 공식 디자인 가이드 준수
@@ -16,6 +17,7 @@ interface KakaoShareButtonProps
  */
 export default function KakaoShareButton({
   id,
+  sender,
   fullWidth = false,
   children = "카카오톡으로 보내기",
   className = "",
@@ -27,7 +29,7 @@ export default function KakaoShareButton({
       type="button" 
       onClick={() => {
         setTimeout(() => {
-          kakaoShare({ id : id!});
+          kakaoShare({ id : id!, sender: sender! });
         }, 0);
       }}
       className={`
