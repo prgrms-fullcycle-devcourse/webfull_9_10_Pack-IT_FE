@@ -1,5 +1,5 @@
-import { useState, useMemo, useCallback } from "react";
-import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
+// import { useState, useMemo, useCallback } from "react";
+// import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import LetterListItem from "../ui/LetterListItem";
 import type { LetterItem } from "../../schemas/letterSchema";
 
@@ -9,29 +9,27 @@ interface Props {
   onItemClick: (item: LetterItem) => void;
 }
 
-const PAGE_SIZE = 5;
+// const PAGE_SIZE = 5;
 
 export default function PaginatedLetterList({ items, type, onItemClick }: Props) {
-  const [page, setPage] = useState(1);
-
-  const visibleItems = useMemo(() => {
-    return items.slice(0, page * PAGE_SIZE);
-  }, [items, page]);
-
-  const handleIntersect = useCallback(() => {
-    if (visibleItems.length < items.length) {
-      setPage((prev) => prev + 1);
-    }
-  }, [visibleItems.length, items.length]);
-
-  const { targetRef } = useIntersectionObserver({
-    onIntersect: handleIntersect,
-    threshold: 0.5,
-  });
+  // 무한스크롤 보류 — 전체 목록 표시
+  // const [page, setPage] = useState(1);
+  // const visibleItems = useMemo(() => {
+  //   return items.slice(0, page * PAGE_SIZE);
+  // }, [items, page]);
+  // const handleIntersect = useCallback(() => {
+  //   if (visibleItems.length < items.length) {
+  //     setPage((prev) => prev + 1);
+  //   }
+  // }, [visibleItems.length, items.length]);
+  // const { targetRef } = useIntersectionObserver({
+  //   onIntersect: handleIntersect,
+  //   threshold: 0.5,
+  // });
 
   return (
     <div className="flex flex-col gap-2">
-      {visibleItems.map((item) => (
+      {items.map((item) => (
         <LetterListItem
           key={item.id}
           item={item}
@@ -40,7 +38,7 @@ export default function PaginatedLetterList({ items, type, onItemClick }: Props)
         />
       ))}
 
-      {/* 로딩 트리거 */}
+      {/* 무한스크롤 로딩 트리거 보류
       {visibleItems.length < items.length && (
         <div
           ref={targetRef}
@@ -49,7 +47,7 @@ export default function PaginatedLetterList({ items, type, onItemClick }: Props)
         >
           마음을 불러오는 중...
         </div>
-      )}
+      )} */}
     </div>
   );
 }

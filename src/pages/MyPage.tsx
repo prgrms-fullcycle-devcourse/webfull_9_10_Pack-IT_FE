@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../shared/components/ui/Button";
 import BackButton from "../shared/components/ui/BackButton";
@@ -9,8 +9,8 @@ import type { MyPageTab, LetterItem, LetterTheme, LetterKeyword } from "../share
 import { useMe } from "../shared/hooks/useMe";
 import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import {
-  useGetSentLetters,
-  useGetReceivedLetters,
+  getSentLetters,
+  getReceivedLetters,
 } from "../shared/api/generated/user-letters/user-letters";
 import type { SavedLetter } from "../shared/api/generated/model/savedLetter";
 
@@ -83,15 +83,58 @@ export default function MyPage() {
   // 내 정보 조회
   const { me, isGuest } = useMe();
 
-  // 편지 목록 조회
-  const { data: sentData } = useGetSentLetters();
-  const { data: receivedData } = useGetReceivedLetters();
+  const [sentList, setSentList] = useState<LetterItem[]>([]);
+  const [sentCount, setSentCount] = useState(0);
+  const [receivedList, setReceivedList] = useState<LetterItem[]>([]);
+  const [receivedCount, setReceivedCount] = useState(0);
 
-  const sentList: LetterItem[] = (sentData?.data?.letters ?? []).map(toLetterItem);
-  const receivedList: LetterItem[] = (receivedData?.data?.letters ?? []).map(toLetterItem);
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchAll() {
+      const all: LetterItem[] = [];
+      let cursor: string | undefined = undefined;
+      let total = 0;
+      const seenCursors = new Set<string>();
+      while (true) {
+        const res = await getSentLetters({ cursor });
+        const letters = res.data?.letters ?? [];
+        all.push(...letters.map(toLetterItem));
+        if (res.meta?.totalCount != null) total = res.meta.totalCount;
+        if (!res.meta?.hasNextPage || res.meta?.nextCursor == null) break;
+        const nextCursor = String(res.meta.nextCursor);
+        if (seenCursors.has(nextCursor)) break;
+        seenCursors.add(nextCursor);
+        cursor = nextCursor;
+      }
+      if (cancelled) return;
+      setSentList(all);
+      setSentCount(total);
+    }
+    fetchAll();
+    return () => { cancelled = true; };
+  }, []);
 
-  const sentCount = sentData?.meta?.totalCount ?? sentList.length;
-  const receivedCount = receivedData?.meta?.totalCount ?? receivedList.length;
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchAll() {
+      const all: LetterItem[] = [];
+      let cursor: number | undefined = undefined;
+      let total = 0;
+      while (true) {
+        const res = await getReceivedLetters({ cursor });
+        const letters = res.data?.letters ?? [];
+        all.push(...letters.map(toLetterItem));
+        if (res.meta?.totalCount != null) total = res.meta.totalCount;
+        if (!res.meta?.hasNextPage || res.meta?.nextCursor == null) break;
+        cursor = res.meta.nextCursor;
+      }
+      if (cancelled) return;
+      setReceivedList(all);
+      setReceivedCount(total);
+    }
+    fetchAll();
+    return () => { cancelled = true; };
+  }, []);
 
   const handleLetterClick = (item: LetterItem) => {
     if (activeTab === "sent") {
