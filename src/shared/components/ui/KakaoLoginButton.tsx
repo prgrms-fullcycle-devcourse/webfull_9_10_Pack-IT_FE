@@ -63,11 +63,12 @@ export default function KakaoLoginButton({
   const kakaoLogin = () => {
     if (!nanoId) return;
 
-    const originUrl = window.location.origin;
+    const redirectUri = `${window.location.origin}/api/proxy/api/auth/kakao/callback`;
+    console.log("[KakaoLogin] redirect_uri:", redirectUri);
 
     const queryString = new URLSearchParams({
       client_id: import.meta.env.VITE_KAKAO_REST_API_KEY,
-      redirect_uri: `${originUrl}${import.meta.env.VITE_KAKAO_BASE_URL}/api/auth/kakao/callback`,
+      redirect_uri: redirectUri,
       response_type: "code",
       state: nanoId,
     }).toString();
