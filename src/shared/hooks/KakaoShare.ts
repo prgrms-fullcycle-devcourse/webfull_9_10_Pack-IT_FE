@@ -31,7 +31,7 @@ export const kakaoShare = ({
     content: {
       title: title,
       description: `${sender}님의 소중한 마음을 담은 편지가 도착했습니다.`,
-      imageUrl: `${originUrl}/test.png`,
+      imageUrl: `${originUrl}/letter.png`,
       link: {
         mobileWebUrl: shareUrl,
         webUrl: shareUrl,
