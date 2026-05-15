@@ -9,6 +9,7 @@ import SentLetterDetail from "./pages/SentLetterDetail";
 import ReceivedLetterDetail from "./pages/ReceivedLetterDetail";
 import ChannelTalk from "./shared/components/ui/ChannelTalk";
 import { GetNanoId } from "./shared/components/ui/GetNanoId";
+import KakaoSuccess from "./pages/KakaoSuccess";
 
 export default function App() {
   return (
@@ -30,6 +31,7 @@ export default function App() {
               path="/mypage/received/:id"
               element={<ReceivedLetterDetail />}
             />
+            <Route path="/kakaoauthCheck" element={<KakaoSuccess />} />
           </Routes>
         </GetNanoId>
       </div>
