@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../shared/components/ui/Button";
 import BackButton from "../shared/components/ui/BackButton";
@@ -80,61 +80,87 @@ export default function MyPage() {
   );
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
-  // 내 정보 조회
   const { me, isGuest } = useMe();
 
   const [sentList, setSentList] = useState<LetterItem[]>([]);
   const [sentCount, setSentCount] = useState(0);
+  const [sentNextCursor, setSentNextCursor] = useState<string | undefined>(undefined);
+  const [sentHasMore, setSentHasMore] = useState(false);
+  const sentFetching = useRef(false);
+
   const [receivedList, setReceivedList] = useState<LetterItem[]>([]);
   const [receivedCount, setReceivedCount] = useState(0);
+  const [receivedNextCursor, setReceivedNextCursor] = useState<number | undefined>(undefined);
+  const [receivedHasMore, setReceivedHasMore] = useState(false);
+  const receivedFetching = useRef(false);
 
+  // 초기 로드 — 첫 페이지만
   useEffect(() => {
     let cancelled = false;
-    async function fetchAll() {
-      const all: LetterItem[] = [];
-      let cursor: string | undefined = undefined;
-      let total = 0;
-      const seenCursors = new Set<string>();
-      while (true) {
-        const res = await getSentLetters({ cursor });
-        const letters = res.data?.letters ?? [];
-        all.push(...letters.map(toLetterItem));
-        if (res.meta?.totalCount != null) total = res.meta.totalCount;
-        if (!res.meta?.hasNextPage || res.meta?.nextCursor == null) break;
-        const nextCursor = String(res.meta.nextCursor);
-        if (seenCursors.has(nextCursor)) break;
-        seenCursors.add(nextCursor);
-        cursor = nextCursor;
-      }
+    async function fetchFirst() {
+      const res = await getSentLetters({ cursor: undefined });
       if (cancelled) return;
-      setSentList(all);
-      setSentCount(total);
+      const letters = res.data?.letters ?? [];
+      const seenIds = new Set<string>();
+      setSentList(letters.map(toLetterItem).filter(item => !seenIds.has(item.id) && seenIds.add(item.id) !== undefined));
+      if (res.meta?.totalCount != null) setSentCount(res.meta.totalCount);
+      const next = res.meta?.nextCursor != null ? String(res.meta.nextCursor) : undefined;
+      setSentNextCursor(next);
+      setSentHasMore(!!res.meta?.hasNextPage && next != null);
     }
-    fetchAll();
+    fetchFirst();
     return () => { cancelled = true; };
   }, []);
 
   useEffect(() => {
     let cancelled = false;
-    async function fetchAll() {
-      const all: LetterItem[] = [];
-      let cursor: number | undefined = undefined;
-      let total = 0;
-      while (true) {
-        const res = await getReceivedLetters({ cursor });
-        const letters = res.data?.letters ?? [];
-        all.push(...letters.map(toLetterItem));
-        if (res.meta?.totalCount != null) total = res.meta.totalCount;
-        if (!res.meta?.hasNextPage || res.meta?.nextCursor == null) break;
-        cursor = res.meta.nextCursor;
-      }
+    async function fetchFirst() {
+      const res = await getReceivedLetters({ cursor: undefined });
       if (cancelled) return;
-      setReceivedList(all);
-      setReceivedCount(total);
+      const letters = res.data?.letters ?? [];
+      const seenIds = new Set<string>();
+      setReceivedList(letters.map(toLetterItem).filter(item => !seenIds.has(item.id) && seenIds.add(item.id) !== undefined));
+      if (res.meta?.totalCount != null) setReceivedCount(res.meta.totalCount);
+      const next = res.meta?.nextCursor != null ? res.meta.nextCursor : undefined;
+      setReceivedNextCursor(next);
+      setReceivedHasMore(!!res.meta?.hasNextPage && next != null);
     }
-    fetchAll();
+    fetchFirst();
     return () => { cancelled = true; };
   }, []);
+
+  // 다음 페이지 로드
+  const loadMoreSent = useCallback(async () => {
+    if (sentFetching.current || !sentHasMore || sentNextCursor == null) return;
+    sentFetching.current = true;
+    const res = await getSentLetters({ cursor: sentNextCursor });
+    const letters = res.data?.letters ?? [];
+    setSentList(prev => {
+      const seenIds = new Set(prev.map(i => i.id));
+      return [...prev, ...letters.map(toLetterItem).filter(i => !seenIds.has(i.id))];
+    });
+    const next = res.meta?.nextCursor != null ? String(res.meta.nextCursor) : undefined;
+    const hasMore = !!res.meta?.hasNextPage && next != null && next !== sentNextCursor;
+    setSentNextCursor(next);
+    setSentHasMore(hasMore);
+    sentFetching.current = false;
+  }, [sentHasMore, sentNextCursor]);
+
+  const loadMoreReceived = useCallback(async () => {
+    if (receivedFetching.current || !receivedHasMore || receivedNextCursor == null) return;
+    receivedFetching.current = true;
+    const res = await getReceivedLetters({ cursor: receivedNextCursor });
+    const letters = res.data?.letters ?? [];
+    setReceivedList(prev => {
+      const seenIds = new Set(prev.map(i => i.id));
+      return [...prev, ...letters.map(toLetterItem).filter(i => !seenIds.has(i.id))];
+    });
+    const next = res.meta?.nextCursor != null ? res.meta.nextCursor : undefined;
+    const hasMore = !!res.meta?.hasNextPage && next != null && next !== receivedNextCursor;
+    setReceivedNextCursor(next);
+    setReceivedHasMore(hasMore);
+    receivedFetching.current = false;
+  }, [receivedHasMore, receivedNextCursor]);
 
   const handleLetterClick = (item: LetterItem) => {
     if (activeTab === "sent") {
@@ -156,7 +182,6 @@ export default function MyPage() {
   const TABS: { key: MyPageTab; label: string }[] = [
     { key: "sent", label: "내가 쓴 편지" },
     { key: "received", label: "받은 편지" },
-    
   ];
 
   return (
@@ -279,6 +304,8 @@ export default function MyPage() {
                 items={sentList}
                 type="sent"
                 onItemClick={handleLetterClick}
+                hasMore={sentHasMore}
+                onLoadMore={loadMoreSent}
               />
             ))}
 
@@ -294,10 +321,10 @@ export default function MyPage() {
                 items={receivedList}
                 type="received"
                 onItemClick={handleLetterClick}
+                hasMore={receivedHasMore}
+                onLoadMore={loadMoreReceived}
               />
             ))}
-
-          
         </div>
       </div>
 
