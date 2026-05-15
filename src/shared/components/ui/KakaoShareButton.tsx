@@ -17,6 +17,7 @@ interface KakaoShareButtonProps
  */
 export default function KakaoShareButton({
   id,
+  sender,
   fullWidth = false,
   children = "카카오톡으로 보내기",
   className = "",
@@ -28,7 +29,7 @@ export default function KakaoShareButton({
       type="button" 
       onClick={() => {
         setTimeout(() => {
-          kakaoShare({ id : id!});
+          kakaoShare({ id : id!, sender: sender! });
         }, 0);
       }}
       className={`

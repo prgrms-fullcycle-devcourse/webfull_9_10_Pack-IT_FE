@@ -18,7 +18,7 @@ export default function SentLetterDetail() {
 
   // 창욱님 휴가 중 요구 반영을 위해 senderName을 API에서 가져오도록 수정
   const { data: userData } = useGetApiUsersMe();
-  const senderName = userData?.name || "누군가";
+  const senderName = userData?.data?.nickname || "누군가";
 
   if (!nanoId || !item) {
     navigate("/mypage", { state: { activeTab }, replace: true });
