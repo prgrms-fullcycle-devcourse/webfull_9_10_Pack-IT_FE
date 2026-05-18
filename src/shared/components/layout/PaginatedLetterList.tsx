@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useCallback } from "react";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import LetterListItem from "../ui/LetterListItem";
 import type { LetterItem } from "../../schemas/letterSchema";
@@ -7,22 +7,14 @@ interface Props {
   items: LetterItem[];
   type: "sent" | "received";
   onItemClick: (item: LetterItem) => void;
+  hasMore?: boolean;
+  onLoadMore?: () => void;
 }
 
-const PAGE_SIZE = 5;
-
-export default function PaginatedLetterList({ items, type, onItemClick }: Props) {
-  const [page, setPage] = useState(1);
-
-  const visibleItems = useMemo(() => {
-    return items.slice(0, page * PAGE_SIZE);
-  }, [items, page]);
-
+export default function PaginatedLetterList({ items, type, onItemClick, hasMore = false, onLoadMore }: Props) {
   const handleIntersect = useCallback(() => {
-    if (visibleItems.length < items.length) {
-      setPage((prev) => prev + 1);
-    }
-  }, [visibleItems.length, items.length]);
+    if (hasMore && onLoadMore) onLoadMore();
+  }, [hasMore, onLoadMore]);
 
   const { targetRef } = useIntersectionObserver({
     onIntersect: handleIntersect,
@@ -31,7 +23,7 @@ export default function PaginatedLetterList({ items, type, onItemClick }: Props)
 
   return (
     <div className="flex flex-col gap-2">
-      {visibleItems.map((item) => (
+      {items.map((item) => (
         <LetterListItem
           key={item.id}
           item={item}
@@ -39,9 +31,7 @@ export default function PaginatedLetterList({ items, type, onItemClick }: Props)
           onClick={() => onItemClick(item)}
         />
       ))}
-
-      {/* 로딩 트리거 */}
-      {visibleItems.length < items.length && (
+      {hasMore && (
         <div
           ref={targetRef}
           className="flex items-center justify-center py-8 text-[14px]"

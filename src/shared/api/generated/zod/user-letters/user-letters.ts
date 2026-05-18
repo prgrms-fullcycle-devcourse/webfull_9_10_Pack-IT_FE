@@ -19,20 +19,21 @@ export const GetSentLettersResponse = zod.object({
   "success": zod.boolean().optional(),
   "data": zod.object({
   "letters": zod.array(zod.object({
-  "id": zod.number().optional().describe('보관함 레코드의 고유 ID (SavedLetter 테이블의 PK)'),
+  "id": zod.string().optional().describe('편지의 고유 nanoid (Letter.id, TEXT)'),
   "senderId": zod.number().nullish().describe('편지를 보낸 사용자의 ID'),
   "senderName": zod.string().optional().describe('발신인 이름'),
   "receiverName": zod.string().optional().describe('수신인 이름'),
   "category": zod.string().optional().describe('편지 카테고리'),
   "content": zod.string().optional().describe('편지 본문 내용'),
   "theme": zod.number().optional().describe('적용된 테마 번호'),
-  "createdAt": zod.iso.datetime({"offset":true}).optional().describe('편지가 발행된 시간 (DB의 published_at 필드)')
+  "publishedAt": zod.iso.datetime({"offset":true}).optional().describe('편지가 발행된 시간 (publishedAt)'),
+  "createdAt": zod.iso.datetime({"offset":true}).optional().describe('편지가 발행된 시간 (createdAt 별칭)')
 })).optional()
 }).optional(),
   "meta": zod.object({
   "userId": zod.string().optional(),
   "totalCount": zod.number().optional().describe('조건에 맞는 전체 편지 개수'),
-  "nextCursor": zod.number().nullish(),
+  "nextCursor": zod.string().nullish(),
   "hasNextPage": zod.boolean().optional()
 }).optional(),
   "error": zod.looseObject({
@@ -44,21 +45,22 @@ export const GetSentLettersResponse = zod.object({
  * @summary 받은 편지 목록 조회 (무한 스크롤)
  */
 export const GetReceivedLettersQueryParams = zod.object({
-  "cursor": zod.number().optional().describe('마지막으로 조회된 보관함 아이템의 ID (saved_letter.id가 SERIAL이므로 integer)')
+  "cursor": zod.string().optional().describe('마지막으로 조회된 편지의 ID (Letter.id, TEXT)')
 })
 
 export const GetReceivedLettersResponse = zod.object({
   "success": zod.boolean().optional(),
   "data": zod.object({
   "letters": zod.array(zod.object({
-  "id": zod.number().optional().describe('보관함 레코드의 고유 ID (SavedLetter 테이블의 PK)'),
+  "id": zod.string().optional().describe('편지의 고유 nanoid (Letter.id, TEXT)'),
   "senderId": zod.number().nullish().describe('편지를 보낸 사용자의 ID'),
   "senderName": zod.string().optional().describe('발신인 이름'),
   "receiverName": zod.string().optional().describe('수신인 이름'),
   "category": zod.string().optional().describe('편지 카테고리'),
   "content": zod.string().optional().describe('편지 본문 내용'),
   "theme": zod.number().optional().describe('적용된 테마 번호'),
-  "createdAt": zod.iso.datetime({"offset":true}).optional().describe('편지가 발행된 시간 (DB의 published_at 필드)')
+  "publishedAt": zod.iso.datetime({"offset":true}).optional().describe('편지가 발행된 시간 (publishedAt)'),
+  "createdAt": zod.iso.datetime({"offset":true}).optional().describe('편지가 발행된 시간 (createdAt 별칭)')
 })).optional()
 }).optional(),
   "meta": zod.object({

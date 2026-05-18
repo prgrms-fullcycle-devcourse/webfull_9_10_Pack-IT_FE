@@ -30,7 +30,7 @@ import {
 } from "../shared/api/generated/zod/letters/letters";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import { getGetSentLettersQueryKey } from "../shared/api/generated/user-letters/user-letters";
+import { getGetSentLettersQueryKey } from "../shared/api/generated/userLetters/userLetters";
 import { useMe } from "../shared/hooks/useMe";
 
 const MAX_CONTENT = 500;

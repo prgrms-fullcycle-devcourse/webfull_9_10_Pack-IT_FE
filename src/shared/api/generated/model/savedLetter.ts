@@ -7,8 +7,8 @@
  */
 
 export interface SavedLetter {
-  /** 보관함 레코드의 고유 ID (SavedLetter 테이블의 PK) */
-  id?: number;
+  /** 편지의 고유 nanoid (Letter.id, TEXT) */
+  id?: string;
   /**
      * 편지를 보낸 사용자의 ID
      * @nullable
@@ -24,6 +24,8 @@ export interface SavedLetter {
   content?: string;
   /** 적용된 테마 번호 */
   theme?: number;
-  /** 편지가 발행된 시간 (DB의 published_at 필드) */
+  /** 편지가 발행된 시간 (DB의 publishedAt 필드) */
+  publishedAt?: string;
+  /** 편지가 발행된 시간 (createdAt 별칭) */
   createdAt?: string;
 }

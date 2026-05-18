@@ -5,7 +5,7 @@ import {
   useDeleteSavedLetter,
   getGetSentLettersQueryKey,
   getGetReceivedLettersQueryKey,
-} from "../api/generated/user-letters/user-letters";
+} from "../api/generated/userLetters/userLetters";
 import type { MyPageTab } from "../schemas/letterSchema";
 
 interface UseDeleteLetterProps {
