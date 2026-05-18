@@ -11,20 +11,20 @@ import ConfirmModal from "../shared/components/ui/ConfirmModal";
 import {
   getSentLetters,
   getReceivedLetters,
-} from "../shared/api/generated/user-letters/user-letters";
+} from "../shared/api/generated/userLetters/userLetters";
 import type { SavedLetter } from "../shared/api/generated/model/savedLetter";
 
 function toLetterItem(item: SavedLetter): LetterItem {
   return {
-    id: String(item.id ?? ""),
-    nanoId: String(item.id ?? ""),
+    id: item.id ?? "",
+    nanoId: item.id ?? "",
     to: item.receiverName ?? "",
     from: item.senderName ?? "",
     preview: item.content?.slice(0, 50) ?? "",
     content: item.content ?? "",
     keyword: (item.category as LetterKeyword) ?? "감사",
     theme: (item.theme as LetterTheme) ?? 1,
-    createdAt: item.createdAt ?? "",
+    createdAt: item.publishedAt ?? item.createdAt ?? "",
   };
 }
 
@@ -90,21 +90,24 @@ export default function MyPage() {
 
   const [receivedList, setReceivedList] = useState<LetterItem[]>([]);
   const [receivedCount, setReceivedCount] = useState(0);
-  const [receivedNextCursor, setReceivedNextCursor] = useState<number | undefined>(undefined);
+  const [receivedNextCursor, setReceivedNextCursor] = useState<string | undefined>(undefined);
   const [receivedHasMore, setReceivedHasMore] = useState(false);
   const receivedFetching = useRef(false);
 
-  // 초기 로드 — 첫 페이지만
+  // 초기 로드 — cursor 없이 첫 페이지 조회, 응답의 nextCursor를 그대로 다음 cursor로 사용
   useEffect(() => {
     let cancelled = false;
     async function fetchFirst() {
-      const res = await getSentLetters({ cursor: undefined });
+      
+      const res = await getSentLetters();
       if (cancelled) return;
       const letters = res.data?.letters ?? [];
+      
       const seenIds = new Set<string>();
       setSentList(letters.map(toLetterItem).filter(item => !seenIds.has(item.id) && seenIds.add(item.id) !== undefined));
       if (res.meta?.totalCount != null) setSentCount(res.meta.totalCount);
-      const next = res.meta?.nextCursor != null ? String(res.meta.nextCursor) : undefined;
+      const next = res.meta?.nextCursor ?? undefined;
+      
       setSentNextCursor(next);
       setSentHasMore(!!res.meta?.hasNextPage && next != null);
     }
@@ -115,13 +118,16 @@ export default function MyPage() {
   useEffect(() => {
     let cancelled = false;
     async function fetchFirst() {
+      
       const res = await getReceivedLetters({ cursor: undefined });
       if (cancelled) return;
       const letters = res.data?.letters ?? [];
+      
       const seenIds = new Set<string>();
       setReceivedList(letters.map(toLetterItem).filter(item => !seenIds.has(item.id) && seenIds.add(item.id) !== undefined));
       if (res.meta?.totalCount != null) setReceivedCount(res.meta.totalCount);
-      const next = res.meta?.nextCursor != null ? res.meta.nextCursor : undefined;
+      const next = res.meta?.nextCursor != null ? String(res.meta.nextCursor) : undefined;
+      
       setReceivedNextCursor(next);
       setReceivedHasMore(!!res.meta?.hasNextPage && next != null);
     }
@@ -129,37 +135,62 @@ export default function MyPage() {
     return () => { cancelled = true; };
   }, []);
 
-  // 다음 페이지 로드
+  // 다음 페이지 로드 — meta.nextCursor만 사용
   const loadMoreSent = useCallback(async () => {
     if (sentFetching.current || !sentHasMore || sentNextCursor == null) return;
     sentFetching.current = true;
-    const res = await getSentLetters({ cursor: sentNextCursor });
-    const letters = res.data?.letters ?? [];
-    setSentList(prev => {
-      const seenIds = new Set(prev.map(i => i.id));
-      return [...prev, ...letters.map(toLetterItem).filter(i => !seenIds.has(i.id))];
-    });
-    const next = res.meta?.nextCursor != null ? String(res.meta.nextCursor) : undefined;
-    const hasMore = !!res.meta?.hasNextPage && next != null && next !== sentNextCursor;
-    setSentNextCursor(next);
-    setSentHasMore(hasMore);
-    sentFetching.current = false;
+    try {
+      
+      const res = await getSentLetters({ cursor: sentNextCursor });
+      const letters = res.data?.letters ?? [];
+      
+      if (res.meta?.hasNextPage && res.meta?.nextCursor == null) {
+        console.warn("[sent] ⚠️ hasNextPage=true 인데 nextCursor 없음 — 백엔드 미반환");
+        
+      }
+      setSentList(prev => {
+        const seenIds = new Set(prev.map(i => i.id));
+        return [...prev, ...letters.map(toLetterItem).filter(i => !seenIds.has(i.id))];
+      });
+      const next = res.meta?.nextCursor ?? undefined;
+      const hasMore = !!res.meta?.hasNextPage && next != null;
+      
+      setSentNextCursor(next);
+      setSentHasMore(hasMore);
+    } catch (e) {
+      console.error("[sent] 추가 로드 실패:", e);
+      setSentHasMore(false);
+    } finally {
+      sentFetching.current = false;
+    }
   }, [sentHasMore, sentNextCursor]);
 
   const loadMoreReceived = useCallback(async () => {
     if (receivedFetching.current || !receivedHasMore || receivedNextCursor == null) return;
     receivedFetching.current = true;
-    const res = await getReceivedLetters({ cursor: receivedNextCursor });
-    const letters = res.data?.letters ?? [];
-    setReceivedList(prev => {
-      const seenIds = new Set(prev.map(i => i.id));
-      return [...prev, ...letters.map(toLetterItem).filter(i => !seenIds.has(i.id))];
-    });
-    const next = res.meta?.nextCursor != null ? res.meta.nextCursor : undefined;
-    const hasMore = !!res.meta?.hasNextPage && next != null && next !== receivedNextCursor;
-    setReceivedNextCursor(next);
-    setReceivedHasMore(hasMore);
-    receivedFetching.current = false;
+    try {
+      
+      const res = await getReceivedLetters({ cursor: receivedNextCursor });
+      const letters = res.data?.letters ?? [];
+      
+      if (res.meta?.hasNextPage && res.meta?.nextCursor == null) {
+        console.warn("[received] ⚠️ hasNextPage=true 인데 nextCursor 없음 — 백엔드 미반환");
+      }
+      setReceivedList(prev => {
+        const seenIds = new Set(prev.map(i => i.id));
+        return [...prev, ...letters.map(toLetterItem).filter(i => !seenIds.has(i.id))];
+      });
+      const next = res.meta?.nextCursor != null ? String(res.meta.nextCursor) : undefined;
+      const hasMore = !!res.meta?.hasNextPage && next != null;
+      
+      setReceivedNextCursor(next);
+      setReceivedHasMore(hasMore);
+    } catch (e) {
+      console.error("[received] 추가 로드 실패:", e);
+      setReceivedHasMore(false);
+    } finally {
+      receivedFetching.current = false;
+    }
   }, [receivedHasMore, receivedNextCursor]);
 
   const handleLetterClick = (item: LetterItem) => {
@@ -186,7 +217,7 @@ export default function MyPage() {
 
   return (
     <div
-      className="min-h-screen flex flex-col"
+      className="h-screen flex flex-col overflow-hidden"
       style={{ background: "var(--color-cream)" }}
     >
       <nav className="flex flex-shrink-0 h-[52px] items-center justify-between px-5 border-b border-black/[0.08] bg-white sticky top-0 z-100">

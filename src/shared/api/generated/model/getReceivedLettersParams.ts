@@ -8,7 +8,7 @@
 
 export type GetReceivedLettersParams = {
 /**
- * 마지막으로 조회된 보관함 아이템의 ID (saved_letter.id가 SERIAL이므로 integer)
+ * 마지막으로 조회된 편지의 ID (Letter.id, TEXT)
  */
-cursor?: number;
+cursor?: string;
 };

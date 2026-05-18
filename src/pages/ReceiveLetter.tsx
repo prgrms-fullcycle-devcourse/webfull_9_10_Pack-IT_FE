@@ -12,7 +12,7 @@ import { HeartMist, PeaceMist } from "../shared/components/ui/LetterEffect";
 import IconConfetti from "../shared/components/Icons/IconConfetti";
 import IconHeart from "../shared/components/Icons/IconHeart";
 import IconFlower from "../shared/components/Icons/IconFlower";
-import { useSaveLetter } from "../shared/api/generated/user-letters/user-letters";
+import { useSaveLetter } from "../shared/api/generated/userLetters/userLetters";
 import { SaveLetterBody } from "../shared/api/generated/zod/user-letters/user-letters";
 import toast from "react-hot-toast";
 

@@ -11,6 +11,6 @@ export type GetSentLetters200Meta = {
   /** 조건에 맞는 전체 편지 개수 */
   totalCount?: number;
   /** @nullable */
-  nextCursor?: number | null;
+  nextCursor?: string | null;
   hasNextPage?: boolean;
 };
